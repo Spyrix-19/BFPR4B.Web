@@ -1,0 +1,132 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!--begin::Modal - Add task-->
+<div class="modal fade" id="kt_modal_add_eligibility" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-700px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_add_eligibility_header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold" id="kt_add_eligibility_title">Add Eligibility</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-eligibility-modal-action="close" data-bs-dismiss="modal">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-5 my-7">
+
+				<!--begin::Form-->
+				<form id="kt_modal_add_eligibility_form" class="form" action="#">
+
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_eligibility_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_eligibility_header" data-kt-scroll-wrappers="#kt_modal_add_eligibility_scroll" data-kt-scroll-offset="300px">
+
+						<!--begin::Primary-->
+						<input type="hidden" id="kt_eligibility_detno" name="detno" value="0">
+						<!--end::Primary-->
+						<!--begin::Eligibility Code-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Eligibility Code </span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Eligibility Code.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="Eligibility Code" class="form-control bg-transparent border border-primary border-hover border-active active" name="eligibility_code" id="kt_eligibility_code" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::Eligibility Code-->
+						<!--begin::Eligibility Name-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Eligibility Name</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Eligibility Name.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="Eligibility Name" class="form-control bg-transparent border border-primary border-hover border-active active" name="eligibility_name" id="kt_eligibility_name" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::Eligibility Name-->
+						<!--begin::Eligibility Level-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Eligibility Level</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Select Eligibility Level.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--end::Label-->
+							<div class="w-100">
+								<!--begin::Select2-->
+								<select id="kt_eligibility_type" name="eligibility_type" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Eligibility Level" data-allow-clear="true" data-kt-eligibility-table-filter="select_eligibility_type" data-hide-search="true">
+									<option></option>
+								</select>
+								<!--end::Select2-->
+							</div>
+						</div>
+						<!--end::Eligibility Level-->
+
+
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Separator-->
+					<div class="separator mb-6"></div>
+					<!--end::Separator-->
+					<!--begin::Actions-->
+					<div class="d-flex justify-content-end text-center pt-10">
+						<button type="reset" class="btn btn-light me-3" data-kt-add-eligibility-modal-action="cancel">Discard</button>
+						<button id="kt_add_eligibility_submit" type="submit" class="btn btn-primary" data-kt-add-eligibility-modal-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->

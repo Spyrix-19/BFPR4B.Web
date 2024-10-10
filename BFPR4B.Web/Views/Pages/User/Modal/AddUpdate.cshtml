@@ -1,0 +1,436 @@
+﻿@{
+	KTTheme.AddJavascriptFile("js/custom/Users/AddUpdate.js");
+}
+
+<!--begin::Modal - Add task-->
+<div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-700px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_add_user_header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold">Add User</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-users-modal-action="close" data-bs-dismiss="modal">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-5 my-7">
+
+				<!--begin::Form-->
+				<form id="kt_modal_add_user_form" class="form" action="#">
+
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+
+						<!--begin::Image Profile-->
+						<div class="mb-7">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold mb-3">
+								<span>Update Your Profile Picture</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Allowed file types: png, jpg, jpeg.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Image input wrapper-->
+							<div class="mt-1">
+
+								<!--begin::Image placeholder-->
+								<style>
+									.image-input-placeholder {
+										background-image: url('assets/media/svg/files/blank-image.svg');
+									}
+
+									[data-bs-theme="dark"] .image-input-placeholder {
+										background-image: url('assets/media/svg/files/blank-image-dark.svg');
+									}
+								</style>
+								<!--end::Image placeholder-->
+								<!--begin::Image input-->
+								<div class="image-input image-input-outline image-input-placeholder image-input-empty image-input-empty" data-kt-image-input="true">
+
+									<!--begin::Preview existing avatar-->
+									<div class="image-input-wrapper w-100px h-100px" style="background-image: url('')"></div>
+									<!--end::Preview existing avatar-->
+									<!--begin::Edit-->
+									<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+										<i class="ki-duotone ki-pencil fs-7">
+											<span class="path1"></span>
+											<span class="path2"></span>
+										</i>
+										<!--begin::Inputs-->
+										<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+										<input type="hidden" name="avatar_remove" />
+										<!--end::Inputs-->
+									</label>
+									<!--end::Edit-->
+									<!--begin::Cancel-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+										<i class="ki-duotone ki-cross fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+										</i>
+									</span>
+									<!--end::Cancel-->
+									<!--begin::Remove-->
+									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+										<i class="ki-duotone ki-cross fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+										</i>
+									</span>
+									<!--end::Remove-->
+
+								</div>
+								<!--end::Image input-->
+							</div>
+							<!--end::Image input wrapper-->
+						</div>
+						<!--end::Image Profile-->
+						<!--begin::Row-->
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">NUP</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Click if NUP.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<div class="form-check">
+										<input class="form-check-input border border-primary border-hover border-active active" type="checkbox" name="nup" id="kt_nup" value="" />
+									</div>
+									<!--end::Input-->
+								</div>
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Account Number</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter the your account/badge number.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input type="text" placeholder="Account Number" class="form-control bg-transparent border border-primary border-hover border-active active" name="account" id="kt_account" autocomplete="off" value="" />
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+						</div>
+
+						<!--begin::Full Name-->
+						<!--begin::Full Name-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Full Name </span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Fullname with this format: Firstname MI Lastname.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="Rank Firstname MI Lastname" class="form-control bg-transparent border border-primary border-hover border-active active" name="name" id="kt_name" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::Full Name-->
+						<!--end::Full Name-->
+						<!--begin::Email Address-->
+						<div class="fv-row mb-7">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Email Address</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Email Address.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="example@gmail.com" class="form-control bg-transparent border border-primary border-hover border-active active" name="emailadd" id="kt_emailadd" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::Email Address-->
+						<!--begin::Mobile Number-->
+						<div class="fv-row mb-7">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Mobile Number</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Mobile Number.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="09123456789" class="form-control bg-transparent border border-primary border-hover border-active active" name="mobile" id="kt_mobile" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::Mobile Number-->
+						<!--begin::Row-->
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Area of Assignment</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select your area of assignment.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_areaassign" name="areaassign" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Area of Assignment" data-allow-clear="true" data-kt-user-table-filter="select_areaassign" data-hide-search="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Area Assignment-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Unit of Assignment</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select your unit of assignment.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_unitassign" name="unitassign" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Unit of Assignment" data-allow-clear="true" data-kt-user-table-filter="select_unitassign" data-hide-search="true">
+											<option></option>
+											<option value="1">Occi</option>
+											<option value="2">OrMin</option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Row-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+						<!--begin::Row-->
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Two Factor Authentication-->
+								<div class="fv-row mb-7">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Two-Factor Authentication</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select your preferred two-factor authentication.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_tfa" name="tfa" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Two-Factor Authentication" data-allow-clear="true" data-kt-user-table-filter="select_tfa" data-hide-search="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Area Assignment-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Role-->
+								<div class="fv-row mb-7">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Role</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select the account role.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_role" name="role" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Role" data-allow-clear="true" data-kt-user-table-filter="select_role" data-hide-search="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Unit Assignment-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+						<!--begin::Row-->
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3" data-kt-password-meter="true">
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Password</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter your password.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--begin::Wrapper-->
+									<div class="mb-1">
+										<!--begin::Input wrapper-->
+										<div class="position-relative mb-3">
+											<input class="form-control bg-transparent border border-primary border-hover border-active active" type="password" placeholder="Password" name="password" id="kt_password" autocomplete="off" />
+
+											<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+												<i class="bi bi-eye-slash fs-2"></i>
+												<i class="bi bi-eye fs-2 d-none"></i>
+											</span>
+										</div>
+										<!--end::Input wrapper-->
+										<!--begin::Meter-->
+										<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+										</div>
+										<!--end::Meter-->
+									</div>
+									<!--end::Wrapper-->
+									<!--begin::Hint-->
+									<div class="text-muted">
+										Use 8 or more characters with a mix of letters, numbers & symbols.
+									</div>
+									<!--end::Hint-->
+								</div>
+								<!--end::Input group--->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Role-->
+								<div class="fv-row mb-7">
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Repeat Password</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter your password again.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<div class="position-relative mb-3">
+										<!--begin::Repeat Password-->
+										<input type="password" placeholder="Repeat Password" name="confirm-password" id="kt_confirmpassword" autocomplete="off" class="form-control bg-transparent border border-primary border-hover border-active active" />
+
+										<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" id="password-toggle">
+											<i class="bi bi-eye-slash fs-2" id="password-icon"></i>
+										</span>
+									</div>
+									<!--end::Repeat Password-->
+								</div>
+								<!--end::Unit Assignment-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Separator-->
+					<div class="separator mb-6"></div>
+					<!--end::Separator-->
+					<!--begin::Actions-->
+					<div class="text-center pt-10">
+						<button type="reset" class="btn btn-light me-3" data-kt-add-users-modal-action="cancel">Discard</button>
+						<button id="kt_add_users_submit" type="submit" class="btn btn-primary" data-kt-add-users-modal-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->

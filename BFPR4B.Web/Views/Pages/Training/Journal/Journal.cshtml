@@ -1,0 +1,90 @@
+﻿@{
+	KTTheme.AddJavascriptFile("js/custom/Training/TrainingJournal/Ledger.js");
+}
+
+<div class="modal fade" id="kt_modal_training_journal" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-1000px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+			<!--begin::Modal header-->
+			<div class="modal-header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold">Training Journal</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-training-journal-modal="close" data-bs-dismiss="modal">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+
+				<!--begin::Card-->
+				<div class="card">
+					<!--begin::Card header-->
+					<div class="card-header border-0 pt-6">
+
+						<!--begin::Card title-->
+						<div class="card-title">
+							<!--begin::Search-->
+							<div class="d-flex align-items-center position-relative my-1">
+								<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>
+
+								<input type="text" data-kt-training-journal-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-250px ps-13" placeholder="Search" id="searchJournalInput" />
+
+								<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+									<i class="fas fa-times-circle position-absolute me-2" id="clearJournalButton" style="cursor: pointer; display: none;"></i>
+								</span>
+							</div>
+							<!--end::Search-->
+						</div>
+						<!--begin::Card title-->
+
+					</div>
+					<!--end::Card header-->
+					<!--begin::Separator-->
+					<div class="separator border-gray-200"></div>
+					<!--end::Separator-->
+					<!--begin::Card body-->
+					<div class="card-body py-4">
+						<!--begin::Primary-->
+						<input type="hidden" id="kt_training_journal_detno" name="detno" value="0">
+						<!--end::Primary-->
+						<!--begin::Table-->
+						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_training_journal">
+							<thead>
+								<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+									<th class=""></th>
+									<th class="min-w-250px text-center ">Description</th>
+									<th class="min-w-250px text-center ">Encoded By</th>
+									<th class="min-w-150px text-center ">Date Encoded</th>
+									@* <th class="w-10px pe-2 text-center ">Delete</th> *@
+								</tr>
+							</thead>
+							<tbody class="text-gray-600 fw-semibold textal">
+							</tbody>
+						</table>
+						<!--end::Table-->
+					</div>
+					<!--end::Card body-->
+
+				</div>
+				<!--end::Card-->
+
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Training Journal-->

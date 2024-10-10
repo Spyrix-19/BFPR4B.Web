@@ -1,0 +1,314 @@
+<!--begin::sidebar menu-->
+<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+	<!--begin::Menu wrapper-->
+	<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
+		<!--begin::Scroll wrapper-->
+		<div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+			<!--begin::Menu-->
+			<div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+				<!--begin:Menu item-->
+				<div class="menu-item">
+					<!--begin:Menu link-->
+					<a class="menu-link" href="/dashboard">
+						<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-11", "fs-2"))</span>
+						<span class="menu-title">Dashboards</span>
+					</a>
+					<!--end:Menu link-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div class="menu-item pt-5">
+					<!--begin:Menu content-->
+					<div class="menu-content">
+						<span class="menu-heading fw-bold text-uppercase fs-7">Recruitment</span>
+					</div>
+					<!--end:Menu content-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div class="menu-item">
+					<!--begin:Menu link-->
+					<a class="menu-link" title="List of Application" href="/application">
+						<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("address-book", "fs-2"))</span>
+						<span class="menu-title">Application</span>
+					</a>
+					<!--end:Menu link-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div class="menu-item pt-5">
+					<!--begin:Menu content-->
+					<div class="menu-content">
+						<span class="menu-heading fw-bold text-uppercase fs-7">Personnel</span>
+					</div>
+					<!--end:Menu content-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<div class="menu-item">
+					<!--begin:Menu link-->
+					<a class="menu-link" title="List of Members" href="/member">
+						<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("address-book", "fs-2"))</span>
+						<span class="menu-title">Members</span>
+					</a>
+					<!--end:Menu link-->
+				</div>
+				<!--end:Menu item-->
+				<!--begin:Menu item-->
+				<!--begin:Administrator-->
+				<div class="menu-item pt-5">
+					<!--begin:Menu content-->
+					<div class="menu-content">
+						<span class="menu-heading fw-bold text-uppercase fs-7">GAD Database</span>
+					</div>
+					<!--end:Menu content-->
+				</div>
+				<!--end:Administrator-->
+				<!--begin:Administrator Sub Menu-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of GAD Event" href="/gadevent">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-7", "fs-2"))</span>
+							<span class="menu-title">Event</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of GAD Resources" href="/gadresource">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-7", "fs-2"))</span>
+							<span class="menu-title">Resources</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->					
+					<!--end:Menu link-->
+				</div>
+				<!--end:-->
+				<!--begin:Data References-->
+				<div class="menu-item pt-5">
+					<!--begin:Menu content-->
+					<div class="menu-content">
+						<span class="menu-heading fw-bold text-uppercase fs-7">Data References</span>
+					</div>
+					<!--end:-->
+				</div>
+
+				<!--begin:Administrator Sub Menu-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					
+					<!--begin:Menu item-->
+					<span class="menu-link" title="List of Stations" href="#">
+						<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+						<span class="menu-title">Locations</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link active" href="/region">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Regions</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="/province">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Provinces</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="/city">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Cities</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="/barangay">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Barangay</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+					</div>
+					<!--end:Menu sub-->
+					<!--end:Menu link-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Stations" href="/station">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Stations</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Offices" href="/office">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Offices</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Ranks" href="/rank">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Ranks</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Trainings" href="/training">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Trainings</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Eligibilities" href="/eligibility">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Eligibilities</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Courses" href="/course">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Courses</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Religions" href="/religion">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("abstract-41", "fs-2"))</span>
+							<span class="menu-title">Religions</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:-->
+				<!--end:Menu item-->				
+
+				<!--begin:Administrator-->
+				<div class="menu-item pt-5">
+					<!--begin:Menu content-->
+					<div class="menu-content">
+						<span class="menu-heading fw-bold text-uppercase fs-7">Administrator</span>
+					</div>
+					<!--end:Menu content-->
+				</div>
+				<!--end:Administrator-->
+
+				<!--begin:Administrator Sub Menu-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Users" href="/user">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-7", "fs-2"))</span>
+							<span class="menu-title">Users</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" title="List of Module Access" href="/moduleaccess">
+							<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-7", "fs-2"))</span>
+							<span class="menu-title">Module Access</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<span class="menu-link" title="Database Settings" href="#">
+						<span class="menu-icon">@Html.Raw(KTTheme.GetIcon("element-7", "fs-2"))</span>
+						<span class="menu-title">Database</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<!--begin:Menu sub-->
+					<div class="menu-sub menu-sub-accordion">
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link active" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Restore Database</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->
+						<!--begin:Menu item-->
+						<div class="menu-item">
+							<!--begin:Menu link-->
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Backup Database</span>
+							</a>
+							<!--end:Menu link-->
+						</div>
+						<!--end:Menu item-->											
+					</div>
+					<!--end:Menu sub-->
+					<!--end:Menu link-->
+				</div>
+				<!--end:-->	
+				
+			</div>
+			<!--end::Menu-->
+		</div>
+		<!--end::Scroll wrapper-->
+	</div>
+	<!--end::Menu wrapper-->
+</div>
+<!--end::sidebar menu-->

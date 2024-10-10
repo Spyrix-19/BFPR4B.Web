@@ -1,0 +1,318 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	KTTheme.AddJavascriptFile("js/custom/Station/Station/AddUpdate.js");
+}
+
+
+<!--begin::Modal - Add task-->
+<div class="modal fade" id="kt_modal_add_station" tabindex="-1" aria-hidden="true">
+
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-700px">
+
+		<!--begin::Modal content-->
+		<div class="modal-content">
+
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_add_station_header">
+
+				<!--begin::Modal title-->
+				<h2 class="fw-bold" id="kt_add_station_title">Add Station</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-station-modal-action="close">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-5 my-7">
+
+				<!--begin::Form-->
+				<form id="kt_modal_add_station_form" class="form" action="#">
+
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_station_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_station_header" data-kt-scroll-wrappers="#kt_modal_add_station_scroll" data-kt-scroll-offset="300px">
+
+						<!--begin::Primary-->
+						<input type="hidden" id="kt_stationno" name="stationno" value="0">
+						<!--end::Primary-->
+						<!--begin::Unit Code Station Name--->
+						<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col-sm-6 col-lg-3">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Unit Code </span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Unit Code.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input type="text" name="station_code" id="kt_station_code" placeholder="Unit Code" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col-sm-6 col-lg-9">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Station Name</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Station Name.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input type="text" name="station_name" id="kt_station_name" placeholder="Station Name" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+						<!--begin::Station Type Area Assign--->
+						<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Station Type</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select Station Type.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_station_type" name="station_type" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Station Type" data-allow-clear="true" data-kt-station-table-filter="select_station_type" data-hide-search="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Area of Assignment</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select Area of Assignment.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_area_assign" name="area_assign" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Area of Assignment" data-allow-clear="true" data-kt-station-table-filter="select_area_assign" data-hide-search="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->						
+						<!--begin::Street address-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Street Address</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Street Address.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" name="street_address" id="kt_street_address" placeholder="Street Address" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::row-->
+						<!--begin::City Province--->
+						<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Province</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select Province.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_province" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="province" data-control="select2" data-dropdown-parent="#kt_modal_add_station" data-kt-station-province="select_province" data-placeholder="Select an option" data-allow-clear="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">City</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Select City.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--end::Label-->
+									<div class="w-100">
+										<!--begin::Select2-->
+										<select id="kt_city" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="city" data-dropdown-parent="#kt_modal_add_station" data-control="select2" data-kt-station-city="select_city" data-placeholder="Select option" data-allow-clear="true">
+											<option></option>
+										</select>
+										<!--end::Select2-->
+									</div>
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+						<!--begin::Latitude Longitude--->
+						<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<label class="fs-6 fw-semibold form-label mt-3">
+										<span class="required">Latitude</span>
+										<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Latitude.">
+											<i class="ki-duotone ki-information fs-7">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+											</i>
+										</span>
+									</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input type="text" name="latitude" id="kt_latitude" placeholder="Latitude" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+							<!--begin::Col-->
+							<div class="col">
+								<!--begin::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Input group-->
+									<div class="fv-row mb-3">
+										<!--begin::Label-->
+										<label class="fs-6 fw-semibold form-label mt-3">
+											<span class="required">Longitude</span>
+											<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Longitude.">
+												<i class="ki-duotone ki-information fs-7">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+												</i>
+											</span>
+										</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="longitude" id="kt_longitude" placeholder="Longitude" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+										<!--end::Input-->
+									</div>
+									<!--end::Input group-->
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--end::Col-->
+						</div>
+						<!--end::Row-->
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Separator-->
+					<div class="separator mb-6"></div>
+					<!--end::Separator-->
+					<!--begin::Actions-->
+					<div class="d-flex justify-content-end text-center pt-10">
+						<button type="reset" class="btn btn-light me-3" data-kt-add-station-modal-action="cancel">Discard</button>
+						<button id="kt_add_station_submit" type="submit" class="btn btn-primary" data-kt-add-station-modal-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->

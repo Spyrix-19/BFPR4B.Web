@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!--begin::Modal - Eport training-->
+<div class="modal fade" id="kt_modal_export_training" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-500px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+
+			<!--begin::Modal header-->
+			<div class="modal-header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold">Export Training</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-training-modal-export="close">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+				<!--begin::Form-->
+				<form id="kt_modal_export_training_form" class="form" action="#">
+					<!--begin::Input group-->
+					<div class="fv-row mb-10">
+						<!--begin::Label-->
+						<label class="required fs-6 fw-semibold form-label mb-2">Select Export Format:</label>
+						<!--end::Label-->
+						<!--begin::Input-->
+						<select name="format" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select bg-transparent fw-bold border border-primary border-hover border-active active">
+							<option></option>
+							<option value="excel">Excel</option>
+							<option value="pdf">PDF</option>
+							<option value="cvs">CVS</option>
+							<option value="zip">ZIP</option>
+						</select>
+						<!--end::Input-->
+					</div>
+					<!--end::Input group-->
+					<!--begin::Actions-->
+					<div class="d-flex justify-content-end text-center">
+						<button type="reset" class="btn btn-light me-3" data-kt-menu-dismiss="true" data-kt-training-export-action="reset">Reset</button>
+						<button type="submit" class="btn btn-primary" data-kt-menu-dismiss="true" data-kt-training-export-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Eport training-->

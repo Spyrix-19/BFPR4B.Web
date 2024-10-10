@@ -1,0 +1,155 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!--begin::Modal - Add task-->
+<div class="modal fade" id="kt_modal_add_training" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-700px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_add_training_header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold" id="kt_add_training_title">Add Training</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-training-modal-action="close">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-5 my-7">
+
+				<!--begin::Form-->
+				<form id="kt_modal_add_training_form" class="form" action="#">
+
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_training_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_training_header" data-kt-scroll-wrappers="#kt_modal_add_training_scroll" data-kt-scroll-offset="300px">
+
+						<!--begin::Primary-->
+						<input type="hidden" id="kt_training_detno" name="detno" value="0">
+						<!--end::Primary-->
+						<!--begin::training Code-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Training Code </span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Training Code.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="Training Code" class="form-control bg-transparent border border-primary border-hover border-active active" name="training_code" id="kt_training_code" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::training Code-->
+						<!--begin::training Name-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Training Name</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Training Name.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" placeholder="Training Name" class="form-control bg-transparent border border-primary border-hover border-active active" name="training_name" id="kt_training_name" autocomplete="off" value="" />
+							<!--end::Input-->
+						</div>
+						<!--end::training Name-->
+						<!--begin::Training Level-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Training Type</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Select Training Type.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--end::Label-->
+							<div class="w-100">
+								<!--begin::Select2-->
+								<select id="kt_training_type" name="training_type" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Training Tyoe" data-allow-clear="true" data-kt-training-table-filter="select_training_type" data-hide-search="true">
+									<option></option>
+								</select>
+								<!--end::Select2-->
+							</div>
+						</div>
+						<!--end::Training Type-->
+						<!--begin::training Level-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Training Level</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Select Training Level.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--end::Label-->
+							<div class="w-100">
+								<!--begin::Select2-->
+								<select id="kt_training_level" name="training_level" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select Training Level" data-allow-clear="true" data-kt-training-table-filter="select_training_level" data-hide-search="true">
+									<option></option>
+								</select>
+								<!--end::Select2-->
+							</div>
+						</div>
+						<!--end::training Level-->
+
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Separator-->
+					<div class="separator mb-6"></div>
+					<!--end::Separator-->
+					<!--begin::Actions-->
+					<div class="d-flex justify-content-end text-center pt-10">
+						<button type="reset" class="btn btn-light me-3" data-kt-add-training-modal-action="cancel">Discard</button>
+						<button id="kt_add_training_submit" type="submit" class="btn btn-primary" data-kt-add-training-modal-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->
