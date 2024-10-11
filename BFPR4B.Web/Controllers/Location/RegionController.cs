@@ -125,7 +125,7 @@ namespace BFPR4B.Web.Controllers.Location
 		}
 
 		[HttpGet("/region/ledger")]
-		public async Task<IActionResult> GetRegionLedgerAsync(string searchkey = "", int draw = 1, int start = 1, int length = 20)
+		public async Task<IActionResult> GetRegionLedgerAsync(string searchkey = "", int divisionno = 0, int draw = 1, int start = 1, int length = 20)
 		{
 			try
 			{
@@ -140,7 +140,7 @@ namespace BFPR4B.Web.Controllers.Location
 						return Unauthorized(new { IsSuccess = false, ErrorMessages = Settings.INVALID_SESSION_ERR_MSG });
 					}
 
-					var _response = await _regionService.GetRegionLedgerAsync<APIResponse>(searchkey, _data.Item2);
+					var _response = await _regionService.GetRegionLedgerAsync<APIResponse>(searchkey, divisionno, _data.Item2);
 
 					if (_response != null && _response.IsSuccess)
 					{

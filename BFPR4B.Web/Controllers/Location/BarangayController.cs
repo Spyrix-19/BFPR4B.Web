@@ -87,7 +87,7 @@ namespace BFPR4B.Web.Controllers.Location
 
 				if (_data.Item1)
 				{
-					CityModel list = new CityModel();
+					BarangayModel list = new BarangayModel();
 
 					if (string.IsNullOrEmpty(_data.Item2))
 					{
@@ -98,7 +98,7 @@ namespace BFPR4B.Web.Controllers.Location
 
 					if (_response != null && _response.IsSuccess)
 					{
-						list = JsonConvert.DeserializeObject<CityModel>(Convert.ToString(_response.Result));
+						list = JsonConvert.DeserializeObject<BarangayModel>(Convert.ToString(_response.Result));
 
 						// Prepare the response object
 						var response = new
@@ -134,7 +134,7 @@ namespace BFPR4B.Web.Controllers.Location
 
 				if (_data.Item1)
 				{
-					List<CityModel> list = new List<CityModel>();
+					List<BarangayModel> list = new List<BarangayModel>();
 
 					if (string.IsNullOrEmpty(_data.Item2))
 					{
@@ -145,7 +145,7 @@ namespace BFPR4B.Web.Controllers.Location
 
 					if (_response != null && _response.IsSuccess)
 					{
-						list = JsonConvert.DeserializeObject<List<CityModel>>(Convert.ToString(_response.Result));
+						list = JsonConvert.DeserializeObject<List<BarangayModel>>(Convert.ToString(_response.Result));
 
 						// Assuming you have a total user count
 						var totalRecords = list.Count;

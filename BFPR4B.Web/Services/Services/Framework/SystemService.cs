@@ -16,16 +16,49 @@ namespace BFPR4B.Web.Services.Services.Framework
 			_apiURL = configuration.GetValue<string>("ServiceUrls:BFPR4B.API");
 		}
 
-		public Task<T> GetGentables<T>(string searchkey, string tablename, int parentcode, int subparentcode, string accesstoken)
+		public Task<T> GetGentables<T>(string searchkey, string tablename, int parentcode, int subparentcode)
 		{
 			return SendAsync<T>(new APIRequest()
 			{
 				ApiType = SD.ApiType.GET,
 				ApiUrl = _apiURL + "api/v1/Setting/Gentable?searchkey=" + searchkey.Trim() + "&tablename=" + tablename.Trim() + "&parentcode=" + parentcode + "&subparentcode=" + subparentcode,
-				AccessToken = accesstoken,
 			});
 		}
 
+		public Task<T> GetBarangay<T>(string searchkey, int cityno, int provinceno, int regionno)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/Setting/GetBarangay?searchkey=" + searchkey.Trim() + "&cityno=" + cityno + "&provinceno=" + provinceno + "&regionno=" + regionno,
+			});
+		}
 
+		public Task<T> GetCity<T>(string searchkey, int provinceno, int regionno)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/Setting/GetCity?searchkey=" + searchkey.Trim() + "&provinceno=" + provinceno + "&regionno=" + regionno,
+			});
+		}
+
+		public Task<T> GetProvince<T>(string searchkey, int regionno)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/Setting/GetProvince?searchkey=" + searchkey.Trim() + "&regionno=" + regionno,
+			});
+		}
+
+		public Task<T> GetRegion<T>(string searchkey)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/Setting/GetRegion?searchkey=" + searchkey.Trim(),
+			});
+		}
 	}
 }

@@ -39,12 +39,12 @@ namespace BFPR4B.Web.Services.Services.Location
 			});
 		}
 
-		public Task<T> GetRegionLedgerAsync<T>(string searchkey, string AccessToken)
+		public Task<T> GetRegionLedgerAsync<T>(string searchkey, int divisionno, string AccessToken)
 		{
 			return SendAsync<T>(new APIRequest()
 			{
 				ApiType = SD.ApiType.GET,
-				ApiUrl = _apiURL + "api/v1/Region/Ledger?searchkey=" + searchkey.Trim(),
+				ApiUrl = _apiURL + "api/v1/Region/Ledger?searchkey=" + searchkey.Trim() + "&divisionno=" + divisionno,
 				AccessToken = AccessToken,
 			});
 		}

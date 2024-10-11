@@ -9,6 +9,8 @@ namespace BFPR4B.Web.Models.Model.Location
 		public int Cityno { get; set; } = 0;
 		public string Cityname { get; set; } = "";
 		public string Barangayname { get; set; } = "";
+		public string Provincename { get; set; } = "";
+		public string Regionname { get; set; } = "";
 		public decimal Sortorder { get; set; } = 0.00m;
 		public bool Required { get; set; } = false;
 		public bool Rowmarker { get; set; } = false;

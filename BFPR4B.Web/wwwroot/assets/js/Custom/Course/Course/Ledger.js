@@ -325,7 +325,7 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'detno',
+                    data: 'Detno',
                     render: function (data) {
                         return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-course-table-filter="edit_course" data-toggle="tooltip" data-placement="top" title="Change" data-detno="${data}">
                                      <i class="la la-edit"></i>

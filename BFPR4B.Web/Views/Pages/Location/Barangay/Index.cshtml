@@ -13,7 +13,7 @@
 <!--begin::Content-->
 <div id="kt_app_content" class="app-content flex-column-fluid">
 	<!--begin::Content container-->
-	<div id="kt_app_content_container" class="app-container>
+	<div id="kt_app_content_container" class="app-container">
 		<!--begin::Card-->
 		<div class="card">
 			<!--begin::Card header-->
@@ -76,6 +76,33 @@
 									<!--end::Input-->
 								</div>
 								<!--end::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<!--begin::Input group-->
+									<div class="mb-10">
+										<label class="form-label fs-6 fw-semibold">Province:</label>
+										<select id="provinceDropdown" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-barangay-table-filter="barangay-province" data-hide-search="true">
+											<option></option>
+										</select>
+									</div>
+									<!--end::Input group-->
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
+								<!--end::Input group-->
+								<div class="fv-row mb-3">
+									<!--begin::Label-->
+									<!--begin::Input group-->
+									<div class="mb-10">
+										<label class="form-label fs-6 fw-semibold">Region:</label>
+										<select id="regionDropdown" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-barangay-table-filter="barangay-region" data-hide-search="true">
+											<option></option>
+										</select>
+									</div>
+									<!--end::Input group-->
+									<!--end::Input-->
+								</div>
+								<!--end::Input group-->
 								<!--begin::Actions-->
 								<div class="d-flex justify-content-end">
 									<button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-barangay-table-filter="reset">Reset</button>
@@ -118,10 +145,10 @@
 						<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
 							<th class="text-end min-w-100px">Actions</th>
 							<th class="w-10px pe-2 text-center ">Edit</th>
-							<th class="min-w-300px text-center ">Barangay Name</th>
-							<th class="min-w-300px text-center ">City Name</th>
-							<th class="min-w-300px text-center ">Province Name</th>
-							<th class="min-w-150px text-center ">Region Code</th>
+							<th class="min-w-400px text-center ">Barangay Name</th>
+							<th class="min-w-400px text-center ">City Name</th>
+							<th class="min-w-400px text-center ">Province Name</th>
+							<th class="min-w-400px text-center ">Region Name</th>
 							<th class="min-w-250px text-center ">Encoded By</th>
 							<th class="min-w-150px text-center ">Date Encoded</th>
 							<th class="w-10px pe-2 text-center ">Delete</th>

@@ -312,7 +312,7 @@ var KTDatatablesServerSide = function () {
             ],
             columnDefs: [
                 {
-                    targets: [0, 1, 6],
+                    targets: [0, 1, 5, 6],
                     className: 'text-center',
                 }
             ]
