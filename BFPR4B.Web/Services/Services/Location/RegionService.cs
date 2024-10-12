@@ -60,7 +60,26 @@ namespace BFPR4B.Web.Services.Services.Location
 			});
 		}
 
+		public Task<T> CreateRegionJournalAsync<T>(CreateRegionJournalDTO parameters, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.POST,
+				Data = parameters,
+				ApiUrl = _apiURL + "api/v1/RegionJournal/Create",
+				AccessToken = accesstoken,
+			});
+		}
 
+		public Task<T> GetRegionJournalAsync<T>(string searchkey, int regionno, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/RegionJournal/Ledger?searchkey=" + searchkey + "&regionno=" + regionno,
+				AccessToken = accesstoken,
+			});
+		}
 
 
 

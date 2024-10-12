@@ -61,7 +61,26 @@ namespace BFPR4B.Web.Services.Services.Location
 		}
 
 
+		public Task<T> CreateProvinceJournalAsync<T>(CreateProvinceJournalDTO parameters, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.POST,
+				Data = parameters,
+				ApiUrl = _apiURL + "api/v1/ProvinceJournal/Create",
+				AccessToken = accesstoken,
+			});
+		}
 
+		public Task<T> GetProvinceJournalAsync<T>(string searchkey, int provinceno, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/ProvinceJournal/Ledger?searchkey=" + searchkey + "&provinceno=" + provinceno,
+				AccessToken = accesstoken,
+			});
+		}
 
 
 

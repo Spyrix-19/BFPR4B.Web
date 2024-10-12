@@ -60,7 +60,26 @@ namespace BFPR4B.Web.Services.Services.Location
 			});
 		}
 
+		public Task<T> CreateBarangayJournalAsync<T>(CreateBarangayJournalDTO parameters, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.POST,
+				Data = parameters,
+				ApiUrl = _apiURL + "api/v1/BarangayJournal/Create",
+				AccessToken = accesstoken,
+			});
+		}
 
+		public Task<T> GetBarangayJournalAsync<T>(string searchkey, int barangayno, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/BarangayJournal/Ledger?searchkey=" + searchkey + "&barangayno=" + barangayno,
+				AccessToken = accesstoken,
+			});
+		}
 
 	}
 }

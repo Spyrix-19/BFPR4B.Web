@@ -338,7 +338,7 @@ var KTDatatablesServerSide = function () {
                     data: 'Detno',
                     render: function (data, type, row) {
 
-                        var reqValue = row.required;
+                        var reqValue = row.Required;
 
                         return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-training-table-filter="delete_training" data-toggle="tooltip" data-placement="top" title="Delete" data-detno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>

@@ -60,7 +60,26 @@ namespace BFPR4B.Web.Services.Services.Location
 			});
 		}
 
+		public Task<T> CreateCityJournalAsync<T>(CreateCityJournalDTO parameters, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.POST,
+				Data = parameters,
+				ApiUrl = _apiURL + "api/v1/CityJournal/Create",
+				AccessToken = accesstoken,
+			});
+		}
 
+		public Task<T> GetCityJournalAsync<T>(string searchkey, int cityno, string accesstoken)
+		{
+			return SendAsync<T>(new APIRequest()
+			{
+				ApiType = SD.ApiType.GET,
+				ApiUrl = _apiURL + "api/v1/CityJournal/Ledger?searchkey=" + searchkey + "&cityno=" + cityno,
+				AccessToken = accesstoken,
+			});
+		}
 
 
 	}

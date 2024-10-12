@@ -390,7 +390,7 @@ var KTDatatablesServerSide = function () {
                     data: 'Stationno',
                     render: function (data, type, row) {
 
-                        var reqValue = row.required;
+                        var reqValue = row.Required;
 
                         return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-station-table-filter="delete_station" data-toggle="tooltip" data-placement="top" title="Delete" data-stationno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>

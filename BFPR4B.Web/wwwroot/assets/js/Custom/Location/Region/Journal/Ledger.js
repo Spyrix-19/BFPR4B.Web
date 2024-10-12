@@ -29,7 +29,7 @@ var KTDatatablesJournal = function () {
             dt.destroy();
         }
 
-        dt = $("#kt_table_course_journal").DataTable({
+        dt = $("#kt_table_region_journal").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
@@ -42,12 +42,12 @@ var KTDatatablesJournal = function () {
                 className: 'row-selected'
             },
             ajax: {
-                url: "/course/journal/ledger",
+                url: "/region/journal/ledger",
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.searchkey = $("#searchJournalInput").val();
-                    d.gendetno = $("#kt_course_journal_detno").val();
+                    d.regionno = $("#kt_regionno").val();
                 }
             },
             columns: [
@@ -85,7 +85,7 @@ var KTDatatablesJournal = function () {
         });
 
         // Event handler for the "x" button in Search
-        $('[data-kt-course-journal-table-search="search"]').on('click', resetSearch);
+        $('[data-kt-region-journal-table-search="search"]').on('click', resetSearch);
 
         // Event handler for input field change in search when enter is hit
         $('#searchJournalInput').on('keydown', function (e) {
@@ -106,7 +106,7 @@ var KTDatatablesJournal = function () {
         init: function () {
             initDatatable();
 
-            let modal = document.getElementById('kt_modal_course_journal');
+            let modal = document.getElementById('kt_modal_region_journal');
 
             // Listen for Bootstrap modal shown event
             $(modal).on('shown.bs.modal', function () {

@@ -9,7 +9,7 @@ namespace BFPR4B.Web.Services.IServices.Location
 		Task<T> GetRegionLedgerAsync<T>(string searchkey, int divisionno, string AccessToken);
 		Task<T> DeleteRegionAsync<T>(int regionno, string accesstoken);
 
-		//Task<T> CreateRegionJournalAsync<T>(CreateRegionJournalDTO parameters, string accesstoken);
-		//Task<T> GetRegionJournalAsync<T>(string searchkey, int gendetno, string accesstoken);
+		Task<T> CreateRegionJournalAsync<T>(CreateRegionJournalDTO parameters, string accesstoken);
+		Task<T> GetRegionJournalAsync<T>(string searchkey, int regionno, string accesstoken);
 	}
 }

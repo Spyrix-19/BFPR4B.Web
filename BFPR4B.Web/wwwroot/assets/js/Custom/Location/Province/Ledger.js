@@ -338,7 +338,7 @@ var KTDatatablesServerSide = function () {
                     render: function (data, type, row) {
 
                         // Assuming row contains the data from your API response
-                        var reqValue = row.required; // Replace 'REQ' with the actual field name from your API
+                        var reqValue = row.Required; // Replace 'REQ' with the actual field name from your API
 
                         return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-province-table-filter="delete_province" data-toggle="tooltip" data-placement="top" title="Delete" data-provinceno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>

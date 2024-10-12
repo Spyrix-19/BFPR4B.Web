@@ -46,11 +46,10 @@ var KTAddUpdate = function () {
         );
     };
 
-    async function populateLocationDropdown(locationtype, parentcode, dropdownId) {
+    async function populateProvinceDropdown(regionno, dropdownId) {
         try {
-            const loginUrl = new URL('system/location', window.location.origin);
-            loginUrl.searchParams.append('locationtype', locationtype);
-            loginUrl.searchParams.append('parentcode', parentcode);
+            const loginUrl = new URL('system/getprovince', window.location.origin);
+            loginUrl.searchParams.append('regionno', regionno);
 
             const response = await fetch(loginUrl, {
                 method: 'GET',
@@ -83,14 +82,14 @@ var KTAddUpdate = function () {
     }
 
     // Fetch user data and populate the form
-    var fetchAndUpdateData = async function (locationcode) {
+    var fetchAndUpdateData = async function (provinceno) {
         try {
 
-            document.getElementById('kt_locationcode').value = '';
+            document.getElementById('kt_provinceno').value = '';
             document.getElementById('kt_province_name').value = '';
             document.getElementById('kt_province_type').value = '';
 
-            const response = await fetch(`/provinces/details?locationcode=${locationcode}`);
+            const response = await fetch(`/provinces/details?provinceno=${provinceno}`);
             if (response.ok) {
 
                 const provinceData = await response.json();
@@ -99,9 +98,9 @@ var KTAddUpdate = function () {
 
                 if (provinceData !== null) {
 
-                    $('#kt_locationcode').val(provinceData.data.locationcode);
-                    $('#kt_province_name').val(provinceData.data.locationname);
-                    $('#kt_province_type').val(provinceData.data.parentcode).trigger('change.select2');
+                    $('#kt_provinceno').val(provinceData.data.Provinceno);
+                    $('#kt_province_name').val(provinceData.data.Provincename);
+                    $('#kt_province_type').val(provinceData.data.Regionno).trigger('change.select2');
                 }
             } else {
                 console.error('Failed to fetch user data:', response.status, response.statusText);
@@ -113,18 +112,18 @@ var KTAddUpdate = function () {
 
     //Function to get data-userno attribute value from the selected row in DataTable and fetch user data
     async function FetchData() {
-        const locationcodeInput = document.getElementById('kt_locationcode');
-        const locationcodeValue = locationcodeInput.value.trim(); // Trim any leading/trailing whitespace
+        const provincenoInput = document.getElementById('kt_provinceno');
+        const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
 
-        let dataLocationcode = locationcodeValue === '' ? '0' : locationcodeValue;
+        let provinceno = provincenoValue === '' ? '0' : provincenoValue;
 
-        if (dataLocationcode) {
+        if (provinceno) {
             // If the attribute exists, call the fetchAndUpdateUserData function with the user number
             if (dataLocationcode !== '0') {
-                fetchAndUpdateData(dataLocationcode);
+                fetchAndUpdateData(provinceno);
             }
         } else {
-            console.error('data-detno attribute is missing in the selected row.');
+            console.error('data-provinceno attribute is missing in the selected row.');
         }
     }
 
@@ -241,16 +240,15 @@ var KTAddUpdate = function () {
                     submitButton.setAttribute('data-kt-indicator', 'on');
                     submitButton.disabled = true;
 
-                    const addprovinceUrl = '/provinces/create';
+                    const addprovinceUrl = '/province/create';
 
-                    const locationcodeInput = document.getElementById('kt_locationcode');
-                    const locationcodeValue = locationcodeInput.value.trim(); // Trim any leading/trailing whitespace
+                    const provincenoInput = document.getElementById('kt_provinceno');
+                    const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
 
                     const requestBody = JSON.stringify({
-                        locationcode: locationcodeValue === '' ? '0' : locationcodeValue, // Set to '0' if empty
-                        locationno: '',
-                        locationname: document.getElementById('kt_province_name').value,
-                        parentcode: document.getElementById('kt_province_type').value,
+                        provinceno: provincenoValue === '' ? '0' : provincenoValue, // Set to '0' if empty
+                        provincename: document.getElementById('kt_province_name').value,
+                        regionno: document.getElementById('kt_province_type').value,
                         encodedby: userno,
                     });
 

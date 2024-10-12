@@ -164,7 +164,7 @@ var KTDatatablesServerSide = function () {
     async function openRegionJournalModal(regionno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
-        $('#kt_region_journal_regionno').val(regionno);
+        $('#kt_regionno').val(regionno);
 
         $('#kt_modal_region_journal').modal('show');
 
@@ -340,7 +340,7 @@ var KTDatatablesServerSide = function () {
                     render: function (data, type, row) {
 
                         // Assuming row contains the data from your API response
-                        var reqValue = row.required; // Replace 'REQ' with the actual field name from your API
+                        var reqValue = row.Required; // Replace 'REQ' with the actual field name from your API
 
                         return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-region-table-filter="delete_region" data-toggle="tooltip" data-placement="top" title="Delete" data-regionno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>

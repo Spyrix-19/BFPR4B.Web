@@ -277,55 +277,67 @@ var KTAddUpdate = function () {
                         if (response.ok) {
 
 
-                            //let regionnojournal = regionnoValue === '' ? '0' : regionnoValue;
+                            let regionnojournal = regionnoValue === '' ? '0' : regionnoValue;
 
-                            //if (regionnojournal !== '0') {
-                            //    const addjournalUrl = '/region/journal/create';
+                            if (regionnojournal !== '0') {
+                                const addjournalUrl = '/region/journal/create';
 
-                            //    const journalrequestBody = {
-                            //        gendetno: regionnoValue === '' ? '0' : regionnoValue, // Set to '0' if empty
-                            //        tablename: 'REGION',
-                            //        encodedby: userno,
-                            //        journallist: [] // Initialize journallist as an empty array
-                            //    };
+                                const journalrequestBody = {
+                                    regionno: regionnoValue === '' ? '0' : regionnoValue, // Set to '0' if empty
+                                    encodedby: userno,
+                                    journallist: [] // Initialize journallist as an empty array
+                                };
 
-                            //    if (REGION_DATA.data.Regioncode !== null) {
-                            //        if (REGION_DATA.data.Regioncode !== document.getElementById('kt_region_code').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Region Code from ' + REGION_DATA.data.Regioncode + ' to ' + document.getElementById('kt_region_code').value
-                            //            });
-                            //        }
-                            //    }
+                                if (REGION_DATA.data.Regioncode !== null) {
+                                    if (REGION_DATA.data.Regioncode !== document.getElementById('kt_region_code').value) {
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Region Code from ' + REGION_DATA.data.Regioncode + ' to ' + document.getElementById('kt_region_code').value
+                                        });
+                                    }
+                                }
 
-                            //    if (REGION_DATA.data.Regionname !== null) {
-                            //        if (REGION_DATA.data.Regionname !== document.getElementById('kt_region_name').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Region Name from ' + REGION_DATA.data.Regionname + ' to ' + document.getElementById('kt_region_name').value
-                            //            });
-                            //        }
-                            //    }
+                                if (REGION_DATA.data.Regionname !== null) {
+                                    if (REGION_DATA.data.Regionname !== document.getElementById('kt_region_name').value) {
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Region Name from ' + REGION_DATA.data.Regionname + ' to ' + document.getElementById('kt_region_name').value
+                                        });
+                                    }
+                                }
 
-                            //    try {
-                            //        const response = await fetch(addjournalUrl, {
-                            //            method: 'POST',
-                            //            headers: {
-                            //                'Content-Type': 'application/json',
-                            //                'Accept': 'application/json'
-                            //            },
-                            //            body: JSON.stringify(journalrequestBody)
-                            //        });
-                            //    } catch (error) {
-                            //        Swal.fire({
-                            //            text: error.message || 'An error occurred',
-                            //            icon: 'error',
-                            //            buttonsStyling: false,
-                            //            confirmButtonText: 'Ok, got it!',
-                            //            customClass: {
-                            //                confirmButton: 'btn btn-primary'
-                            //            }
-                            //        });
-                            //    }
-                            //}
+                                if (REGION_DATA.data.Divisionno !== null || REGION_DATA.data.Divisionno !== '0') {
+                                    if (REGION_DATA.data.Divisionno !== document.getElementById('kt_region_type').value) {
+
+                                        var dropdown2 = document.getElementById('kt_region_type');
+
+                                        var selectedText2 = dropdown2.options[dropdown2.selectedIndex].text;
+
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Division from ' + REGION_DATA.data.Divisionname + ' to ' + selectedText2
+                                        });
+                                    }
+                                }
+
+                                try {
+                                    const response = await fetch(addjournalUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json'
+                                        },
+                                        body: JSON.stringify(journalrequestBody)
+                                    });
+                                } catch (error) {
+                                    Swal.fire({
+                                        text: error.message || 'An error occurred',
+                                        icon: 'error',
+                                        buttonsStyling: false,
+                                        confirmButtonText: 'Ok, got it!',
+                                        customClass: {
+                                            confirmButton: 'btn btn-primary'
+                                        }
+                                    });
+                                }
+                            }
 
                             form.reset();
                             Swal.fire({

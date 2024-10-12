@@ -9,7 +9,7 @@ namespace BFPR4B.Web.Services.IServices.Barangay
 		Task<T> GetBarangayLedgerAsync<T>(string searchkey, int cityno, int provinceno, int regionno, string AccessToken);
 		Task<T> DeleteBarangayAsync<T>(int barangayno, string accesstoken);
 
-		//Task<T> CreateBarangayJournalAsync<T>(CreateBarangayJournalDTO parameters, string accesstoken);
-		//Task<T> GetBarangayJournalAsync<T>(string searchkey, int gendetno, string accesstoken);
+		Task<T> CreateBarangayJournalAsync<T>(CreateBarangayJournalDTO parameters, string accesstoken);
+		Task<T> GetBarangayJournalAsync<T>(string searchkey, int barangayno, string accesstoken);
 	}
 }
