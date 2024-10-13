@@ -10,6 +10,7 @@ namespace BFPR4B.Web.Models.Model.Location
 		public string Provincename { get; set; } = "";
 		public string Cityname { get; set; } = "";
 		public string Zipcode { get; set; } = "";
+		public int Regionno { get; set; } = 0;
 		public string Regioncode { get; set; } = "";
 		public string Regionname { get; set; } = "";
 		public decimal Sortorder { get; set; } = 0.00m;

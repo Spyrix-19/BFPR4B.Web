@@ -1,8 +1,8 @@
 ﻿@{
-	// KTTheme.AddJavascriptFile("js/custom/Location/City/CityJournal/Ledger.js");
+	KTTheme.AddJavascriptFile("js/custom/Location/Barangay/Barangay/Journal/Ledger.js");
 }
 
-<div class="modal fade" id="kt_modal_city_journal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_barangay_journal" tabindex="-1" aria-hidden="true">
 	<!--begin::Modal dialog-->
 	<div class="modal-dialog modal-dialog-centered mw-1000px">
 		<!--begin::Modal content-->
@@ -10,10 +10,10 @@
 			<!--begin::Modal header-->
 			<div class="modal-header">
 				<!--begin::Modal title-->
-				<h2 class="fw-bold">City Journal</h2>
+				<h2 class="fw-bold">Barangay Journal</h2>
 				<!--end::Modal title-->
 				<!--begin::Close-->
-				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-city-journal-modal="close" data-bs-dismiss="modal">
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-barangay-journal-modal="close" data-bs-dismiss="modal">
 					<i class="ki-duotone ki-cross fs-1">
 						<span class="path1"></span>
 						<span class="path2"></span>
@@ -39,7 +39,7 @@
 									<span class="path2"></span>
 								</i>
 
-								<input type="text" data-kt-city-journal-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-250px ps-13" placeholder="Search" id="searchJournalInput" />
+								<input type="text" data-kt-barangay-journal-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-250px ps-13" placeholder="Search" id="searchJournalInput" />
 
 								<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
 									<i class="fas fa-times-circle position-absolute me-2" id="clearJournalButton" style="cursor: pointer; display: none;"></i>
@@ -57,10 +57,10 @@
 					<!--begin::Card body-->
 					<div class="card-body py-4">
 						<!--begin::Primary-->
-						<input type="hidden" id="kt_locationcode" name="detno" value="0">
+						<input type="hidden" id="kt_barangayno" name="detno" value="0">
 						<!--end::Primary-->
 						<!--begin::Table-->
-						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_city_journal">
+						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_barangay_journal">
 							<thead>
 								<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
 									<th class=""></th>
@@ -79,8 +79,6 @@
 
 				</div>
 				<!--end::Card-->
-
-
 			</div>
 			<!--end::Modal body-->
 		</div>

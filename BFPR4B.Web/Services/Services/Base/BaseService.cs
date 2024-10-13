@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using BFPR4B.Utility;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace BFPR4B.Web.Services.Services.Base
 {
@@ -20,6 +22,16 @@ namespace BFPR4B.Web.Services.Services.Base
 		{
 			try
 			{
+				if (!BFPR4B.Web.Utility.Utility.IsNetworkAvailable())
+				{
+					var errorDto = new APIResponse
+					{
+						ErrorMessages = "System is having an issue with your internet connection. It's either you have been disconnected from the internet or you have a poor internet connection. Please try connecting again in a while.",
+						IsSuccess = false
+					};
+					return (T)(object)errorDto;
+				}
+
 				var client = _httpClientFactory.CreateClient("R4BMimaropa.API");
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -28,7 +40,6 @@ namespace BFPR4B.Web.Services.Services.Base
 				{
 					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
 				}
-
 
 				var requestMessage = new HttpRequestMessage
 				{

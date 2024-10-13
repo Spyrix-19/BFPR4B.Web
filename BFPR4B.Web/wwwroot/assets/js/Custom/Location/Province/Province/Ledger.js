@@ -34,7 +34,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Reset" button
-        const resetButton = document.querySelector('[data-kt-city-table-filter="reset"]');
+        const resetButton = document.querySelector('[data-kt-province-table-filter="reset"]');
         if (resetButton) {
             resetButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the menu
@@ -42,14 +42,14 @@ var KTDatatablesServerSide = function () {
             });
         }
 
-        const table = $('#kt_table_city').DataTable();
+        const table = $('#kt_table_province').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     }
 
     // Function to reset the Export values in the modal
     async function resetExport() {
         // Get the modal element
-        const modal = document.getElementById('kt_modal_export_city');
+        const modal = document.getElementById('kt_modal_export_province');
 
         // Check if the modal exists
         if (modal) {
@@ -64,7 +64,7 @@ var KTDatatablesServerSide = function () {
             });
 
             // Find the "Reset" button within the modal
-            const resetButton = modal.querySelector('[data-kt-city-table-filter="reset"]');
+            const resetButton = modal.querySelector('[data-kt-province-table-filter="reset"]');
             if (resetButton) {
                 resetButton.addEventListener('click', function (event) {
                     // Prevent the default behavior that closes the modal
@@ -74,41 +74,6 @@ var KTDatatablesServerSide = function () {
         }
     }
     
-    async function populateProvinceDropdown(regionno, dropdownId) {
-        try {
-            const loginUrl = new URL('system/getprovince', window.location.origin);
-            loginUrl.searchParams.append('regionno', regionno);
-
-            const response = await fetch(loginUrl, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const dropdown = document.getElementById(dropdownId);
-
-                dropdown.innerHTML = ''; // Clear existing options
-                const emptyOption = document.createElement('option');
-                dropdown.appendChild(emptyOption);
-
-                data.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.text = option.text;
-                    dropdown.appendChild(optionElement);
-                });
-            } else {
-                console.error('Failed to fetch data:', response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
-        }
-    }
-
     async function populateRegionDropdown(dropdownId) {
         try {
             const loginUrl = new URL('system/getregion', window.location.origin);
@@ -163,7 +128,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Cancel" button
-        const cancelButton = document.querySelector('[data-kt-add-city-modal-action="cancel"]');
+        const cancelButton = document.querySelector('[data-kt-add-province-modal-action="cancel"]');
         if (cancelButton) {
             cancelButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the modal
@@ -172,45 +137,45 @@ var KTDatatablesServerSide = function () {
         }
     }
 
-    // Function to open the "Add City" modal
-    async function openAddCityModal(cityno) {
+    // Function to open the "Add Province" modal
+    async function openAddProvinceModal(provinceno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
         // Change the modal title here
-        var modalTitle = document.getElementById("kt_add_city_title");
-        modalTitle.innerText = cityno === 0 ? "Add City" : "Update City"; // Change "New Title" to your desired text
+        var modalTitle = document.getElementById("kt_add_province_title");
+        modalTitle.innerText = provinceno === 0 ? "Add Province" : "Update Province"; // Change "New Title" to your desired text
 
-        $('#kt_city_cityno').val(cityno);
+        $('#kt_provinceno').val(provinceno);
 
-        $('#kt_modal_add_city').modal('show');
+        $('#kt_modal_add_province').modal('show');
 
-
-    }
-
-    // Function to open the "Add City" modal
-    async function openExportCityModal() {
-
-        $('#kt_modal_export_city').modal('show');
 
     }
 
-    // Function to open the "Add City" modal
-    async function openCityJournalModal(cityno) {
+    // Function to open the "Add Province" modal
+    async function openExportProvinceModal() {
+
+        $('#kt_modal_export_province').modal('show');
+
+    }
+
+    // Function to open the "Add Province" modal
+    async function openProvinceJournalModal(provinceno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
-        $('#kt_city_journal_cityno').val(cityno);
+        $('#kt_provinceno').val(provinceno);
 
-        $('#kt_modal_city_journal').modal('show');
+        $('#kt_modal_province_journal').modal('show');
 
     }
 
     // Function to update the DataTable with new data
     var updateDataTable = async function () {
-        const table = $('#kt_table_city').DataTable();
+        const table = $('#kt_table_province').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     };
 
-    async function handleRowDeletion(cityno, required) {
+    async function handleRowDeletion(provinceno, required) {
         try {
 
             // Get the row data from the DataTable
@@ -243,7 +208,7 @@ var KTDatatablesServerSide = function () {
                 });
 
                 if (result.value) {
-                    const response = await fetch(`/city/remove?cityno=${cityno}`, {
+                    const response = await fetch(`/province/remove?provinceno=${provinceno}`, {
                         method: 'DELETE',
                         //headers: {
                         //    'Content-Type': 'application/json',
@@ -306,10 +271,9 @@ var KTDatatablesServerSide = function () {
             dt.destroy();
         }
 
-        populateProvinceDropdown(0, 'provinceDropdown');
         populateRegionDropdown('regionDropdown');
 
-        dt = $("#kt_table_city").DataTable({
+        dt = $("#kt_table_province").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
@@ -323,18 +287,17 @@ var KTDatatablesServerSide = function () {
                 className: 'row-selected'
             },
             ajax: {
-                url: "/city/ledger",
+                url: "/province/ledger",
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.searchkey = $("#searchInput").val();
-                    d.provinceno = $("#provinceDropdown").val();
                     d.regionno = $("#regionDropdown").val();
                 }
             },
             columns: [
                 {
-                    data: 'Cityno',
+                    data: 'Provinceno',
                     render: function (data) {
                         return `<div class="btn-group">
 									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -344,8 +307,8 @@ var KTDatatablesServerSide = function () {
 									</a>
 									<div class="dropdown-menu">
 										<div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-city-table-filter="view_city_journal" data-cityno="${data}">
-												View City Journal
+											<a style="cursor: pointer;" class="menu-link px-3" data-kt-province-table-filter="view_province_journal" data-provinceno="${data}">
+												View Province Journal
 											</a>
 										</div>
 									</div>
@@ -353,17 +316,15 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Cityno',
+                    data: 'Provinceno',
                     render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-city-table-filter="edit_city" data-toggle="tooltip" data-placement="top" title="Change" data-cityno="${data}">
+                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-province-table-filter="edit_province" data-toggle="tooltip" data-placement="top" title="Change" data-provinceno="${data}">
                                      <i class="la la-edit"></i>
                                 </a>`;
                     }
                 },
-                { data: 'Cityname' },
-                { data: 'Zipcode' },
                 { data: 'Provincename' },
-                { data: 'Regioncode' },
+                { data: 'Regionname' },
                 { data: 'Encodedbyname' },
                 {
                     data: 'Dateencoded',
@@ -373,13 +334,13 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Cityno',
+                    data: 'Provinceno',
                     render: function (data, type, row) {
 
                         // Assuming row contains the data from your API response
                         var reqValue = row.Required; // Replace 'REQ' with the actual field name from your API
 
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-city-table-filter="delete_city" data-toggle="tooltip" data-placement="top" title="Delete" data-cityno="${data}" data-required="${reqValue}">
+                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-province-table-filter="delete_province" data-toggle="tooltip" data-placement="top" title="Delete" data-provinceno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>
                                 </a>`;
                     }
@@ -387,7 +348,7 @@ var KTDatatablesServerSide = function () {
             ],
             columnDefs: [
                 {
-                    targets: [0, 1, 7],
+                    targets: [0, 1, 5],
                     className: 'text-center',
                 }
             ]
@@ -402,55 +363,55 @@ var KTDatatablesServerSide = function () {
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-city-table-filter="add_city"]').on('click', function () {
-            const cityno = 0;
+        $('[data-kt-province-table-filter="add_province"]').on('click', function () {
+            const provinceno = 0;
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddCityModal(cityno);
+            openAddProvinceModal(provinceno);
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_city').on('click', '[data-kt-city-table-filter="edit_city"]', function () {
-            const cityno = $(this).data('cityno');
+        $('#kt_table_province').on('click', '[data-kt-province-table-filter="edit_province"]', function () {
+            const provinceno = $(this).data('provinceno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddCityModal(cityno);
+            openAddProvinceModal(provinceno);
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-city-table-filter="export_city"]').on('click', function () {
+        $('[data-kt-province-table-filter="export_province"]').on('click', function () {
             // Now you can use the userId to identify the user and open the modal accordingly
-            openExportCityModal();
+            openExportProvinceModal();
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_city').on('click', '[data-kt-city-table-filter="view_city_journal"]', function () {
-            const cityno = $(this).data('cityno');
+        $('#kt_table_province').on('click', '[data-kt-province-table-filter="view_province_journal"]', function () {
+            const provinceno = $(this).data('provinceno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openCityJournalModal(cityno);
+            openProvinceJournalModal(provinceno);
         });
 
         // Event handler for the "x" button in Search
-        $('[data-kt-city-table-search="search"]').on('click', resetSearch);
+        $('[data-kt-province-table-search="search"]').on('click', resetSearch);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-city-table-filter="reset"]').on('click', resetFilter);
+        $('[data-kt-province-table-filter="reset"]').on('click', resetFilter);
 
         // Event handler for the "Discard" button in Export
-        $('[data-kt-city-export-action="reset"]').on('click', resetExport);
+        $('[data-kt-province-export-action="reset"]').on('click', resetExport);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-add-city-modal-action="cancel"]').on('click', resetAddUpdate);
+        $('[data-kt-add-province-modal-action="cancel"]').on('click', resetAddUpdate);
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_city').on('click', '[data-kt-city-table-filter="delete_city"]', function () {
-            const cityno = $(this).data('cityno');
+        $('#kt_table_province').on('click', '[data-kt-province-table-filter="delete_province"]', function () {
+            const provinceno = $(this).data('provinceno');
             const required = $(this).data('required');
             // Now you can use the userId to identify the user and open the modal accordingly
-            handleRowDeletion(cityno, required);
+            handleRowDeletion(provinceno, required);
         });
 
         // Event handler for input field change in search when enter is hit
         $('#searchInput').on('keydown', function (e) {
-            if (e.keyCode === 13) { // Check if Enter key (key code 13) is pressed
+            if (e.key === 'Enter') { // Check if Enter key (key code 13) is pressed
                 dt.ajax.reload();
             }
         });

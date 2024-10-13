@@ -1,28 +1,38 @@
 <!--begin::Logo-->
 <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-	<!--begin::Logo image-->
-	<a href="?page=index">
-		@if(KTTheme.GetAttributeValue("body", "data-kt-app-layout")=="dark-sidebar"){
-            <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/default-dark.svg")' class="h-25px app-sidebar-logo-default" />
-        } else {
-            if(KTTheme.GetAttributeValue("body", "data-kt-app-layout")=="light-sidebar"){
-                <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/default.svg")' class="theme-light-show h-25px app-sidebar-logo-default" />
-                <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/default-dark.svg")' class="theme-dark-show h-25px app-sidebar-logo-default" />
+    <!--begin::Logo image-->
+    <a href="?page=index" class="d-flex align-items-center justify-content-between">
+        <!-- Flex container for logo and text -->
+        <div class="d-flex align-items-center">
+            <!-- Nested flex for logo -->
+            @if (KTTheme.GetAttributeValue("body", "data-kt-app-layout") == "dark-sidebar")
+            {
+                <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/mimaropa.png")' class="h-35px app-sidebar-logo-default" />
             }
-        }
-		<img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/default-small.svg")' class="h-20px app-sidebar-logo-minimize" />
-	</a>
-	<!--end::Logo image-->
-	<!--begin::Sidebar toggle-->
-	<!--begin::Minimized sidebar setup:
-            if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_state"] === "on") {
-                1. "src/js/layout/sidebar.js" adds "sidebar_minimize_state" cookie value to save the sidebar minimize state.
-                2. Set data-kt-app-sidebar-minimize="on" attribute for body tag.
-                3. Set data-kt-toggle-state="active" attribute to the toggle element with "kt_app_sidebar_toggle" id.
-                4. Add "active" class to to sidebar toggle element with "kt_app_sidebar_toggle" id.
+            else if (KTTheme.GetAttributeValue("body", "data-kt-app-layout") == "light-sidebar")
+            {
+                <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/mimaropa.png")' class="theme-light-show h-35px app-sidebar-logo-default" />
+                <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/mimaropa.png")' class="theme-dark-show h-35px app-sidebar-logo-default" />
             }
-        -->
-	<div id="kt_app_sidebar_toggle" data-kt-toggle="true" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize" @Html.Raw(KTTheme.PrintHtmlAttributes("sidebar-toggle")) class='app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate @KTTheme.PrintHtmlClasses("sidebar-toggle")'>@Html.Raw(KTTheme.GetIcon("black-left-line", "fs-3 rotate-180 ms-1"))</div>
-	<!--end::Sidebar toggle-->
+            <img alt="Logo" src='@KTTheme.GetAssetPath("media/logos/mimaropa.png")' class="h-35px app-sidebar-logo-minimize" />
+        </div>
+
+        <div class="menu-item pt-5">
+			<!--begin:Menu content-->
+			<div class="menu-content">
+                <span class="menu-heading ms-3 text-start fw-bold text-uppercase fs-7">BFP MIMAROPA</span>
+                <span class="menu-heading ms-3 text-start fw-bold text-uppercase fs-7">Regional Office</span>
+			</div>
+			<!--end:Menu content-->
+		</div>
+    </a>
+    <!--end::Logo image-->
+    <!--begin::Sidebar toggle-->
+    <div id="kt_app_sidebar_toggle" data-kt-toggle="true" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize"
+    @Html.Raw(KTTheme.PrintHtmlAttributes("sidebar-toggle"))
+         class='app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate @KTTheme.PrintHtmlClasses("sidebar-toggle")'>
+        @Html.Raw(KTTheme.GetIcon("black-left-line", "fs-3 rotate-180 ms-1"))
+    </div>
+    <!--end::Sidebar toggle-->
 </div>
 <!--end::Logo-->

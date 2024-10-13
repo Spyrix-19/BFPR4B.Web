@@ -361,7 +361,7 @@ var KTDatatablesServerSide = function () {
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-
+            $('.dt-type-numeric').hide();
         });
 
         // Event handler for clearing search input when x is click
@@ -413,7 +413,7 @@ var KTDatatablesServerSide = function () {
 
         // Event handler for input field change in search when enter is hit
         $('#searchInput').on('keydown', function (e) {
-            if (e.keyCode === 13) { // Check if Enter key (key code 13) is pressed
+            if (e.key === 'Enter') { // Check if Enter key (key code 13) is pressed
                 dt.ajax.reload();
             }
         });

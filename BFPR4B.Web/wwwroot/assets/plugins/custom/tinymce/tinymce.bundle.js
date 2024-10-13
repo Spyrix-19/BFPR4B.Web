@@ -33258,7 +33258,7 @@ tinymce.IconManager.add('default', {
   };
   const setup = editor => {
     editor.on('keydown', e => {
-      if (e.keyCode === 13 && !e.isDefaultPrevented()) {
+        if (e.key === 'Enter' && !e.isDefaultPrevented()) {
         handleEnter(editor);
       }
     });
@@ -44226,7 +44226,7 @@ tinymce.IconManager.add('default', {
       });
       editor.on('keydown', e => {
         selectedLink.clear();
-        if (!e.isDefaultPrevented() && e.keyCode === 13 && hasOnlyAltModifier(e)) {
+          if (!e.isDefaultPrevented() && e.key === 'Enter' && hasOnlyAltModifier(e)) {
           getSelectedLink().each(link => {
             e.preventDefault();
             gotoLink(editor, link);
@@ -54331,7 +54331,7 @@ tinymce.IconManager.add('default', {
       }, 300);
       editor.on('keydown', e => {
         if (toggleState.get() === true) {
-          e.keyCode === 13 ? toggle(editor) : debouncedToggle.throttle();
+          e.key === 'Enter' ? toggle(editor) : debouncedToggle.throttle();
         }
       });
       editor.on('remove', debouncedToggle.cancel);

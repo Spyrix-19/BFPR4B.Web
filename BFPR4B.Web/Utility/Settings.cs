@@ -2,6 +2,7 @@
 {
 	public class Settings
 	{
+
 		public static int N_SESSIONWARN = 10; //Session WARN in minutes
 		public static int N_SESSIONEXPIRE = 120; //Session EXPIRE in minutes
 

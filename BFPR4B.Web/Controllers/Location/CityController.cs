@@ -78,7 +78,7 @@ namespace BFPR4B.Web.Controllers.Location
 		}
 
 		[HttpGet("/city/details")]
-		public async Task<IActionResult> GetCityDetailAsync(int locationcode)
+		public async Task<IActionResult> GetCityDetailAsync(int cityno)
 		{
 			try
 			{
@@ -93,7 +93,7 @@ namespace BFPR4B.Web.Controllers.Location
 						return Unauthorized(new { IsSuccess = false, ErrorMessages = Settings.INVALID_SESSION_ERR_MSG });
 					}
 
-					var _response = await _cityService.GetCityDetailAsync<APIResponse>(locationcode, _data.Item2);
+					var _response = await _cityService.GetCityDetailAsync<APIResponse>(cityno, _data.Item2);
 
 					if (_response != null && _response.IsSuccess)
 					{
@@ -125,7 +125,7 @@ namespace BFPR4B.Web.Controllers.Location
 		}
 
 		[HttpGet("/city/ledger")]
-		public async Task<IActionResult> GetCityAsync(string searchkey = "", int parentcode = 0, int subparentcode = 0, int draw = 1, int start = 1, int length = 20)
+		public async Task<IActionResult> GetCityAsync(string searchkey = "", int provinceno = 0, int regionno = 0, int draw = 1, int start = 1, int length = 20)
 		{
 			try
 			{
@@ -140,7 +140,7 @@ namespace BFPR4B.Web.Controllers.Location
 						return Unauthorized(new { IsSuccess = false, ErrorMessages = Settings.INVALID_SESSION_ERR_MSG });
 					}
 
-					var _response = await _cityService.GetCityLedgerAsync<APIResponse>(searchkey, parentcode, subparentcode, _data.Item2);
+					var _response = await _cityService.GetCityLedgerAsync<APIResponse>(searchkey, provinceno, regionno, _data.Item2);
 
 					if (_response != null && _response.IsSuccess)
 					{
@@ -182,7 +182,7 @@ namespace BFPR4B.Web.Controllers.Location
 		}
 
 		[HttpDelete("/city/remove")]
-		public async Task<IActionResult> DeleteCityAsync(int locationcode)
+		public async Task<IActionResult> DeleteCityAsync(int cityno)
 		{
 			try
 			{
@@ -196,7 +196,7 @@ namespace BFPR4B.Web.Controllers.Location
 						return Unauthorized(new { IsSuccess = false, ErrorMessages = Settings.INVALID_SESSION_ERR_MSG });
 					}
 
-					var _response = await _cityService.DeleteCityAsync<APIResponse>(locationcode, _data.Item2);
+					var _response = await _cityService.DeleteCityAsync<APIResponse>(cityno, _data.Item2);
 
 					if (_response != null && _response.IsSuccess)
 					{

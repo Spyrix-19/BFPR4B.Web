@@ -34,7 +34,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Reset" button
-        const resetButton = document.querySelector('[data-kt-province-table-filter="reset"]');
+        const resetButton = document.querySelector('[data-kt-event-table-filter="reset"]');
         if (resetButton) {
             resetButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the menu
@@ -42,14 +42,14 @@ var KTDatatablesServerSide = function () {
             });
         }
 
-        const table = $('#kt_table_province').DataTable();
+        const table = $('#kt_table_event').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     }
 
     // Function to reset the Export values in the modal
     async function resetExport() {
         // Get the modal element
-        const modal = document.getElementById('kt_modal_export_province');
+        const modal = document.getElementById('kt_modal_export_event');
 
         // Check if the modal exists
         if (modal) {
@@ -64,7 +64,7 @@ var KTDatatablesServerSide = function () {
             });
 
             // Find the "Reset" button within the modal
-            const resetButton = modal.querySelector('[data-kt-province-table-filter="reset"]');
+            const resetButton = modal.querySelector('[ data-kt-event-export-action="reset"]');
             if (resetButton) {
                 resetButton.addEventListener('click', function (event) {
                     // Prevent the default behavior that closes the modal
@@ -73,10 +73,11 @@ var KTDatatablesServerSide = function () {
             }
         }
     }
-    
-    async function populateRegionDropdown(dropdownId) {
+
+    async function populateDropdown(tablename, dropdownId) {
         try {
-            const loginUrl = new URL('system/getregion', window.location.origin);
+            const loginUrl = new URL('system/gentables', window.location.origin);
+            loginUrl.searchParams.append('tablename', tablename);
 
             const response = await fetch(loginUrl, {
                 method: 'GET',
@@ -128,7 +129,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Cancel" button
-        const cancelButton = document.querySelector('[data-kt-add-province-modal-action="cancel"]');
+        const cancelButton = document.querySelector('[data-kt-add-event-modal-action="cancel"]');
         if (cancelButton) {
             cancelButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the modal
@@ -137,116 +138,87 @@ var KTDatatablesServerSide = function () {
         }
     }
 
-    // Function to open the "Add Province" modal
-    async function openAddProvinceModal(provinceno) {
+    // Function to open the "Add Event" modal
+    async function openAddEventModal(eventno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
         // Change the modal title here
-        var modalTitle = document.getElementById("kt_add_province_title");
-        modalTitle.innerText = provinceno === 0 ? "Add Province" : "Update Province"; // Change "New Title" to your desired text
+        var modalTitle = document.getElementById("kt_add_event_title");
+        modalTitle.innerText = eventno === 0 ? "Add Event" : "Update Event"; // Change "New Title" to your desired text
 
-        $('#kt_province_detno').val(provinceno);
+        $('#kt_event_eventno').val(eventno);
 
-        $('#kt_modal_add_province').modal('show');
-
-
-    }
-
-    // Function to open the "Add Province" modal
-    async function openExportProvinceModal() {
-
-        $('#kt_modal_export_province').modal('show');
+        $('#kt_modal_add_event').modal('show');
 
     }
 
-    // Function to open the "Add Province" modal
-    async function openProvinceJournalModal(provinceno) {
+    // Function to open the "Add Event" modal
+    async function openExportEventModal() {
+
+        $('#kt_modal_export_event').modal('show');
+
+    }
+
+    // Function to open the "Add Rank" modal
+    async function openEventJournalModal(eventno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
-        $('#kt_province_journal_provinceno').val(provinceno);
+        $('#kt_event_journal_eventno').val(eventno);
 
-        $('#kt_modal_province_journal').modal('show');
+        $('#kt_modal_event_journal').modal('show');
 
     }
 
     // Function to update the DataTable with new data
     var updateDataTable = async function () {
-        const table = $('#kt_table_province').DataTable();
+        const table = $('#kt_table_event').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     };
 
-    async function handleRowDeletion(provinceno, required) {
+    async function handleRowDeletion(eventno) {
         try {
 
-            // Get the row data from the DataTable
-            //const rowData = dt.row($('#kt_table_rank tbody tr[data-detno="' + detno + '"]')).data();
+            // SweetAlert2 pop-up...
+            const result = await Swal.fire({
+                text: "Are you sure you want to delete this record?",
+                icon: "warning",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Yes, delete!",
+                cancelButtonText: "No, cancel",
+                customClass: {
+                    confirmButton: "btn fw-bold btn-danger",
+                    cancelButton: "btn fw-bold btn-active-light-primary"
+                }
+            });
 
-            if (required) {
-                await Swal.fire({
-                    text: "This record is required.",
-                    icon: "info",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-primary",
-                    }
-                });
-            }
-            else {
-                // SweetAlert2 pop-up...
-                const result = await Swal.fire({
-                    text: "Are you sure you want to delete this record?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
+            if (result.value) {
+                const response = await fetch(`/event/remove?eventno=${eventno}`, {
+                    method: 'DELETE',
+                    //headers: {
+                    //    'Content-Type': 'application/json',
+                    //    'Accept': 'application/json'
+                    //},
                 });
 
-                if (result.value) {
-                    const response = await fetch(`/province/remove?provinceno=${provinceno}`, {
-                        method: 'DELETE',
-                        //headers: {
-                        //    'Content-Type': 'application/json',
-                        //    'Accept': 'application/json'
-                        //},
+                if (response.ok) {
+                    // Success message
+                    await Swal.fire({
+                        text: "You have successfully deleted this record.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
                     });
 
-                    if (response.ok) {
-                        // Success message
-                        await Swal.fire({
-                            text: "You have successfully deleted this record.",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
+                    updateDataTable();
 
-                        updateDataTable();
-
-                    } else {
-                        // Error message
-                        await Swal.fire({
-                            text: "Failed to delete user data.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                        console.error('Failed to delete user data:', response.status, response.statusText);
-                    }
-                } else if (result.dismiss === 'cancel') {
-                    // Cancelled action
+                } else {
+                    // Error message
                     await Swal.fire({
-                        text: "The record was not deleted.",
+                        text: "Failed to delete user data.",
                         icon: "error",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",
@@ -254,8 +226,19 @@ var KTDatatablesServerSide = function () {
                             confirmButton: "btn fw-bold btn-primary",
                         }
                     });
+                    console.error('Failed to delete user data:', response.status, response.statusText);
                 }
-
+            } else if (result.dismiss === 'cancel') {
+                // Cancelled action
+                await Swal.fire({
+                    text: "The record was not deleted.",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-primary",
+                    }
+                });
             }
 
         } catch (error) {
@@ -271,34 +254,36 @@ var KTDatatablesServerSide = function () {
             dt.destroy();
         }
 
-        populateRegionDropdown('regionDropdown');
+        populateDropdown('EVENT TYPE', 'eventtypeDropdown');
+        populateDropdown('GAD STATUS', 'statusDropdown');
 
-        dt = $("#kt_table_province").DataTable({
+        dt = $("#kt_table_event").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
             order: [],
             ordering: false, // Disable sorting for all columns
-            stateSave: false,
-            page: 1, // Set the default page to 1
+            stateSave: true,
             select: {
                 style: 'multi',
                 selector: 'td:first-child input[type="checkbox"]',
                 className: 'row-selected'
             },
             ajax: {
-                url: "/province/ledger",
+                url: "/event/ledger",
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
+                    d.status = $("#statusDropdown").val();
+                    d.eventtype = $("#eventtypeDropdown").val();
                     d.searchkey = $("#searchInput").val();
-                    d.regionno = $("#regionDropdown").val();
                 }
             },
             columns: [
                 {
-                    data: 'Provinceno',
+                    data: 'Eventno',
                     render: function (data) {
+                        console.log("Eventno:", data); // Check what value is passed here
                         return `<div class="btn-group">
 									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-cog"></i>
@@ -307,8 +292,13 @@ var KTDatatablesServerSide = function () {
 									</a>
 									<div class="dropdown-menu">
 										<div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-province-table-filter="view_province_journal" data-provinceno="${data}">
-												View Province Journal
+											<a style="cursor: pointer;" class="menu-link px-3" data-kt-event-table-filter="view_event_attachment" data-eventno="${data}">
+												View Event Attachment
+											</a>
+										</div>
+                                        <div class="dropdown-item px-3">
+											<a style="cursor: pointer;" class="menu-link px-3" data-kt-event-table-filter="view_event_journal" data-eventno="${data}">
+												View Event Journal
 											</a>
 										</div>
 									</div>
@@ -316,15 +306,61 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Provinceno',
+                    data: 'Eventno',
                     render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-province-table-filter="edit_province" data-toggle="tooltip" data-placement="top" title="Change" data-provinceno="${data}">
+                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-event-table-filter="edit_event" data-toggle="tooltip" data-placement="top" title="Change" data-eventno="${data}">
                                      <i class="la la-edit"></i>
                                 </a>`;
                     }
                 },
-                { data: 'Provincename' },
-                { data: 'Regionname' },
+                {
+                    data: 'Eventname',
+                    render: function (data) {
+                        return `<div style="text-align: left !important;">${data || 'N/A'}</div>`;
+                    },
+                    className: 'text-left'
+                },
+                {
+                    data: 'StatusName',
+                    render: function (data, type, row) {
+                        switch (data) {
+                            case "PENDING":
+                                return `<span class="badge badge-warning badge-md text-white">${data}</span>`;
+                            case "ON GOING":
+                                return `<span class="badge badge-primary badge-md text-white">${data}</span>`;
+                            case "CANCELLED":
+                                return `<span class="badge badge-danger badge-md text-white">${data}</span>`;
+                            case "DONE":
+                                return `<span class="badge badge-success badge-md text-white">${data}</span>`;
+                            default:
+                                return `<span class="badge badge-secondary badge-md text-white"></span>`;
+                        }
+                    }
+                },
+                { data: 'EventtypeName' },
+                { data: 'Male' },
+                { data: 'Female' },
+                {
+                    data: null,
+                    render: function (data) {
+                        return (data.Male || 0) + (data.Female || 0);
+                    },
+                    title: 'Total',
+                    className: 'text-center'
+                },
+                {
+                    data: 'Eventdatefrom',
+                    render: function (data) {
+                        return data ? new Date(data).toLocaleDateString('en-US') : '';
+                    }
+                },
+                {
+                    data: 'Eventdateto',
+                    render: function (data) {
+                        return data ? new Date(data).toLocaleDateString('en-US') : '';
+                    },
+                    className: 'text-center'
+                },
                 { data: 'Encodedbyname' },
                 {
                     data: 'Dateencoded',
@@ -334,13 +370,9 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Provinceno',
+                    data: 'Eventno',
                     render: function (data, type, row) {
-
-                        // Assuming row contains the data from your API response
-                        var reqValue = row.Required; // Replace 'REQ' with the actual field name from your API
-
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-province-table-filter="delete_province" data-toggle="tooltip" data-placement="top" title="Delete" data-provinceno="${data}" data-required="${reqValue}">
+                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-event-table-filter="delete_event" data-toggle="tooltip" data-placement="top" title="Delete" data-eventno="${data}" >
                                      <i class="bi bi-trash3"></i>
                                 </a>`;
                     }
@@ -348,7 +380,7 @@ var KTDatatablesServerSide = function () {
             ],
             columnDefs: [
                 {
-                    targets: [0, 1, 5],
+                    targets: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                     className: 'text-center',
                 }
             ]
@@ -363,55 +395,54 @@ var KTDatatablesServerSide = function () {
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-province-table-filter="add_province"]').on('click', function () {
-            const provinceno = 0;
+        $('[data-kt-event-table-filter="add_event"]').on('click', function () {
+            const eventno = 0;
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddProvinceModal(provinceno);
+            openAddEventModal(eventno);
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_province').on('click', '[data-kt-province-table-filter="edit_province"]', function () {
-            const provinceno = $(this).data('provinceno');
+        $('#kt_table_event').on('click', '[data-kt-event-table-filter="edit_event"]', function () {
+            const eventno = $(this).data('eventno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddProvinceModal(provinceno);
+            openAddEventModal(eventno);
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-province-table-filter="export_province"]').on('click', function () {
+        $('[data-kt-event-table-filter="export_event"]').on('click', function () {
             // Now you can use the userId to identify the user and open the modal accordingly
-            openExportProvinceModal();
+            openExportEventModal();
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_province').on('click', '[data-kt-province-table-filter="view_province_journal"]', function () {
-            const provinceno = $(this).data('provinceno');
+        $('#kt_table_event').on('click', '[data-kt-event-table-filter="view_event_journal"]', function () {
+            const eventno = $(this).data('eventno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openProvinceJournalModal(provinceno);
+            openEventJournalModal(eventno);
         });
 
         // Event handler for the "x" button in Search
-        $('[data-kt-province-table-search="search"]').on('click', resetSearch);
+        $('[data-kt-event-table-search="search"]').on('click', resetSearch);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-province-table-filter="reset"]').on('click', resetFilter);
+        $('[data-kt-event-table-filter="reset"]').on('click', resetFilter);
 
         // Event handler for the "Discard" button in Export
-        $('[data-kt-province-export-action="reset"]').on('click', resetExport);
+        $('[data-kt-event-export-action="reset"]').on('click', resetExport);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-add-province-modal-action="cancel"]').on('click', resetAddUpdate);
+        $('[data-kt-add-event-modal-action="cancel"]').on('click', resetAddUpdate);
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_province').on('click', '[data-kt-province-table-filter="delete_province"]', function () {
-            const provinceno = $(this).data('provinceno');
-            const required = $(this).data('required');
+        $('#kt_table_event').on('click', '[data-kt-event-table-filter="delete_event"]', function () {
+            const eventno = $(this).data('eventno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            handleRowDeletion(provinceno, required);
+            handleRowDeletion(eventno);
         });
 
         // Event handler for input field change in search when enter is hit
         $('#searchInput').on('keydown', function (e) {
-            if (e.keyCode === 13) { // Check if Enter key (key code 13) is pressed
+            if (e.key === 'Enter') { // Check if Enter key (key code 13) is pressed
                 dt.ajax.reload();
             }
         });

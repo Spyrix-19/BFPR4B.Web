@@ -113,6 +113,42 @@ namespace BFPR4B.Web.Controllers.Framework
 			}
 		}
 
+		[HttpGet("system/getbarangay2")]
+		public async Task<IActionResult> GetBarangayDropdown2()
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					BarangayModel list = new BarangayModel();
+
+					var _response = await _systemService.GetBarangay<APIResponse>("", 0, 0, 0);
+
+					if (_response != null && _response.IsSuccess)
+					{
+						var options = JsonConvert.DeserializeObject<List<BarangayModel>>(Convert.ToString(_response.Result));
+
+						// Extract the relevant data for the dropdown options
+						var dropdownOptions = options.Select(option => new
+						{
+							value = option.Barangayno,
+							text = option.Barangayname + "\n" + option.Cityname.Trim() + "\n" + option.Provincename.Trim() + "\n" + option.Regioncode.Trim(),
+						});
+
+						return Ok(dropdownOptions);
+					}
+
+					return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.API_ERR_MSG });
+				}
+
+				return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.INVALID_MODEL_ERR_MSG });
+			}
+			catch (Exception exception)
+			{
+				return Json(new { error = Convert.ToInt32(HttpStatusCode.InternalServerError), message = Settings.UNKNOWN_ERR_MSG });
+			}
+		}
+
 		[HttpGet("system/getcity")]
 		public async Task<IActionResult> GetCityDropdown(int provinceno = 0, int regionno = 0)
 		{
@@ -149,6 +185,42 @@ namespace BFPR4B.Web.Controllers.Framework
 			}
 		}
 
+		[HttpGet("system/getcity2")]
+		public async Task<IActionResult> GetCityDropdown2()
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					CityModel list = new CityModel();
+
+					var _response = await _systemService.GetCity<APIResponse>("", 0, 0);
+
+					if (_response != null && _response.IsSuccess)
+					{
+						var options = JsonConvert.DeserializeObject<List<CityModel>>(Convert.ToString(_response.Result));
+
+						// Extract the relevant data for the dropdown options
+						var dropdownOptions = options.Select(option => new
+						{
+							value = option.Cityno,
+							text = option.Cityname.Trim() + "\n" + option.Provincename.Trim() + "\n" + option.Regioncode.Trim(),
+						});
+
+						return Ok(dropdownOptions);
+					}
+
+					return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.API_ERR_MSG });
+				}
+
+				return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.INVALID_MODEL_ERR_MSG });
+			}
+			catch (Exception exception)
+			{
+				return Json(new { error = Convert.ToInt32(HttpStatusCode.InternalServerError), message = Settings.UNKNOWN_ERR_MSG });
+			}
+		}
+
 		[HttpGet("system/getprovince")]
 		public async Task<IActionResult> GetProvinceDropdown(int regionno = 0)
 		{
@@ -169,6 +241,42 @@ namespace BFPR4B.Web.Controllers.Framework
 						{
 							value = option.Provinceno,
 							text = option.Provincename
+						});
+
+						return Ok(dropdownOptions);
+					}
+
+					return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.API_ERR_MSG });
+				}
+
+				return BadRequest(new { IsSuccess = false, ErrorMessages = Settings.INVALID_MODEL_ERR_MSG });
+			}
+			catch (Exception exception)
+			{
+				return Json(new { error = Convert.ToInt32(HttpStatusCode.InternalServerError), message = Settings.UNKNOWN_ERR_MSG });
+			}
+		}
+
+		[HttpGet("system/getprovince2")]
+		public async Task<IActionResult> GetProvinceDropdown2()
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					ProvinceModel list = new ProvinceModel();
+
+					var _response = await _systemService.GetProvince<APIResponse>("", 0);
+
+					if (_response != null && _response.IsSuccess)
+					{
+						var options = JsonConvert.DeserializeObject<List<ProvinceModel>>(Convert.ToString(_response.Result));
+
+						// Extract the relevant data for the dropdown options
+						var dropdownOptions = options.Select(option => new
+						{
+							value = option.Provinceno,
+							text = option.Provincename.Trim()+ "\n" + option.Regioncode.Trim(),
 						});
 
 						return Ok(dropdownOptions);

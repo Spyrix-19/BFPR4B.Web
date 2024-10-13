@@ -4,5 +4,89 @@
 	ViewData["Module"] = "List of Resources";
 	KTTheme.AddVendors(new string[] { "amcharts", "amcharts-maps", "amcharts-stock" });
 
-
+	KTTheme.AddJavascriptFile("js/custom/GAD/Resource/Resource/AddUpdate.js");
+	KTTheme.AddJavascriptFile("js/custom/GAD/Resource/Resource/Detail.js");
+	KTTheme.AddJavascriptFile("js/custom/GAD/Resource/Resource/Export.js");
+	KTTheme.AddJavascriptFile("js/custom/GAD/Resource/Resource/Ledger.js");
 }
+
+
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+	<!--begin::Content container-->
+	<div id="kt_app_content_container" class="app-container">
+		<!--begin::Card-->
+		<div class="card">
+			<!--begin::Card header-->
+			<div class="card-header border-0 pt-6">
+				<!--begin::Card title-->
+				<div class="card-title">
+					<!--begin::Search-->
+					<div class="d-flex align-items-center position-relative my-1">
+						<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+							<span class="path1"></span>
+							<span class="path2"></span>
+						</i>
+
+						<input type="text" data-kt-resource-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-250px ps-13" placeholder="Search" id="searchInput" />
+
+						<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+							<i class="fas fa-times-circle position-absolute me-2" id="clearButton" style="cursor: pointer; display: none;"></i>
+						</span>
+					</div>
+					<!--end::Search-->
+				</div>
+				<!--begin::Card title-->
+				<!--begin::Card toolbar-->
+				<div class="card-toolbar">					
+					<!--end::Filter-->
+					<!--begin::Export-->
+					<button type="button" class="btn btn-light-primary me-3" data-kt-resource-table-filter="export_resource">
+						<i class="ki-duotone ki-exit-up fs-2">
+							<span class="path1"></span>
+							<span class="path2"></span>
+						</i>Export
+					</button>
+					<!--end::Export-->
+					<!--begin::Add Resource-->
+					<button type="button" class="btn btn-primary" data-kt-resource-table-filter="add_resource">
+						<i class="ki-duotone ki-plus fs-2"></i>Add Resource
+					</button>
+					<!--end::Add Resource-->
+
+					</div>
+				</div>
+				<!--end::Card toolbar-->
+			<!--end::Card header-->
+			<!--begin::Separator-->
+			<div class="separator border-gray-200"></div>
+			<!--end::Separator-->
+			<!--begin::Card body-->
+			<div class="card-body py-4">
+				<!--begin::Table-->
+				<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_resource">
+					<thead>
+						<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+							<th class="text-end min-w-100px text-center ">Actions</th>
+							<th class="w-10px pe-2 text-center ">Edit</th>
+							<th class="min-w-300px text-center ">Title</th>
+							<th class="min-w-900px text-center ">Description</th>
+							<th class="min-w-250px text-center ">Encoded By</th>
+							<th class="min-w-200px text-center ">Date Encoded</th>
+							<th class="w-10px pe-2 text-center ">Delete</th>
+						</tr>
+					</thead>
+					<tbody class="text-gray-600 fw-semibold textal">
+					</tbody>
+				</table>
+				<!--end::Table-->
+			</div>
+			<!--end::Card body-->
+
+		</div>
+		<!--end::Card-->
+		<!--end::Card Page-->
+	</div>
+	<!--end::Content container-->
+</div>
+<!--end::Content-->

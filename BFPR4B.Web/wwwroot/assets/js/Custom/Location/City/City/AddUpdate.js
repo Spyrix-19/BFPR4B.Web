@@ -5,7 +5,7 @@ var KTAddUpdate = function () {
     var submitButton;
     var validator;
     var modal;
-    let PROVINCE_DATA = {};
+    let CITY_DATA = {};
     let username = 'Spyrix19';
     let userno = 1;
 
@@ -15,17 +15,31 @@ var KTAddUpdate = function () {
             form,
             {
                 fields: {
-                    'province_name': {
+                    'regionDropdown': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Region is required'
+                            }
+                        }
+                    },
+                    'provinceDropdown': {
                         validators: {
                             notEmpty: {
                                 message: 'Province is required'
                             }
                         }
                     },
-                    'kt_province_type': {
+                    'kt_city_name': {
                         validators: {
                             notEmpty: {
-                                message: 'Region is required'
+                                message: 'City is required'
+                            }
+                        }
+                    },
+                    'kt_zip_code': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Zip Code is required'
                             }
                         }
                     }
@@ -81,26 +95,64 @@ var KTAddUpdate = function () {
         }
     }
 
+    async function populateRegionDropdown(dropdownId) {
+        try {
+            const loginUrl = new URL('system/getregion', window.location.origin);
+
+            const response = await fetch(loginUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const dropdown = document.getElementById(dropdownId);
+
+                dropdown.innerHTML = ''; // Clear existing options
+                const emptyOption = document.createElement('option');
+                dropdown.appendChild(emptyOption);
+
+                data.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.text = option.text;
+                    dropdown.appendChild(optionElement);
+                });
+            } else {
+                console.error('Failed to fetch data:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    }
+
+
     // Fetch user data and populate the form
-    var fetchAndUpdateData = async function (provinceno) {
+    var fetchAndUpdateData = async function (cityno) {
         try {
 
-            document.getElementById('kt_provinceno').value = '';
-            document.getElementById('kt_province_name').value = '';
-            document.getElementById('kt_province_type').value = '';
+            document.getElementById('kt_cityno').value = '';
+            document.getElementById('kt_city_name').value = '';
+            document.getElementById('kt_zip_code').value = '';
+            document.getElementById('provinceDropdown').value = '';
+            document.getElementById('regionDropdown').text = '';
 
-            const response = await fetch(`/provinces/details?provinceno=${provinceno}`);
+            const response = await fetch(`/city/details?cityno=${cityno}`);
             if (response.ok) {
+                const cityData = await response.json();
 
-                const provinceData = await response.json();
+                CITY_DATA = cityData;
 
-                PROVINCE_DATA = provinceData;
+                if (cityData !== null) {
 
-                if (provinceData !== null) {
-
-                    $('#kt_provinceno').val(provinceData.data.Provinceno);
-                    $('#kt_province_name').val(provinceData.data.Provincename);
-                    $('#kt_province_type').val(provinceData.data.Regionno).trigger('change.select2');
+                    $('#kt_cityno').val(cityData.data.Cityno);
+                    $('#kt_city_name').val(cityData.data.Cityname);
+                    $('#kt_zip_code').val(cityData.data.Zipcode);
+                    $('#provinceDropdown').val(cityData.data.Provinceno).trigger('change.select2');
+                    $('#regionDropdown').val(cityData.data.Regionno).trigger('change.select2');
                 }
             } else {
                 console.error('Failed to fetch user data:', response.status, response.statusText);
@@ -112,18 +164,18 @@ var KTAddUpdate = function () {
 
     //Function to get data-userno attribute value from the selected row in DataTable and fetch user data
     async function FetchData() {
-        const provincenoInput = document.getElementById('kt_provinceno');
-        const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
+        const citynoInput = document.getElementById('kt_cityno');
+        const citynoValue = citynoInput.value.trim(); // Trim any leading/trailing whitespace
 
-        let provinceno = provincenoValue === '' ? '0' : provincenoValue;
+        let dataCityno = citynoValue === '' ? '0' : citynoValue;
 
-        if (provinceno) {
+        if (dataCityno) {
             // If the attribute exists, call the fetchAndUpdateUserData function with the user number
-            if (dataLocationcode !== '0') {
-                fetchAndUpdateData(provinceno);
+            if (dataCityno !== '0') {
+                fetchAndUpdateData(dataCityno);
             }
         } else {
-            console.error('data-provinceno attribute is missing in the selected row.');
+            console.error('data-cityno attribute is missing in the selected row.');
         }
     }
 
@@ -132,7 +184,6 @@ var KTAddUpdate = function () {
         // Get all the select elements within the modal
         const selectElements = document.querySelectorAll('.modal-dialog [data-kt-select2]');
         const inputElements = document.querySelectorAll('.modal-dialog [type="text"]');
-
 
         // Remove validation icons
         const validationIcons = document.querySelectorAll('.modal-dialog .fv-plugins-icon');
@@ -154,9 +205,12 @@ var KTAddUpdate = function () {
         });
 
         // Check if the button clicked is the "Cancel" button
-        const cancelButton = document.querySelector('[data-kt-add-province-modal-action="cancel"]');
+        const cancelButton = document.querySelector('[data-kt-add-city-modal-action="cancel"]');
         if (cancelButton) {
             cancelButton.addEventListener('click', function (event) {
+                // Prevent the default behavior that closes the modal
+                event.preventDefault();
+
                 Swal.fire({
                     text: "Are you sure you would like to cancel?",
                     icon: "warning",
@@ -171,7 +225,7 @@ var KTAddUpdate = function () {
                 }).then(function (result) {
                     if (result.value) {
                         form.reset(); // Reset form	
-                        $('#kt_modal_add_province').modal('hide'); // Hide modal
+                        $('#kt_modal_add_city').modal('hide'); // Hide modal
 
                         // Check if the validator instance exists and destroy it
                         if (typeof validator !== 'undefined') {
@@ -183,7 +237,7 @@ var KTAddUpdate = function () {
         }
 
         // Check if the button clicked is the "Cancel" button
-        const closeButton = document.querySelector('[data-kt-add-province-modal-action="close"]');
+        const closeButton = document.querySelector('[data-kt-add-city-modal-action="close"]');
         if (closeButton) {
             closeButton.addEventListener('click', function (event) {
                 Swal.fire({
@@ -200,7 +254,7 @@ var KTAddUpdate = function () {
                 }).then(function (result) {
                     if (result.value) {
                         form.reset(); // Reset form	
-                        $('#kt_modal_add_province').modal('hide'); // Hide modal
+                        $('#kt_modal_add_city').modal('hide'); // Hide modal
 
                         // Check if the validator instance exists and destroy it
                         if (typeof validator !== 'undefined') {
@@ -212,18 +266,18 @@ var KTAddUpdate = function () {
         }
 
         initValidation();
+
     }
 
     // Function to update the DataTable with new data
     var updateDataTable = async function () {
-        const table = $('#kt_table_province').DataTable();
+        const table = $('#kt_table_city').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     };
 
     var handleFormSubmit = async function (e) {
         const status = await validator.validate();
         if (status === 'Valid') {
-
             Swal.fire({
                 text: "Are you sure you want to submit this data?",
                 icon: "question",
@@ -240,21 +294,21 @@ var KTAddUpdate = function () {
                     submitButton.setAttribute('data-kt-indicator', 'on');
                     submitButton.disabled = true;
 
-                    const addprovinceUrl = '/province/create';
+                    const addCityUrl = '/city/create';
 
-                    const provincenoInput = document.getElementById('kt_provinceno');
-                    const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
+                    const citynoInput = citynoInput.getElementById('kt_cityno');
+                    const citynoValue = detnoInput.value.trim(); // Trim any leading/trailing whitespace
 
                     const requestBody = JSON.stringify({
-                        provinceno: provincenoValue === '' ? '0' : provincenoValue, // Set to '0' if empty
-                        provincename: document.getElementById('kt_province_name').value,
-                        regionno: document.getElementById('kt_province_type').value,
+                        cityno: citynoValue === '' ? '0' : citynoValue, // Set to '0' if empty
+                        zipcode: document.getElementById('kt_zip_code').value,
+                        cityname: document.getElementById('kt_city_name').value,
+                        provinceno: document.getElementById('provinceDropdown').value,
                         encodedby: userno,
                     });
 
                     try {
-
-                        const response = await fetch(addprovinceUrl, {
+                        const response = await fetch(addCityUrl, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -262,60 +316,70 @@ var KTAddUpdate = function () {
                             },
                             body: requestBody
                         });
-
-
                         if (response.ok) {
 
+                            let citynojournal = citynoValue === '' ? '0' : citynoValue;
 
-                            //let locationcodejournal = locationcodeValue === '' ? '0' : locationcodeValue;
+                            if (citynojournal !== '0') {
+                                const addjournalUrl = '/city/journal/create';
 
-                            //if (locationcodejournal !== '0') {
-                            //    const addjournalUrl = '/province/journal/create';
+                                const journalrequestBody = {
+                                    cityno: citynoValue === '' ? '0' : citynoValue, // Set to '0' if empty
+                                    encodedby: userno,
+                                    journallist: [] // Initialize journallist as an empty array
+                                };
 
-                            //    const journalrequestBody = {
-                            //        gendetno: locationcodeValue === '' ? '0' : locationcodeValue, // Set to '0' if empty
-                            //        tablename: 'RANK',
-                            //        encodedby: userno,
-                            //        journallist: [] // Initialize journallist as an empty array
-                            //    };
+                                if (CITY_DATA.data.Cityname !== null) {
+                                    if (CITY_DATA.data.Cityname !== document.getElementById('kt_city_name').value) {
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed City from ' + CITY_DATA.data.Cityname + ' to ' + document.getElementById('kt_city_name').value
+                                        });
+                                    }
+                                }
 
-                            //    if (RANK_DATA.data.recordcode !== null) {
-                            //        if (RANK_DATA.data.recordcode !== document.getElementById('kt_rank_code').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Rank Code from ' + RANK_DATA.data.recordcode + ' to ' + document.getElementById('kt_rank_code').value
-                            //            });
-                            //        }
-                            //    }
+                                if (CITY_DATA.data.Zipcode !== null) {
+                                    if (CITY_DATA.data.Zipcode !== document.getElementById('kt_zip_code').value) {
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Zipcode from ' + CITY_DATA.data.Zipcode + ' to ' + document.getElementById('kt_zip_code').value
+                                        });
+                                    }
+                                }
 
-                            //    if (RANK_DATA.data.description !== null) {
-                            //        if (RANK_DATA.data.description !== document.getElementById('kt_rank_name').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Rank Name from ' + RANK_DATA.data.description + ' to ' + document.getElementById('kt_rank_name').value
-                            //            });
-                            //        }
-                            //    }
+                                if (CITY_DATA.data.Provinceno !== null || CITY_DATA.data.Provinceno !== '0') {
+                                    if (CITY_DATA.data.Provinceno !== document.getElementById('provinceDropdown').value) {
 
-                            //    try {
-                            //        const response = await fetch(addjournalUrl, {
-                            //            method: 'POST',
-                            //            headers: {
-                            //                'Content-Type': 'application/json',
-                            //                'Accept': 'application/json'
-                            //            },
-                            //            body: JSON.stringify(journalrequestBody)
-                            //        });
-                            //    } catch (error) {
-                            //        Swal.fire({
-                            //            text: error.message || 'An error occurred',
-                            //            icon: 'error',
-                            //            buttonsStyling: false,
-                            //            confirmButtonText: 'Ok, got it!',
-                            //            customClass: {
-                            //                confirmButton: 'btn btn-primary'
-                            //            }
-                            //        });
-                            //    }
-                            //}
+                                        var dropdown2 = document.getElementById('provinceDropdown');
+
+                                        var selectedText2 = dropdown2.options[dropdown2.selectedIndex].text;
+
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Province from ' + CITY_DATA.data.Provincename + ' to ' + selectedText2
+                                        });
+                                    }
+                                }
+
+
+                                try {
+                                    const response = await fetch(addjournalUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json'
+                                        },
+                                        body: JSON.stringify(journalrequestBody)
+                                    });
+                                } catch (error) {
+                                    Swal.fire({
+                                        text: error.message || 'An error occurred',
+                                        icon: 'error',
+                                        buttonsStyling: false,
+                                        confirmButtonText: 'Ok, got it!',
+                                        customClass: {
+                                            confirmButton: 'btn btn-primary'
+                                        }
+                                    });
+                                }
+                            }
 
                             form.reset();
                             Swal.fire({
@@ -328,7 +392,7 @@ var KTAddUpdate = function () {
                                 }
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    $('#kt_modal_add_province').modal('hide'); // Close the modal
+                                    $('#kt_modal_add_city').modal('hide');
                                     updateDataTable();
                                 }
                             });
@@ -372,18 +436,17 @@ var KTAddUpdate = function () {
                 }
             });
         }
-
     };
 
 
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_add_province_form');
-            submitButton = document.querySelector('#kt_add_province_submit');
-            modal = document.getElementById('kt_modal_add_province');
+            form = document.querySelector('#kt_modal_add_city_form');
+            submitButton = document.querySelector('#kt_add_city_submit');
+            modal = document.getElementById('kt_modal_add_city');
 
-            //populateLocationDropdown('DIVISION', 0, 'kt_division_type');
-            populateLocationDropdown('REGION', 0, 'kt_province_type');
+            populateProvinceDropdown(0, 'provinceDropdown');
+            populateRegionDropdown('regionDropdown');
 
             // Only initialize validation when the form is submitted
             if ((form || submitButton) && modal) {
@@ -406,24 +469,15 @@ var KTAddUpdate = function () {
             if (modal) {
                 $(modal).on('shown.bs.modal', function () {
                     // Get selected user data when the modal is shown
+                    populateProvinceDropdown(0, 'provinceDropdown');
+                    populateRegionDropdown('regionDropdown');
                     resetAddUpdate();
                     FetchData();
                 });
             }
+            
 
-            //// Initialize validation and other functionality
-            //if (form && submitButton) {
-            //    initValidation();
 
-            //    form.addEventListener('submit', handleFormSubmit);
-
-            //    // Listen for Bootstrap modal shown event
-            //    $(modal).on('shown.bs.modal', function () {
-            //        // Get selected user data when the modal is shown
-            //        resetAddUpdate();
-            //        FetchData();
-            //    });
-            //}
         }
     };
 }();

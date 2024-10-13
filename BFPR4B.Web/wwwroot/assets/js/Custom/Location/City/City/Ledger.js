@@ -34,7 +34,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Reset" button
-        const resetButton = document.querySelector('[data-kt-barangay-table-filter="reset"]');
+        const resetButton = document.querySelector('[data-kt-city-table-filter="reset"]');
         if (resetButton) {
             resetButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the menu
@@ -42,14 +42,14 @@ var KTDatatablesServerSide = function () {
             });
         }
 
-        const table = $('#kt_table_barangay').DataTable();
+        const table = $('#kt_table_city').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     }
 
     // Function to reset the Export values in the modal
     async function resetExport() {
         // Get the modal element
-        const modal = document.getElementById('kt_modal_export_barangay');
+        const modal = document.getElementById('kt_modal_export_city');
 
         // Check if the modal exists
         if (modal) {
@@ -64,49 +64,13 @@ var KTDatatablesServerSide = function () {
             });
 
             // Find the "Reset" button within the modal
-            const resetButton = modal.querySelector('[data-kt-barangay-table-filter="reset"]');
+            const resetButton = modal.querySelector('[data-kt-city-table-filter="reset"]');
             if (resetButton) {
                 resetButton.addEventListener('click', function (event) {
                     // Prevent the default behavior that closes the modal
                     event.preventDefault();
                 });
             }
-        }
-    }    
-
-    async function populateCityDropdown(provinceno, regionno, dropdownId) {
-        try {
-            const loginUrl = new URL('system/getcity', window.location.origin);
-            loginUrl.searchParams.append('provinceno', provinceno);
-            loginUrl.searchParams.append('regionno', regionno);
-
-            const response = await fetch(loginUrl, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const dropdown = document.getElementById(dropdownId);
-
-                dropdown.innerHTML = ''; // Clear existing options
-                const emptyOption = document.createElement('option');
-                dropdown.appendChild(emptyOption);
-
-                data.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.text = option.text;
-                    dropdown.appendChild(optionElement);
-                });
-            } else {
-                console.error('Failed to fetch data:', response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
         }
     }
 
@@ -199,7 +163,7 @@ var KTDatatablesServerSide = function () {
         });
 
         // Check if the button clicked is the "Cancel" button
-        const cancelButton = document.querySelector('[data-kt-add-barangay-modal-action="cancel"]');
+        const cancelButton = document.querySelector('[data-kt-add-city-modal-action="cancel"]');
         if (cancelButton) {
             cancelButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the modal
@@ -208,45 +172,45 @@ var KTDatatablesServerSide = function () {
         }
     }
 
-    // Function to open the "Add Barangay" modal
-    async function openAddBarangayModal(barangayno) {
+    // Function to open the "Add City" modal
+    async function openAddCityModal(cityno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
         // Change the modal title here
-        var modalTitle = document.getElementById("kt_add_barangay_title");
-        modalTitle.innerText = barangayno === 0 ? "Add Barangay" : "Update Barangay"; // Change "New Title" to your desired text
+        var modalTitle = document.getElementById("kt_add_city_title");
+        modalTitle.innerText = cityno === 0 ? "Add City" : "Update City"; // Change "New Title" to your desired text
 
-        $('#kt_barangay_barangayno').val(barangayno);
+        $('#kt_cityno').val(cityno);
 
-        $('#kt_modal_add_barangay').modal('show');
+        $('#kt_modal_add_city').modal('show');
 
-
-    }
-
-    // Function to open the "Add Barangay" modal
-    async function openExportBarangayModal() {
-
-        $('#kt_modal_export_barangay').modal('show');
 
     }
 
-    // Function to open the "Add Barangay" modal
-    async function openBarangayJournalModal(barangayno) {
+    // Function to open the "Add City" modal
+    async function openExportCityModal() {
+
+        $('#kt_modal_export_city').modal('show');
+
+    }
+
+    // Function to open the "Add City" modal
+    async function openCityJournalModal(cityno) {
         // Here, you can use the detno to customize the modal content or perform other actions as needed
 
-        $('#kt_barangay_journal_barangayno').val(barangayno);
+        $('#kt_city_journal_cityno').val(cityno);
 
-        $('#kt_modal_barangay_journal').modal('show');
+        $('#kt_modal_city_journal').modal('show');
 
     }
 
     // Function to update the DataTable with new data
     var updateDataTable = async function () {
-        const table = $('#kt_table_barangay').DataTable();
+        const table = $('#kt_table_city').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
     };
 
-    async function handleRowDeletion(barangayno, required) {
+    async function handleRowDeletion(cityno, required) {
         try {
 
             // Get the row data from the DataTable
@@ -279,7 +243,7 @@ var KTDatatablesServerSide = function () {
                 });
 
                 if (result.value) {
-                    const response = await fetch(`/barangay/remove?barangayno=${barangayno}`, {
+                    const response = await fetch(`/city/remove?cityno=${cityno}`, {
                         method: 'DELETE',
                         //headers: {
                         //    'Content-Type': 'application/json',
@@ -342,11 +306,10 @@ var KTDatatablesServerSide = function () {
             dt.destroy();
         }
 
-        populateCityDropdown(0, 0, 'cityDropdown');
         populateProvinceDropdown(0, 'provinceDropdown');
         populateRegionDropdown('regionDropdown');
 
-        dt = $("#kt_table_barangay").DataTable({
+        dt = $("#kt_table_city").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
@@ -360,19 +323,18 @@ var KTDatatablesServerSide = function () {
                 className: 'row-selected'
             },
             ajax: {
-                url: "/barangay/ledger",
+                url: "/city/ledger",
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.searchkey = $("#searchInput").val();
-                    d.cityno = $("#cityDropdown").val();
                     d.provinceno = $("#provinceDropdown").val();
                     d.regionno = $("#regionDropdown").val();
                 }
             },
             columns: [
                 {
-                    data: 'Barangayno',
+                    data: 'Cityno',
                     render: function (data) {
                         return `<div class="btn-group">
 									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -382,8 +344,8 @@ var KTDatatablesServerSide = function () {
 									</a>
 									<div class="dropdown-menu">
 										<div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-barangay-table-filter="view_barangay_journal" data-barangayno="${data}">
-												View Barangay Journal
+											<a style="cursor: pointer;" class="menu-link px-3" data-kt-city-table-filter="view_city_journal" data-cityno="${data}">
+												View City Journal
 											</a>
 										</div>
 									</div>
@@ -391,17 +353,17 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Barangayno',
+                    data: 'Cityno',
                     render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-barangay-table-filter="edit_barangay" data-toggle="tooltip" data-placement="top" title="Change" data-barangayno="${data}">
+                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-city-table-filter="edit_city" data-toggle="tooltip" data-placement="top" title="Change" data-cityno="${data}">
                                      <i class="la la-edit"></i>
                                 </a>`;
                     }
                 },
-                { data: 'Barangayname' },
                 { data: 'Cityname' },
+                { data: 'Zipcode' },
                 { data: 'Provincename' },
-                { data: 'Regionname' },
+                { data: 'Regioncode' },
                 { data: 'Encodedbyname' },
                 {
                     data: 'Dateencoded',
@@ -411,13 +373,13 @@ var KTDatatablesServerSide = function () {
                     }
                 },
                 {
-                    data: 'Barangayno',
+                    data: 'Cityno',
                     render: function (data, type, row) {
 
                         // Assuming row contains the data from your API response
                         var reqValue = row.Required; // Replace 'REQ' with the actual field name from your API
 
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-barangay-table-filter="delete_barangay" data-toggle="tooltip" data-placement="top" title="Delete" data-barangayno="${data}" data-required="${reqValue}">
+                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-city-table-filter="delete_city" data-toggle="tooltip" data-placement="top" title="Delete" data-cityno="${data}" data-required="${reqValue}">
                                      <i class="bi bi-trash3"></i>
                                 </a>`;
                     }
@@ -440,55 +402,55 @@ var KTDatatablesServerSide = function () {
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-barangay-table-filter="add_barangay"]').on('click', function () {
-            const barangayno = 0;
+        $('[data-kt-city-table-filter="add_city"]').on('click', function () {
+            const cityno = 0;
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddBarangayModal(barangayno);
+            openAddCityModal(cityno);
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_barangay').on('click', '[data-kt-barangay-table-filter="edit_barangay"]', function () {
-            const barangayno = $(this).data('barangayno');
+        $('#kt_table_city').on('click', '[data-kt-city-table-filter="edit_city"]', function () {
+            const cityno = $(this).data('cityno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddBarangayModal(barangayno);
+            openAddCityModal(cityno);
         });
 
         // Event handler for clearing search input when x is click
-        $('[data-kt-barangay-table-filter="export_barangay"]').on('click', function () {
+        $('[data-kt-city-table-filter="export_city"]').on('click', function () {
             // Now you can use the userId to identify the user and open the modal accordingly
-            openExportBarangayModal();
+            openExportCityModal();
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_barangay').on('click', '[data-kt-barangay-table-filter="view_barangay_journal"]', function () {
-            const barangayno = $(this).data('barangayno');
+        $('#kt_table_city').on('click', '[data-kt-city-table-filter="view_city_journal"]', function () {
+            const cityno = $(this).data('cityno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openBarangayJournalModal(barangayno);
+            openCityJournalModal(cityno);
         });
 
         // Event handler for the "x" button in Search
-        $('[data-kt-barangay-table-search="search"]').on('click', resetSearch);
+        $('[data-kt-city-table-search="search"]').on('click', resetSearch);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-barangay-table-filter="reset"]').on('click', resetFilter);
+        $('[data-kt-city-table-filter="reset"]').on('click', resetFilter);
 
         // Event handler for the "Discard" button in Export
-        $('[data-kt-barangay-export-action="reset"]').on('click', resetExport);
+        $('[data-kt-city-export-action="reset"]').on('click', resetExport);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-add-barangay-modal-action="cancel"]').on('click', resetAddUpdate);
+        $('[data-kt-add-city-modal-action="cancel"]').on('click', resetAddUpdate);
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_barangay').on('click', '[data-kt-barangay-table-filter="delete_barangay"]', function () {
-            const barangayno = $(this).data('barangayno');
+        $('#kt_table_city').on('click', '[data-kt-city-table-filter="delete_city"]', function () {
+            const cityno = $(this).data('cityno');
             const required = $(this).data('required');
             // Now you can use the userId to identify the user and open the modal accordingly
-            handleRowDeletion(barangayno, required);
+            handleRowDeletion(cityno, required);
         });
 
         // Event handler for input field change in search when enter is hit
         $('#searchInput').on('keydown', function (e) {
-            if (e.keyCode === 13) { // Check if Enter key (key code 13) is pressed
+            if (e.key === 'Enter') { // Check if Enter key (key code 13) is pressed
                 dt.ajax.reload();
             }
         });

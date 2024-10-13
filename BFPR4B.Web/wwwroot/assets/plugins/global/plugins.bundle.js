@@ -21244,7 +21244,7 @@ const localization = {
             var allowInput = self.config.allowInput;
             var allowKeydown = self.isOpen && (!allowInput || !isInput);
             var allowInlineKeydown = self.config.inline && isInput && !allowInput;
-            if (e.keyCode === 13 && isInput) {
+            if (e.key === 'Enter' && isInput) {
                 if (allowInput) {
                     self.setDate(self._input.value, true, eventTarget === self.altInput
                         ? self.config.altFormat
@@ -28420,7 +28420,7 @@ const localization = {
 
         keydown: function(e) {
             //hide on tab or enter
-            if ((e.keyCode === 9) || (e.keyCode === 13)) {
+            if ((e.keyCode === 9) || (e.key === 'Enter')) {
                 this.hide();
             }
 

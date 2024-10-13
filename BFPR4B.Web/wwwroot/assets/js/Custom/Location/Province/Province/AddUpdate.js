@@ -22,7 +22,7 @@ var KTAddUpdate = function () {
                             }
                         }
                     },
-                    'kt_province_type': {
+                    'regionDropdown': {
                         validators: {
                             notEmpty: {
                                 message: 'Region is required'
@@ -46,11 +46,9 @@ var KTAddUpdate = function () {
         );
     };
 
-    async function populateLocationDropdown(locationtype, parentcode, dropdownId) {
+    async function populateRegionDropdown(dropdownId) {
         try {
-            const loginUrl = new URL('system/location', window.location.origin);
-            loginUrl.searchParams.append('locationtype', locationtype);
-            loginUrl.searchParams.append('parentcode', parentcode);
+            const loginUrl = new URL('system/getregion', window.location.origin);
 
             const response = await fetch(loginUrl, {
                 method: 'GET',
@@ -83,14 +81,14 @@ var KTAddUpdate = function () {
     }
 
     // Fetch user data and populate the form
-    var fetchAndUpdateData = async function (locationcode) {
+    var fetchAndUpdateData = async function (provinceno) {
         try {
 
-            document.getElementById('kt_locationcode').value = '';
+            document.getElementById('kt_provinceno').value = '';
             document.getElementById('kt_province_name').value = '';
-            document.getElementById('kt_province_type').value = '';
+            document.getElementById('regionDropdown').value = '';
 
-            const response = await fetch(`/provinces/details?locationcode=${locationcode}`);
+            const response = await fetch(`/province/details?provinceno=${provinceno}`);
             if (response.ok) {
 
                 const provinceData = await response.json();
@@ -99,9 +97,9 @@ var KTAddUpdate = function () {
 
                 if (provinceData !== null) {
 
-                    $('#kt_locationcode').val(provinceData.data.locationcode);
-                    $('#kt_province_name').val(provinceData.data.locationname);
-                    $('#kt_province_type').val(provinceData.data.parentcode).trigger('change.select2');
+                    $('#kt_provinceno').val(provinceData.data.Provinceno);
+                    $('#kt_province_name').val(provinceData.data.Provincename);
+                    $('#regionDropdown').val(provinceData.data.Regionno).trigger('change.select2');
                 }
             } else {
                 console.error('Failed to fetch user data:', response.status, response.statusText);
@@ -113,18 +111,18 @@ var KTAddUpdate = function () {
 
     //Function to get data-userno attribute value from the selected row in DataTable and fetch user data
     async function FetchData() {
-        const locationcodeInput = document.getElementById('kt_locationcode');
-        const locationcodeValue = locationcodeInput.value.trim(); // Trim any leading/trailing whitespace
+        const provincenoInput = document.getElementById('kt_provinceno');
+        const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
 
-        let dataLocationcode = locationcodeValue === '' ? '0' : locationcodeValue;
+        let provinceno = provincenoValue === '' ? '0' : provincenoValue;
 
-        if (dataLocationcode) {
+        if (provinceno) {
             // If the attribute exists, call the fetchAndUpdateUserData function with the user number
-            if (dataLocationcode !== '0') {
-                fetchAndUpdateData(dataLocationcode);
+            if (provinceno !== '0') {
+                fetchAndUpdateData(provinceno);
             }
         } else {
-            console.error('data-detno attribute is missing in the selected row.');
+            console.error('data-provinceno attribute is missing in the selected row.');
         }
     }
 
@@ -241,16 +239,15 @@ var KTAddUpdate = function () {
                     submitButton.setAttribute('data-kt-indicator', 'on');
                     submitButton.disabled = true;
 
-                    const addprovinceUrl = '/provinces/create';
+                    const addprovinceUrl = '/province/create';
 
-                    const locationcodeInput = document.getElementById('kt_locationcode');
-                    const locationcodeValue = locationcodeInput.value.trim(); // Trim any leading/trailing whitespace
+                    const provincenoInput = document.getElementById('kt_provinceno');
+                    const provincenoValue = provincenoInput.value.trim(); // Trim any leading/trailing whitespace
 
                     const requestBody = JSON.stringify({
-                        locationcode: locationcodeValue === '' ? '0' : locationcodeValue, // Set to '0' if empty
-                        locationno: '',
-                        locationname: document.getElementById('kt_province_name').value,
-                        parentcode: document.getElementById('kt_province_type').value,
+                        provinceno: provincenoValue === '' ? '0' : provincenoValue, // Set to '0' if empty
+                        provincename: document.getElementById('kt_province_name').value,
+                        regionno: document.getElementById('regionDropdown').value,
                         encodedby: userno,
                     });
 
@@ -269,55 +266,59 @@ var KTAddUpdate = function () {
                         if (response.ok) {
 
 
-                            //let locationcodejournal = locationcodeValue === '' ? '0' : locationcodeValue;
+                            let regionnojournal = provincenoValue === '' ? '0' : provincenoValue;
 
-                            //if (locationcodejournal !== '0') {
-                            //    const addjournalUrl = '/province/journal/create';
+                            if (regionnojournal !== '0') {
+                                const addjournalUrl = '/province/journal/create';
 
-                            //    const journalrequestBody = {
-                            //        gendetno: locationcodeValue === '' ? '0' : locationcodeValue, // Set to '0' if empty
-                            //        tablename: 'RANK',
-                            //        encodedby: userno,
-                            //        journallist: [] // Initialize journallist as an empty array
-                            //    };
+                                const journalrequestBody = {
+                                    provinceno: provincenoValue === '' ? '0' : provincenoValue, // Set to '0' if empty
+                                    encodedby: userno,
+                                    journallist: [] // Initialize journallist as an empty array
+                                };
 
-                            //    if (RANK_DATA.data.recordcode !== null) {
-                            //        if (RANK_DATA.data.recordcode !== document.getElementById('kt_rank_code').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Rank Code from ' + RANK_DATA.data.recordcode + ' to ' + document.getElementById('kt_rank_code').value
-                            //            });
-                            //        }
-                            //    }
+                                if (PROVINCE_DATA.data.Provincename !== null) {
+                                    if (PROVINCE_DATA.data.Provincename !== document.getElementById('kt_province_name').value) {
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Province from ' + PROVINCE_DATA.data.Provincename + ' to ' + document.getElementById('kt_province_name').value
+                                        });
+                                    }
+                                }
 
-                            //    if (RANK_DATA.data.description !== null) {
-                            //        if (RANK_DATA.data.description !== document.getElementById('kt_rank_name').value) {
-                            //            journalrequestBody.journallist.push({
-                            //                'description': username + ' : Changed Rank Name from ' + RANK_DATA.data.description + ' to ' + document.getElementById('kt_rank_name').value
-                            //            });
-                            //        }
-                            //    }
+                                if (PROVINCE_DATA.data.Regionno !== null || PROVINCE_DATA.data.Regionno !== '0') {
+                                    if (PROVINCE_DATA.data.Regionno !== document.getElementById('regionDropdown').value) {
 
-                            //    try {
-                            //        const response = await fetch(addjournalUrl, {
-                            //            method: 'POST',
-                            //            headers: {
-                            //                'Content-Type': 'application/json',
-                            //                'Accept': 'application/json'
-                            //            },
-                            //            body: JSON.stringify(journalrequestBody)
-                            //        });
-                            //    } catch (error) {
-                            //        Swal.fire({
-                            //            text: error.message || 'An error occurred',
-                            //            icon: 'error',
-                            //            buttonsStyling: false,
-                            //            confirmButtonText: 'Ok, got it!',
-                            //            customClass: {
-                            //                confirmButton: 'btn btn-primary'
-                            //            }
-                            //        });
-                            //    }
-                            //}
+                                        var dropdown2 = document.getElementById('regionDropdown');
+
+                                        var selectedText2 = dropdown2.options[dropdown2.selectedIndex].text;
+
+                                        journalrequestBody.journallist.push({
+                                            'description': username + ' : Changed Region from ' + PROVINCE_DATA.data.Regionname + ' to ' + selectedText2
+                                        });
+                                    }
+                                }
+
+                                try {
+                                    const response = await fetch(addjournalUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json'
+                                        },
+                                        body: JSON.stringify(journalrequestBody)
+                                    });
+                                } catch (error) {
+                                    Swal.fire({
+                                        text: error.message || 'An error occurred',
+                                        icon: 'error',
+                                        buttonsStyling: false,
+                                        confirmButtonText: 'Ok, got it!',
+                                        customClass: {
+                                            confirmButton: 'btn btn-primary'
+                                        }
+                                    });
+                                }
+                            }
 
                             form.reset();
                             Swal.fire({
@@ -384,8 +385,7 @@ var KTAddUpdate = function () {
             submitButton = document.querySelector('#kt_add_province_submit');
             modal = document.getElementById('kt_modal_add_province');
 
-            //populateLocationDropdown('DIVISION', 0, 'kt_division_type');
-            populateLocationDropdown('REGION', 0, 'kt_province_type');
+            populateRegionDropdown('regionDropdown');
 
             // Only initialize validation when the form is submitted
             if ((form || submitButton) && modal) {
@@ -412,20 +412,6 @@ var KTAddUpdate = function () {
                     FetchData();
                 });
             }
-
-            //// Initialize validation and other functionality
-            //if (form && submitButton) {
-            //    initValidation();
-
-            //    form.addEventListener('submit', handleFormSubmit);
-
-            //    // Listen for Bootstrap modal shown event
-            //    $(modal).on('shown.bs.modal', function () {
-            //        // Get selected user data when the modal is shown
-            //        resetAddUpdate();
-            //        FetchData();
-            //    });
-            //}
         }
     };
 }();

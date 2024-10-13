@@ -91,7 +91,7 @@ var KTDatatablesJournal = function () {
 
         // Event handler for input field change in search when enter is hit
         $('#searchJournalInput').on('keydown', function (e) {
-            if (e.keyCode === 13) { // Check if Enter key (key code 13) is pressed
+            if (e.key === 'Enter') { // Check if Enter key (key code 13) is pressed
                 dt.ajax.reload();
             }
         });

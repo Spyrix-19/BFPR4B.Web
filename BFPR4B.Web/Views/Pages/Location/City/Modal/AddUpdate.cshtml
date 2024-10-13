@@ -17,7 +17,7 @@
 				<h2 class="fw-bold" id="kt_add_city_title">Add City</h2>
 				<!--end::Modal title-->
 				<!--begin::Close-->
-				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-city-modal-action="close">
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-city-modal-action="close" data-bs-dismiss="modal">
 					<i class="ki-duotone ki-cross fs-1">
 						<span class="path1"></span>
 						<span class="path2"></span>
@@ -33,12 +33,38 @@
 				<form id="kt_modal_add_city_form" class="form" action="#">
 
 					<!--begin::Scroll-->
-					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_city_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_city_header" data-kt-scroll-wrappers="#kt_modal_add_city_scroll" data-kt-scroll-offset="300px">
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_city_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_course_header" data-kt-scroll-wrappers="#kt_modal_add_course_scroll" data-kt-scroll-offset="300px">
 
 						<!--begin::Primary-->
-						<input type="hidden" id="kt_locationcode" name="detno" value="0">
+						<input type="hidden" id="kt_cityno" name="city" value="0">
 						<!--end::Primary-->
-						<!--begin::Input group-->
+
+						<!--begin::Region Type-->
+						<div class="fv-row mb-3">
+							<!--begin::Label-->
+							<label class="fs-6 fw-semibold form-label mt-3">
+								<span class="required">Region</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Select Region.">
+									<i class="ki-duotone ki-information fs-7">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Label-->
+							<!--end::Label-->
+							<div class="w-100">
+								<!--begin::Select2-->
+								<select id="regionDropdown" name="city_region" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-dropdown-parent="#kt_modal_add_city" data-kt-city-table-filter="select_city_region" data-hide-search="false">
+									<option></option>
+								</select>
+								<!--end::Select2-->
+							</div>
+						</div>
+						<!--end::Course Type-->
+
+						<!--begin::Region Type-->
 						<div class="fv-row mb-3">
 							<!--begin::Label-->
 							<label class="fs-6 fw-semibold form-label mt-3">
@@ -55,44 +81,20 @@
 							<!--end::Label-->
 							<div class="w-100">
 								<!--begin::Select2-->
-								<select id="kt_province" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="province" data-control="select2" data-dropdown-parent="#kt_modal_add_city" data-kt-city-province="select_province" data-placeholder="Select an option" data-allow-clear="true">
+								<select id="provinceDropdown" name="city_province" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-dropdown-parent="#kt_modal_add_city" data-kt-city-table-filter="select_city_province" data-hide-search="false">
 									<option></option>
 								</select>
 								<!--end::Select2-->
 							</div>
+						</div>
 
-						</div>
-						<!--end::Input group-->
-						<!--begin::City Type-->
+						<!--end::Course Type-->
+						<!--begin::Course Code-->
 						<div class="fv-row mb-3">
 							<!--begin::Label-->
 							<label class="fs-6 fw-semibold form-label mt-3">
-								<span class="required">City</span>
-								<span class="ms-1" data-bs-toggle="tooltip" title="Select City.">
-									<i class="ki-duotone ki-information fs-7">
-										<span class="path1"></span>
-										<span class="path2"></span>
-										<span class="path3"></span>
-									</i>
-								</span>
-							</label>
-							<!--end::Label-->
-							<!--end::Label-->
-							<div class="w-100">
-								<!--begin::Select2-->
-								<select id="kt_city" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="city" data-control="select2" data-dropdown-parent="#kt_modal_add_city" data-kt-city-city="select_city" data-placeholder="Select an option" data-allow-clear="true">
-									<option></option>
-								</select>
-								<!--end::Select2-->
-							</div>
-						</div>
-						<!--end::city Type-->
-						<!--begin::city Name-->
-						<div class="fv-row mb-3">
-							<!--begin::Label-->
-							<label class="fs-6 fw-semibold form-label mt-3">
-								<span class="required">City Name</span>
-								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the city Name.">
+								<span class="required">City Name </span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the City Name.">
 									<i class="ki-duotone ki-information fs-7">
 										<span class="path1"></span>
 										<span class="path2"></span>
@@ -102,16 +104,16 @@
 							</label>
 							<!--end::Label-->
 							<!--begin::Input-->
-							<input type="text" name="city_name" id="kt_city_name" placeholder="City Name" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+							<input type="text" placeholder="City Name" class="form-control bg-transparent border border-primary border-hover border-active active" name="city_name" id="kt_city_name" autocomplete="off" value="" />
 							<!--end::Input-->
 						</div>
-						<!--end::city Name-->
-						<!--begin::Zipcode-->
+						<!--end::Course Code-->
+						<!--begin::Course Name-->
 						<div class="fv-row mb-3">
 							<!--begin::Label-->
 							<label class="fs-6 fw-semibold form-label mt-3">
-								<span class="required">Zipcode</span>
-								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the zipcode.">
+								<span class="required">Zip Code</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="Enter the Zip Code.">
 									<i class="ki-duotone ki-information fs-7">
 										<span class="path1"></span>
 										<span class="path2"></span>
@@ -121,15 +123,16 @@
 							</label>
 							<!--end::Label-->
 							<!--begin::Input-->
-							<input type="text" name="zip_code" id="kt_zip_code" placeholder="Zipcode" class="form-control bg-transparent border border-primary border-hover border-active active" autocomplete="off" value="" />
+							<input type="text" placeholder="Zip Code" class="form-control bg-transparent border border-primary border-hover border-active active" name="zip_code" id="kt_zip_code" autocomplete="off" value="" />
 							<!--end::Input-->
 						</div>
-						<!--end::city Name-->
+						<!--end::Course Name-->						
 					</div>
 					<!--end::Scroll-->
 					<!--begin::Separator-->
 					<div class="separator mb-6"></div>
 					<!--end::Separator-->
+
 					<!--begin::Actions-->
 					<div class="d-flex justify-content-end text-center pt-10">
 						<button type="reset" class="btn btn-light me-3" data-kt-add-city-modal-action="cancel">Discard</button>

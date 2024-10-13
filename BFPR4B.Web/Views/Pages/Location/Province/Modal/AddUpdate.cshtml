@@ -36,31 +36,8 @@
 					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_province_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_province_header" data-kt-scroll-wrappers="#kt_modal_add_province_scroll" data-kt-scroll-offset="300px">
 
 						<!--begin::Primary-->
-						<input type="hidden" id="kt_locationcode" name="detno" value="0">
-						<!--end::Primary-->
-						@* <!--begin::Region-->
-						<div class="fv-row mb-3">
-						<!--begin::Label-->
-						<label class="fs-6 fw-semibold form-label mt-3">
-						<span class="required">Division</span>
-						<span class="ms-1" data-bs-toggle="tooltip" title="Select Division.">
-						<i class="ki-duotone ki-information fs-7">
-						<span class="path1"></span>
-						<span class="path2"></span>
-						<span class="path3"></span>
-						</i>
-						</span>
-						</label>
-						<!--end::Label-->
-						<!--end::Label-->
-						<div class="w-100">
-						<!--begin::Select2-->
-						<select id="kt_division_type" name="division_type" class="form-select fw-bold bg-transparent border border-primary border-hover border-active active" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-province-table-filter="select_divion_type" data-hide-search="true">
-						<option></option>
-						</select>
-						<!--end::Select2-->
-						</div>
-						</div> *@
+						<input type="hidden" id="kt_provinceno" name="provinceno" value="0">
+						<!--end::Primary-->						
 
 						<!--begin::Region-->
 						<div class="fv-row mb-3">
@@ -79,7 +56,7 @@
 							<!--end::Label-->
 							<div class="w-100">
 								<!--begin::Select2-->
-								<select id="kt_province_type" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="province_type" data-control="select2" data-dropdown-parent="#kt_modal_add_province" data-kt-location-province="select_province" data-placeholder="Select option" data-allow-clear="true">
+								<select id="regionDropdown" class="form-control form-select bg-transparent border border-primary border-hover border-active active" name="province_region" data-control="select2" data-dropdown-parent="#kt_modal_add_province" data-kt-province-region="select_region" data-placeholder="Select option" data-allow-clear="true">
 									<option></option>
 								</select>
 								<!--end::Select2-->
