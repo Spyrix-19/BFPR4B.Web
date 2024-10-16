@@ -29,7 +29,12 @@ var KTDatatablesJournal = function () {
             dt.destroy();
         }
 
-        console.log('datatable');
+        // Calculate height directly within the DataTable initialization
+        const windowHeight = $(window).height();
+        const headerHeight = $('.header-class').outerHeight() || 0; // Replace with your header's actual class
+        const footerHeight = $('.footer-class').outerHeight() || 0; // Replace with your footer's actual class
+        const dataTableHeight = Math.max(windowHeight - headerHeight - footerHeight - 25, windowHeight * 0.5); // Adjust for any extra spacing
+
         dt = $("#kt_table_training_journal").DataTable({
             searchDelay: 500,
             processing: true,
@@ -73,7 +78,25 @@ var KTDatatablesJournal = function () {
                     targets: [0], // First column (index 0)
                     visible: false // Hide the column
                 }
-            ]
+            ],
+            scrollY: dataTableHeight + 'px', // Set height directly
+            scrollCollapse: true, // Collapse when there are few records
+            paging: true,
+            pagingType: "full",
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100],
+            language: {
+                paginate: {
+                    first: "<<",
+                    last: ">>",
+                    next: ">",
+                    previous: "<"
+                }
+            },
+            initComplete: function () {
+                // Set initial height of the DataTable container
+                $(this).css('height', dataTableHeight + 'px');
+            }
 
         });
 

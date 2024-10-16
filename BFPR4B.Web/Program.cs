@@ -38,6 +38,8 @@ using BFPR4B.Web.Services.IServices.Application;
 using BFPR4B.Web.Services.Services.Application;
 using BFPR4B.Web.Services.IServices.GAD;
 using BFPR4B.Web.Services.Services.GAD;
+using BFPR4B.Web.Services.IServices.Member;
+using BFPR4B.Web.Services.Services.Member;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,43 +65,83 @@ builder.Services.AddSingleton<IKTBootstrapBase, KTBootstrapBase>();
 
 builder.Services.AddHttpClient<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
+
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddHttpClient<ICourseService, CourseService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+
 builder.Services.AddHttpClient<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 builder.Services.AddHttpClient<IEligibilityService, EligibilityService>();
 builder.Services.AddScoped<IEligibilityService, EligibilityService>();
+
 builder.Services.AddHttpClient<ISystemService, SystemService>();
 builder.Services.AddScoped<ISystemService, SystemService>();
+
 builder.Services.AddHttpClient<IEventService, EventService>();
 builder.Services.AddScoped<IEventService, EventService>();
+
 builder.Services.AddHttpClient<IResourceService, ResourceService>();
 builder.Services.AddScoped<IResourceService, ResourceService>();
+
 builder.Services.AddHttpClient<IBarangayService, BarangayService>();
 builder.Services.AddScoped<IBarangayService, BarangayService>();
+
 builder.Services.AddHttpClient<ICityService, CityService>();
 builder.Services.AddScoped<ICityService, CityService>();
+
 builder.Services.AddHttpClient<IProvinceService, ProvinceService>();
 builder.Services.AddScoped<IProvinceService, ProvinceService>();
+
 builder.Services.AddHttpClient<IRegionService, RegionService>();
 builder.Services.AddScoped<IRegionService, RegionService>();
+
+builder.Services.AddHttpClient<IMemberDependentService, MemberDependentService>();
+builder.Services.AddScoped<IMemberDependentService, MemberDependentService>();
+
+builder.Services.AddHttpClient<IMemberEducationService, MemberEducationService>();
+builder.Services.AddScoped<IMemberEducationService, MemberEducationService>();
+
+builder.Services.AddHttpClient<IMemberEligibilityService, MemberEligibilityService>();
+builder.Services.AddScoped<IMemberEligibilityService, MemberEligibilityService>();
+
+builder.Services.AddHttpClient<IMemberLeaveRecordService, MemberLeaveRecordService>();
+builder.Services.AddScoped<IMemberLeaveRecordService, MemberLeaveRecordService>();
+
+builder.Services.AddHttpClient<IMemberService, MemberService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+
+builder.Services.AddHttpClient<IMemberServiceRecordService, MemberServiceRecordService>();
+builder.Services.AddScoped<IMemberServiceRecordService, MemberServiceRecordService>();
+
+builder.Services.AddHttpClient<IMemberTrainingService, MemberTrainingService>();
+builder.Services.AddScoped<IMemberTrainingService, MemberTrainingService>();
+
 builder.Services.AddHttpClient<IModuleAccessService, ModuleAccessService>();
 builder.Services.AddScoped<IModuleAccessService, ModuleAccessService>();
+
 builder.Services.AddHttpClient<IOfficeService, OfficeService>();
 builder.Services.AddScoped<IOfficeService, OfficeService>();
+
 builder.Services.AddHttpClient<IRankService, RankService>();
 builder.Services.AddScoped<IRankService, RankService>();
+
 builder.Services.AddHttpClient<IReligionService, ReligionService>();
 builder.Services.AddScoped<IReligionService, ReligionService>();
+
 builder.Services.AddHttpClient<IStationService, StationService>();
 builder.Services.AddScoped<IStationService, StationService>();
+
 builder.Services.AddHttpClient<ITrainingService, TrainingService>();
 builder.Services.AddScoped<ITrainingService, TrainingService>();
+
 builder.Services.AddHttpClient<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddSingleton<IAuthorizationHandler, ValidAccessTokenHandler>();
 
 builder.Services.AddDistributedMemoryCache();

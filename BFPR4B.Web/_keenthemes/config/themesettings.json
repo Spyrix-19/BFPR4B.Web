@@ -8,7 +8,7 @@
     "AssetsDir": "assets/",
     "IconsType": "duotone",
     "Assets": {
-      "Favicon": "media/logos/favicon.ico",
+      "Favicon": "media/logos/mimaropa.png",
       "Fonts": [
         "https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
       ],

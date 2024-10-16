@@ -252,10 +252,10 @@ var KTAddUpdate = function () {
                                     }
                                 }
 
-                                if (OFFICE_DATA.data.Description !== null) {
-                                    if (OFFICE_DATA.data.Description !== document.getElementById('kt_office_name').value) {
+                                if (OFFICE_DATA.data.Officename !== null) {
+                                    if (OFFICE_DATA.data.Officename !== document.getElementById('kt_office_name').value) {
                                         journalrequestBody.journallist.push({
-                                            'description': username + ' : Changed Office Name from ' + OFFICE_DATA.data.Description + ' to ' + document.getElementById('kt_office_name').value
+                                            'description': username + ' : Changed Office Name from ' + OFFICE_DATA.data.Officename + ' to ' + document.getElementById('kt_office_name').value
                                         });
                                     }
                                 }

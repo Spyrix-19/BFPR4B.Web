@@ -1,10 +1,25 @@
-﻿"use strict";
+﻿
+"use strict";
 
 // Class definition
 var KTDatatablesServerSide = function () {
     // Shared variables
     var table;
     var dt;
+
+    async function resetSearch() {
+        const searchInput = document.getElementById("searchInput");
+        const clearButton = document.getElementById("clearButton");
+
+        searchInput.addEventListener("input", function () {
+            clearButton.style.display = searchInput.value.trim() !== "" ? "block" : "none";
+        });
+
+        clearButton.addEventListener("click", function () {
+            searchInput.value = "";
+            clearButton.style.display = "none";
+        });
+    }
 
     // Function to reset the filter values of Filters
     async function resetFilter() {
@@ -26,49 +41,10 @@ var KTDatatablesServerSide = function () {
                 event.preventDefault();
             });
         }
-    }
 
-    // Function to reset the Export values in the modal
-    async function resetExport() {
-        // Get the modal element
-        const modal = document.getElementById('kt_modal_export_users');
-
-        // Check if the modal exists
-        if (modal) {
-            // Find all the select elements within the modal content
-            const selectElements = modal.querySelectorAll('[data-control="select2"]');
-
-            // Reset the values of the select elements to their default (empty) state
-            selectElements.forEach((select) => {
-                select.value = '';
-                const event = new Event('change', { bubbles: true });
-                select.dispatchEvent(event);
-            });
-
-            // Find the "Reset" button within the modal
-            const resetButton = modal.querySelector('[data-kt-users-export-action="reset"]');
-            if (resetButton) {
-                resetButton.addEventListener('click', function (event) {
-                    // Prevent the default behavior that closes the modal
-                    event.preventDefault();
-                });
-            }
-        }
-    }
-
-    async function resetSearch() {
-        const searchInput = document.getElementById("searchInput");
-        const clearButton = document.getElementById("clearButton");
-
-        searchInput.addEventListener("input", function () {
-            clearButton.style.display = searchInput.value.trim() !== "" ? "block" : "none";
-        });
-
-        clearButton.addEventListener("click", function () {
-            searchInput.value = "";
-            clearButton.style.display = "none";
-        });
-    }
+        const table = $('#kt_table_user').DataTable();
+        table.ajax.reload(); // Reload the DataTable to fetch updated data
+    }    
 
     async function populateDropdown(tablename, dropdownId) {
         try {
@@ -108,15 +84,9 @@ var KTDatatablesServerSide = function () {
     // Function to reset the filter values of Filters
     async function resetAddUpdate() {
         // Get all the select elements within the modal
-        const checkElements = document.querySelectorAll('.modal-dialog [type="checkbox"]');
         const selectElements = document.querySelectorAll('.modal-dialog [data-kt-select2]');
         const inputElements = document.querySelectorAll('.modal-dialog [type="text"]');
-        const inputPasswordElements = document.querySelectorAll('.modal-dialog [type="password"]');
 
-        // Reset the values of checkboxes to unchecked state
-        checkElements.forEach((checkbox) => {
-            checkbox.checked = false;
-        });
 
         // Reset the values of select elements with the data-kt-select2 attribute
         selectElements.forEach((select) => {
@@ -130,13 +100,8 @@ var KTDatatablesServerSide = function () {
             input.value = '';
         });
 
-        // Reset the values of password input fields to empty
-        inputPasswordElements.forEach((input) => {
-            input.value = '';
-        });
-
         // Check if the button clicked is the "Cancel" button
-        const cancelButton = document.querySelector('[data-kt-add-users-modal-action="cancel"]');
+        const cancelButton = document.querySelector('[data-kt-add-user-modal-action="cancel"]');
         if (cancelButton) {
             cancelButton.addEventListener('click', function (event) {
                 // Prevent the default behavior that closes the modal
@@ -146,31 +111,127 @@ var KTDatatablesServerSide = function () {
     }
 
     // Function to open the "Add User" modal
-    async function openAddUserModal(userId) {
-        // Here, you can use the userId to customize the modal content or perform other actions as needed
+    async function openAddUserModal(userno) {
+        // Here, you can use the userno to customize the modal content or perform other actions as needed
 
         // Change the modal title here
         var modalTitle = document.getElementById("kt_add_user_title");
-        modalTitle.innerText = userId === 0 ? "Add User" : "Update User"; // Change "New Title" to your desired text
+        modalTitle.innerText = userno === 0 ? "Add User" : "Update User"; // Change "New Title" to your desired text
 
-        $('#kt_userno').val(userId);
+        $('#kt_user_userno').val(userno);
 
         $('#kt_modal_add_user').modal('show');
+
+
+    }    
+
+    // Function to open the "Add Rank" modal
+    async function openUserJournalModal(userno) {
+        // Here, you can use the userno to customize the modal content or perform other actions as needed
+
+        $('#kt_user_journal_userno').val(userno);
+
+        $('#kt_modal_user_journal').modal('show');
+
     }
 
-    // Initialize DataTable and event handlers
+    // Function to update the DataTable with new data
+    var updateDataTable = async function () {
+        const table = $('#kt_table_user').DataTable();
+        table.ajax.reload(); // Reload the DataTable to fetch updated data
+    };
+
+    async function handleRowDeletion(userno) {
+        try {
+
+            // SweetAlert2 pop-up...
+            const result = await Swal.fire({
+                text: "Are you sure you want to delete this record?",
+                icon: "warning",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Yes, delete!",
+                cancelButtonText: "No, cancel",
+                customClass: {
+                    confirmButton: "btn fw-bold btn-danger",
+                    cancelButton: "btn fw-bold btn-active-light-primary"
+                }
+            });
+
+            if (result.value) {
+                const response = await fetch(`/user/remove?userno=${userno}`, {
+                    method: 'DELETE',
+                    //headers: {
+                    //    'Content-Type': 'application/json',
+                    //    'Accept': 'application/json'
+                    //},
+                });
+
+                if (response.ok) {
+                    // Success message
+                    await Swal.fire({
+                        text: "You have successfully deleted this record.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
+                    });
+
+                    updateDataTable();
+
+                } else {
+                    // Error message
+                    await Swal.fire({
+                        text: "Failed to delete user data.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
+                    });
+                    console.error('Failed to delete user data:', response.status, response.statusText);
+                }
+            } else if (result.dismiss === 'cancel') {
+                // Cancelled action
+                await Swal.fire({
+                    text: "The record was not deleted.",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-primary",
+                    }
+                });
+            }
+
+        } catch (error) {
+            console.error('An error occurred while handling row deletion:', error);
+        }
+    }
+
+    
+
+
+    // Private functions
     var initDatatable = function () {
+
         if (dt) {
             // If the DataTable instance already exists, destroy it
             dt.destroy();
         }
 
-        populateDropdown('AREA OF ASSIGNMENT', 'areaAssignmentDropdown');
-        populateDropdown('ACCOUNT ROLE', 'roleDropdown');
-        populateDropdown('TWO FACTOR AUTHENTICATION', 'tfaDropdown');
-        //populateDropdown('UNIT OF ASSIGNMENT', 'unitassignDropdown');
+        populateDropdown('ELIGIBILITY LEVEL', 'roleDropdown');
 
-        dt = $("#kt_table_users").DataTable({
+        // Calculate height directly within the DataTable initialization
+        const windowHeight = $(window).height();
+        const headerHeight = $('.header-class').outerHeight() || 0; // Replace with your header's actual class
+        const footerHeight = $('.footer-class').outerHeight() || 0; // Replace with your footer's actual class
+        const dataTableHeight = Math.max(windowHeight - headerHeight - footerHeight - 25, windowHeight * 0.5); // Adjust for any extra spacing
+
+        dt = $("#kt_table_user").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
@@ -183,136 +244,338 @@ var KTDatatablesServerSide = function () {
                 className: 'row-selected'
             },
             ajax: {
-                url: "/users/ledger",
+                url: "/user/ledger",
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.role = $("#roleDropdown").val();
-                    d.areaassign = $("#areaAssignmentDropdown").val();
-                    d.tfa = $("#tfaDropdown").val();
-                    d.unitassign = $("#unitassignDropdown").val();
                     d.searchkey = $("#searchInput").val();
                 }
             },
             columns: [
                 {
-                    data: null,
-                    render: function (data) {
-                        return `<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fa fa-cog"></i>
-										Option
-										<span class="caret"></span>
-									</a>
-									<div class="dropdown-menu">
-										<div class="dropdown-item px-3">
-											<a href="#" class="menu-link px-3">
-												View User Journal
-											</a>
-										</div>
-										<div class="dropdown-item px-3">
-											<a href="#" class="menu-link px-3">
-												View User Access
-											</a>
-										</div>
-									</div>
-								</div>`;
-                    }
-                },
-                {
                     data: 'Userno',
                     render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-user-table-filter="edit_user" data-toggle="tooltip" data-placement="top" title="Change" data-userno="${data}">
-                                     <i class="la la-edit"></i>
+                        return `
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-cog"></i> Option <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="change_user_profile" data-userno="${data}">
+                                                Change User Profile
+                                            </a>
+                                        </div>
+                                        <div class="separator border-gray-200"></div>
+                                        <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="change_user_password" data-userno="${data}">
+                                                Change User Password
+                                            </a>
+                                        </div>
+                                         <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="reset_user_password" data-userno="${data}">
+                                                Reset User Password
+                                            </a>
+                                        </div>
+                                         <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="update_user_password_expiry" data-userno="${data}">
+                                                Update Password Expiry
+                                            </a>
+                                        </div>
+                                        <div class="separator border-gray-200"></div>
+                                         <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="activate_user" data-userno="${data}">
+                                                Activate User
+                                            </a>
+                                        </div>
+                                        <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="lock_user" data-userno="${data}">
+                                                Lock User
+                                            </a>
+                                        </div>     
+                                        <div class="separator border-gray-200"></div>
+                                        <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-user-table-filter="view_user_journal" data-userno="${data}">
+                                                View User Journal
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-user-table-filter="edit_user" data-toggle="tooltip" data-placement="top" title="Change" data-userno="${data}">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-user-table-filter="delete_user" data-toggle="tooltip" data-placement="top" title="Delete" data-userno="${data}">
+                                     <i class="bi bi-trash3"></i>
                                 </a>`;
-                    }
+                    },
+                    className: 'text-center'
                 },
-                { data: 'Username' },
-                { data: 'Accountnumber' },
+                {
+                    data: 'Picture', // The field containing the byte array
+                    render: function (data, type, row) {
+                        // Check if the PictureType value is valid
+                        const pictureType = row.Picturetype ? row.Picturetype.replace('.', '') : ''; // Remove the dot for the MIME type
+
+                        // Determine the correct MIME type
+                        const mimeType = pictureType.toLowerCase() === 'png' ? 'image/png' :
+                            pictureType.toLowerCase() === 'jpg' || pictureType.toLowerCase() === 'jpeg' ? 'image/jpeg' :
+                                pictureType.toLowerCase() === 'gif' ? 'image/gif' : '';
+
+                        // HTML structure for the cell
+                        let cellContent = '';
+
+                        // Check if data is defined and has length
+                        if (data && data.length > 0) {
+                            // Convert byte array to Base64
+                            const byteArray = new Uint8Array(data); // Ensure data is in Uint8Array
+                            let binaryString = '';
+                            for (let i = 0; i < byteArray.length; i++) {
+                                binaryString += String.fromCharCode(byteArray[i]); // Convert byte to binary string
+                            }
+                            const base64String = btoa(binaryString); // Convert to Base64
+
+                            // Create the image source
+                            const imgSrc = `data:${mimeType};base64,${base64String}`;
+
+                            // Construct the HTML for the image and user details
+                            cellContent = `
+                                <div style="display: flex; align-items: center;">
+                                    <img src="${imgSrc}" alt="User Picture" style="width:50px; height:50px; margin-right: 10px;" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <span style="text-transform: uppercase; font-weight: bold;">${row.Fullname}</span>
+                                        <span>${row.Accountnumber}</span>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            // Return the default image path if no picture data is available
+                            const defaultImagePath = '/assets/media/logos/mimaropa.png'; // Ensure the path is correct
+                            cellContent = `
+                                <div style="display: flex; align-items: center;">
+                                    <img src="${defaultImagePath}" alt="Default Image" style="width:50px; height:50px; margin-right: 10px;" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <span style="text-transform: uppercase; font-weight: bold;">${row.Fullname}</span>
+                                        <span>${row.Accountnumber}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        return cellContent; // Return the constructed HTML content
+                    },
+                    className: 'text-left'
+                },
                 { data: 'Mobileno' },
-                { data: 'Emailadd' },
+                { data: 'Emailaddress' },
                 {
                     data: 'Activeuser',
-                    render: function (data) {
-                        // Conditional formatting based on the value of Activeuser
-                        if (data) {
-                            return '<span class="badge py-3 px-4 fs-7 badge-light-success">Active</span>';
+                    render: function (data, type, row) {
+                        // Check if data is a boolean or a string
+                        if (data === "false" || data === false) {
+                            return `<span class="badge py-3 px-4 fs-7 badge-light-danger">Inactive</span>`;
                         } else {
-                            return '<span class="badge py-3 px-4 fs-7 badge-light-danger">Inactive</span>';
+                            return `<span class="badge py-3 px-4 fs-7 badge-light-success">Active</span>`;
                         }
-                    }
+                    },
+                    className: 'text-center'
                 },
-                { data: 'Areaassignname' },
-                { data: 'Stationname' },
+                {
+                    data: 'Inactivedate',
+                    render: function (data) {
+
+                        const inactiveDate = data ? new Date(data) : null;
+
+                        // Check if lockDate is valid and extract the year
+                        const inactiveYear = inactiveDate ? inactiveDate.getFullYear() : null;
+
+                        // If the year is 1900, return an empty string; otherwise, format the date
+                        if (inactiveYear === 1900) {
+                            return '';
+                        } else {
+                            return inactiveDate ? inactiveDate.toLocaleDateString('en-US') : '';
+                        }
+                    },
+                    className: 'text-center'
+                },
+                {
+                    data: 'Passwordlock',
+                    render: function (data, type, row) {
+                        // Check if data is a boolean or a string
+                        if (data === "true" || data === true) {
+                            return `<span class="badge py-3 px-4 fs-7 badge-light-danger">Lock</span>`;
+                        } else {
+                            return `<span class="badge py-3 px-4 fs-7 badge-light-success">Unlock</span>`;
+                        }
+                    },
+                    className: 'text-center'
+                },
+                {
+                    data: 'lockdate',
+                    render: function (data) {
+                        // Create a date object from the lockdate
+                        const lockDate = data ? new Date(data) : null;
+
+                        // Check if lockDate is valid and extract the year
+                        const lockYear = lockDate ? lockDate.getFullYear() : null;
+
+                        // If the year is 1900, return an empty string; otherwise, format the date
+                        if (lockYear === 1900) {
+                            return '';
+                        } else {
+                            return lockDate ? lockDate.toLocaleDateString('en-US') : '';
+                        }
+                    },
+                    className: 'text-center'
+
+                },
+                {
+                    data: 'Passwordexpiry',
+                    render: function (data, type, row) {
+                        // Create a date object from Passwordexpiry
+                        const expiryDate = data ? new Date(data) : null;
+
+                        // Get the current date
+                        const currentDate = new Date();
+
+                        // Check if expiryDate is valid
+                        if (expiryDate) {
+                            // Compare the expiry date with the current date
+                            if (expiryDate < currentDate) {
+                                return `<span class="badge py-3 px-4 fs-7 badge-light-danger">Expired</span>`;
+                            } else {
+                                return `<span class="badge py-3 px-4 fs-7 badge-light-success">Active</span>`;
+                            }
+                        } else {
+                            return `<span class="badge py-3 px-4 fs-7 badge-light-warning">No Expiry</span>`; // Optional: handle null case
+                        }
+                    },
+                    className: 'text-center'
+                },
                 {
                     data: 'Passwordexpiry',
                     render: function (data) {
-                        // Format the date as "MM/DD/yyyy"
-                        return data ? new Date(data).toLocaleDateString('en-US') : '';
-                    }
+                        // Create a date object from the Passwordexpiry
+                        const expiryDate = data ? new Date(data) : null;
+
+                        // Check if expiryDate is valid and extract the year
+                        const expiryYear = expiryDate ? expiryDate.getFullYear() : null;
+
+                        // If the year is 1900, return an empty string; otherwise, format the date
+                        if (expiryYear === 1900) {
+                            return '';
+                        } else {
+                            return expiryDate ? expiryDate.toLocaleDateString('en-US') : '';
+                        }
+                    },
+                    className: 'text-center'
+
+                },
+                {                   
+                    data: 'Lastaccess',
+                    render: function (data) {
+                        // Create a date object from the Lastaccess
+                        const lastAccessDate = data ? new Date(data) : null;
+
+                        // Check if lastAccessDate is valid and extract the year
+                        const lastAccessYear = lastAccessDate ? lastAccessDate.getFullYear() : null;
+
+                        // If the year is 1900, return an empty string; otherwise, format the date and time
+                        if (lastAccessYear === 1900) {
+                            return '';
+                        } else {
+                            // Format the date and time
+                            const options = {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit',
+                                fractionalSecondDigits: 3, // Include milliseconds
+                                hour12: false // Use 24-hour format
+                            };
+
+                            return lastAccessDate.toLocaleString('en-US', options);
+                        }
+                    },
+                    className: 'text-center'
                 },
                 { data: 'Rolename' },
+                { data: 'Encodedbyname' },
                 {
                     data: 'Dateencoded',
                     render: function (data) {
                         // Format the date as "MM/DD/yyyy"
                         return data ? new Date(data).toLocaleDateString('en-US') : '';
-                    }
-                },
-                {
-                    data: 'Userno',
-                    render: function (data) {
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-user-table-filter="delete_user" data-toggle="tooltip" data-placement="top" title="Delete" data-userno="${data}">
-                                     <i class="bi bi-trash3"></i>
-                                </a>`;
-                    }
-                },
+                    },
+                    className: 'text-center'
+                }
             ],
             columnDefs: [
                 {
-                    targets: [0, 1, 6, 9, 11, 12],
-                    className: 'text-center',
+                    
                 }
-            ]
+            ],
+            scrollY: dataTableHeight + 'px', // Set height directly
+            scrollCollapse: true, // Collapse when there are few records         
+            initComplete: function () {
+                // Check if there are more than 10 rows to apply scroll
+                const numRows = this.api().rows().count();
+                if (numRows > 10) {
+                    $(this).css('height', dataTableHeight + 'px');
+                    $(this).DataTable().settings()[0].oScroll.sY = dataTableHeight + 'px';
+                } else {
+                    $(this).css('height', 'auto');
+                    $(this).DataTable().settings()[0].oScroll.sY = ''; // Disable scroll if not enough data
+                }
+            }
+
         });
 
         table = dt.$;
 
-        // Re-init functions on every table re-draw
+        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-            // ... (your existing code for handling table redraw)
-        });
 
-        //// Event handler for opening the "Add User" modal when the "Change" button is clicked
-        //dt.on('click', '[data-kt-user-table-filter="add_user"]', function () {
-        //    $('#kt_modal_add_user').modal('show');
-        //});
+        });
 
         // Event handler for clearing search input when x is click
         $('[data-kt-user-table-filter="add_user"]').on('click', function () {
-            const userId = 0;
+            const userno = 0;
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddUserModal(userId);
+            openAddUserModal(userno);
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_users').on('click', '[data-kt-user-table-filter="edit_user"]', function () {
-            const userId = $(this).data('userno');
+        $('#kt_table_user').on('click', '[data-kt-user-table-filter="edit_user"]', function () {
+            const userno = $(this).data('userno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddUserModal(userId);
+            openAddUserModal(userno);
         });
 
-        // Event handler for the "Reset" button in Filter
-        $('[data-kt-user-table-filter="reset"]').on('click', resetFilter);
-
-        // Event handler for the "Discard" button in Export
-        $('[data-kt-users-export-action="reset"]').on('click', resetExport);
+        // Event handler for opening the "Add User" modal when the button is clicked
+        $('#kt_table_user').on('click', '[data-kt-user-table-filter="view_user_journal"]', function () {
+            const detno = $(this).data('detno');
+            // Now you can use the userId to identify the user and open the modal accordingly
+            openUserJournalModal(detno);
+        });
 
         // Event handler for the "x" button in Search
         $('[data-kt-user-table-search="search"]').on('click', resetSearch);
 
         // Event handler for the "Reset" button in Filter
-        $('[data-kt-add-users-modal-action="cancel"]').on('click', resetAddUpdate);
+        $('[data-kt-user-table-filter="reset"]').on('click', resetFilter);
+
+        // Event handler for the "Reset" button in Filter
+        $('[data-kt-add-user-modal-action="cancel"]').on('click', resetAddUpdate);
+
+        $('#kt_table_user').on('click', '[data-kt-user-table-filter="delete_user"]', function () {
+            const userno = $(this).data('userno');
+
+            // Proceed with row deletion
+            handleRowDeletion(userno);
+        });
 
         // Event handler for input field change in search when enter is hit
         $('#searchInput').on('keydown', function (e) {
@@ -331,7 +594,7 @@ var KTDatatablesServerSide = function () {
         $('#submitFilter').on('click', function () {
             dt.ajax.reload();
         });
-    };
+    }
 
     // Public methods
     return {

@@ -272,6 +272,12 @@ var KTDatatablesServerSide = function () {
         populateDropdown('TRAINING LEVEL', 'traininglevelDropdown');
         populateDropdown('TRAINING TYPE', 'trainingtypeDropdown');
 
+        // Calculate height directly within the DataTable initialization
+        const windowHeight = $(window).height();
+        const headerHeight = $('.header-class').outerHeight() || 0; // Replace with your header's actual class
+        const footerHeight = $('.footer-class').outerHeight() || 0; // Replace with your footer's actual class
+        const dataTableHeight = Math.max(windowHeight - headerHeight - footerHeight - 25, windowHeight * 0.5); // Adjust for any extra spacing
+
         dt = $("#kt_table_training").DataTable({
             searchDelay: 500,
             processing: true,
@@ -351,7 +357,20 @@ var KTDatatablesServerSide = function () {
                     targets: [0, 1, 6, 7],
                     className: 'text-center',
                 }
-            ]
+            ],
+            scrollY: dataTableHeight + 'px', // Set height directly
+            scrollCollapse: false, // Collapse when there are few records         
+            initComplete: function () {
+                // Check if there are more than 10 rows to apply scroll
+                const numRows = this.api().rows().count();
+                if (numRows > 10) {
+                    $(this).css('height', dataTableHeight + 'px');
+                    $(this).DataTable().settings()[0].oScroll.sY = dataTableHeight + 'px';
+                } else {
+                    $(this).css('height', 'auto');
+                    $(this).DataTable().settings()[0].oScroll.sY = ''; // Disable scroll if not enough data
+                }
+            }
 
         });
 

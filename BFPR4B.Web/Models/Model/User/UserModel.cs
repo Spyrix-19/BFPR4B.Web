@@ -7,11 +7,9 @@ namespace BFPR4B.Web.Models.Model.User
 		[Key]
 		public int Userno { get; set; } = 0;
 		public string Accountnumber { get; set; } = "";
-		public string Userpass { get; set; } = "";
 		public string Fullname { get; set; } = "";
 		public string Mobileno { get; set; } = "";
 		public string Emailaddress { get; set; } = "";
-		public byte[] Passwordsalt { get; set; } = new byte[0];
 		public bool Activeuser { get; set; } = false;
 		public DateTime Inactivedate { get; set; } = Convert.ToDateTime("1/1/1900");
 		public DateTime Lastaccess { get; set; } = Convert.ToDateTime("1/1/1900");

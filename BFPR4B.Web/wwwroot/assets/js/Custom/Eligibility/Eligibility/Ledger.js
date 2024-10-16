@@ -298,30 +298,29 @@ var KTDatatablesServerSide = function () {
             columns: [
                 {
                     data: 'Detno',
-                    render: function (data) {
-                        return `<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fa fa-cog"></i>
-										Option
-										<span class="caret"></span>
-									</a>
-									<div class="dropdown-menu">
-										<div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-eligibility-table-filter="view_eligibility_journal" data-detno="${data}">
-												View Eligibility Journal
-											</a>
-										</div>
-									</div>
-								</div>`;
-                    }
-                },
-                {
-                    data: 'Detno',
-                    render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-eligibility-table-filter="edit_eligibility" data-toggle="tooltip" data-placement="top" title="Change" data-detno="${data}">
-                                     <i class="la la-edit"></i>
+                    render: function (data, type, row) {
+                        const reqValue = row.Required ? row.Required : ''; // Assuming you want to bind a value for `data-required`
+
+                        return `
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-cog"></i> Option <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item px-3">
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-eligibility-table-filter="view_eligibility_journal" data-detno="${data}">
+                                                View Eligibility Journal
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-eligibility-table-filter="edit_eligibility" data-toggle="tooltip" data-placement="top" title="Change" data-detno="${data}">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-eligibility-table-filter="delete_eligibility" data-toggle="tooltip" data-placement="top" title="Delete" data-detno="${data}" data-required="${reqValue}">
+                                     <i class="bi bi-trash3"></i>
                                 </a>`;
-                    }
+                                                }
                 },
                 { data: 'Recordcode' },
                 { data: 'Description' },
@@ -333,22 +332,11 @@ var KTDatatablesServerSide = function () {
                         // Format the date as "MM/DD/yyyy"
                         return data ? new Date(data).toLocaleDateString('en-US') : '';
                     }
-                },
-                {
-                    data: 'Detno',
-                    render: function (data, type, row) {
-
-                        var reqValue = row.Required;
-
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-eligibility-table-filter="delete_eligibility" data-toggle="tooltip" data-placement="top" title="Delete" data-detno="${data}" data-required="${reqValue}">
-                                     <i class="bi bi-trash3"></i>
-                                </a>`;
-                    }
-                },
+                }
             ],
             columnDefs: [
                 {
-                    targets: [0, 1, 6],
+                    targets: [0, 1, 5],
                     className: 'text-center',
                 }
             ]
@@ -401,11 +389,14 @@ var KTDatatablesServerSide = function () {
         // Event handler for the "Reset" button in Filter
         $('[data-kt-add-eligibility-modal-action="cancel"]').on('click', resetAddUpdate);
 
-        // Event handler for opening the "Add User" modal when the button is clicked
         $('#kt_table_eligibility').on('click', '[data-kt-eligibility-table-filter="delete_eligibility"]', function () {
             const detno = $(this).data('detno');
             const required = $(this).data('required');
-            // Now you can use the userId to identify the user and open the modal accordingly
+
+            console.log("Detno: ", detno); // Check if detno is correct
+            console.log("Required: ", required); // Check if required is being retrieved correctly
+
+            // Proceed with row deletion
             handleRowDeletion(detno, required);
         });
 

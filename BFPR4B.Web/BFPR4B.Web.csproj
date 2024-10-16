@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Pages\Application\Modal\" />
+    <Folder Include="wwwroot\assets\media\UserProfile\" />
   </ItemGroup>
 
 </Project>

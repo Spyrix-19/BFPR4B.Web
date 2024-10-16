@@ -19,7 +19,7 @@ namespace BFPR4B.Web.Controllers.Member
 		[ServiceFilter(typeof(AccessTokenAuthorizationFilter))] // Apply the custom filter here
 		public IActionResult Index()
 		{
-			return View(_theme.GetPageView("Member", "Index.cshtml"));
+			return View(_theme.GetPageView("Member\\Member", "Index.cshtml"));
 		}
 
 
