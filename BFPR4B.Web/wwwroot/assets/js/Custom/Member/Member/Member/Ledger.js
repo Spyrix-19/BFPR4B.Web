@@ -44,35 +44,7 @@ var KTDatatablesServerSide = function () {
 
         const table = $('#kt_table_member').DataTable();
         table.ajax.reload(); // Reload the DataTable to fetch updated data
-    }
-
-    // Function to reset the Export values in the modal
-    async function resetExport() {
-        // Get the modal element
-        const modal = document.getElementById('kt_modal_export_member');
-
-        // Check if the modal exists
-        if (modal) {
-            // Find all the select elements within the modal content
-            const selectElements = modal.querySelectorAll('[data-control="select2"]');
-
-            // Reset the values of the select elements to their default (empty) state
-            selectElements.forEach((select) => {
-                select.value = '';
-                const event = new Event('change', { bubbles: true });
-                select.dispatchEvent(event);
-            });
-
-            // Find the "Reset" button within the modal
-            const resetButton = modal.querySelector('[data-kt-member-export-action="reset"]');
-            if (resetButton) {
-                resetButton.addEventListener('click', function (event) {
-                    // Prevent the default behavior that closes the modal
-                    event.preventDefault();
-                });
-            }
-        }
-    }
+    }    
 
     // Function to reset the filter values of Filters
     async function resetAddUpdate() {
@@ -103,35 +75,28 @@ var KTDatatablesServerSide = function () {
         }
     }
 
-    // Function to open the "Add Member" modal
+    // Function to open the "Add User" modal
     async function openAddMemberModal(memberno) {
-        // Here, you can use the memberno to customize the modal content or perform other actions as needed
+        // Here, you can use the userno to customize the modal content or perform other actions as needed
 
         // Change the modal title here
         var modalTitle = document.getElementById("kt_add_member_title");
         modalTitle.innerText = memberno === 0 ? "Add Member" : "Update Member"; // Change "New Title" to your desired text
 
-        $('#kt_memberno').val(memberno);
+        $('#kt_member_memberno').val(memberno);
 
         $('#kt_modal_add_member').modal('show');
 
 
     }
 
-    // Function to open the "Add Course" modal
-    async function openExportMemberModal() {
-
-        $('#kt_modal_export_member').modal('show');
-
-    }
-
     // Function to open the "Add Rank" modal
-    async function openMemberJournalModal(memberno) {
-        // Here, you can use the detno to customize the modal content or perform other actions as needed
+    async function openMemberDetailModal(memberno) {
+        // Here, you can use the userno to customize the modal content or perform other actions as needed
 
-        $('#kt_member_journal_memberno').val(memberno);
+        $('#kt_member_detail_memberno').val(memberno);
 
-        $('#kt_modal_member_journal').modal('show');
+        $('#kt_modal_member_detail').modal('show');
 
     }
 
@@ -184,7 +149,7 @@ var KTDatatablesServerSide = function () {
                 } else {
                     // Error message
                     await Swal.fire({
-                        text: "Failed to delete user data.",
+                        text: "Failed to delete member data.",
                         icon: "error",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",
@@ -192,7 +157,7 @@ var KTDatatablesServerSide = function () {
                             confirmButton: "btn fw-bold btn-primary",
                         }
                     });
-                    console.error('Failed to delete user data:', response.status, response.statusText);
+                    console.error('Failed to delete member data:', response.status, response.statusText);
                 }
             } else if (result.dismiss === 'cancel') {
                 // Cancelled action
@@ -212,6 +177,9 @@ var KTDatatablesServerSide = function () {
         }
     }
 
+
+
+
     // Private functions
     var initDatatable = function () {
 
@@ -220,13 +188,19 @@ var KTDatatablesServerSide = function () {
             dt.destroy();
         }
 
+        //// Calculate height directly within the DataTable initialization
+        //const windowHeight = $(window).height();
+        //const headerHeight = $('.header-class').outerHeight() || 0; // Replace with your header's actual class
+        //const footerHeight = $('.footer-class').outerHeight() || 0; // Replace with your footer's actual class
+        //const dataTableHeight = Math.max(windowHeight - headerHeight - footerHeight - 25, windowHeight * 0.5); // Adjust for any extra spacing
+
         dt = $("#kt_table_member").DataTable({
             searchDelay: 500,
             processing: true,
             serverSide: false,
             order: [],
             ordering: false, // Disable sorting for all columns
-            stateSave: false,
+            stateSave: true,
             select: {
                 style: 'multi',
                 selector: 'td:first-child input[type="checkbox"]',
@@ -237,51 +211,100 @@ var KTDatatablesServerSide = function () {
                 type: "GET",
                 data: function (d) {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
+                    d.rankno = $("#rankDropdown").val();
+                    d.areaassign = $("#areaassignDropdown").val();
+                    d.dutystatus = $("#dutystatusDropdown").val();
+                    d.appstatus = $("#appstatusDropdown").val();
+                    d.gender = $("#genderDropdown").val();
+                    d.province = $("#provinceDropdown").val();
                     d.searchkey = $("#searchInput").val();
-                 /*   d.rankno = $("#kt_office_journal_officeno").val();*/
                 },
-                cache: true,
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
+                }
             },
             columns: [
                 {
                     data: 'Memberno',
                     render: function (data) {
-                        return `<div class="btn-group">
-									<a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fa fa-cog"></i>
-										Option
-										<span class="caret"></span>
-									</a>
-									<div class="dropdown-menu">
+                        return `
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-cog"></i> Option <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu">                                        
                                         <div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-member-table-filter="view_member_detail" data-Memberno="${data}">
-												View Member Details
-											</a>
-										</div>
-										<div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-member-table-filter="view_member_journal" data-Memberno="${data}">
-												View Member Journal
-											</a>
-										</div>
-                                        <div class="dropdown-item px-3">
-											<a style="cursor: pointer;" class="menu-link px-3" data-kt-member-table-filter="view_member_tor" data-Memberno="${data}">
-												View Member 201
-											</a>
-										</div>
-									</div>
-								</div>`;
-                    },
-                    className: 'text-center'
-                },
-                {
-                    data: 'Memberno',
-                    render: function (data) {
-                        return `<a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-office-table-filter="edit_office" data-toggle="tooltip" data-placement="top" title="Change" data-officeno="${data}">
-                                     <i class="la la-edit"></i>
+                                            <a style="cursor: pointer;" class="menu-link px-3" data-kt-member-table-filter="view_member_detail" data-memberno="${data}">
+                                                View Member Detail
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-sm btn-primary btn-icon btn-icon-md" data-kt-member-table-filter="edit_member" data-toggle="tooltip" data-placement="top" title="Change" data-memberno="${data}">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-member-table-filter="delete_member" data-toggle="tooltip" data-placement="top" title="Delete" data-memberno="${data}">
+                                     <i class="bi bi-trash3"></i>
                                 </a>`;
                     },
                     className: 'text-center'
                 },
+                //{
+                //    data: 'Picture', // The field containing the byte array
+                //    render: function (data, type, row) {
+                //        // Check if the PictureType value is valid
+                //        const pictureType = row.Picturetype ? row.Picturetype.replace('.', '') : ''; // Remove the dot for the MIME type
+
+                //        // Determine the correct MIME type
+                //        const mimeType = pictureType.toLowerCase() === 'png' ? 'image/png' :
+                //            pictureType.toLowerCase() === 'jpg' || pictureType.toLowerCase() === 'jpeg' ? 'image/jpeg' :
+                //                pictureType.toLowerCase() === 'gif' ? 'image/gif' : '';
+
+                //        // HTML structure for the cell
+                //        let cellContent = '';
+
+                //        // Check if data is defined and has length
+                //        if (data && data.length > 0) {
+                //            // Convert byte array to Base64
+                //            const byteArray = new Uint8Array(data); // Ensure data is in Uint8Array
+                //            let binaryString = '';
+                //            for (let i = 0; i < byteArray.length; i++) {
+                //                binaryString += String.fromCharCode(byteArray[i]); // Convert byte to binary string
+                //            }
+                //            const base64String = btoa(binaryString); // Convert to Base64
+
+                //            // Create the image source
+                //            const imgSrc = `data:${mimeType};base64,${base64String}`;
+
+                //            // Construct the HTML for the image and user details
+                //            cellContent = `
+                //                <div style="display: flex; align-items: center;">
+                //                    <img src="${imgSrc}" alt="User Picture" style="width:50px; height:50px; margin-right: 10px;" />
+                //                    <div style="display: flex; flex-direction: column;">
+                //                        <span style="text-transform: uppercase; font-weight: bold;">${row.Fullname}</span>
+                //                        <span>${row.Accountnumber}</span>
+                //                    </div>
+                //                </div>
+                //            `;
+                //        } else {
+                //            // Return the default image path if no picture data is available
+                //            const defaultImagePath = '/assets/media/logos/mimaropa.png'; // Ensure the path is correct
+                //            cellContent = `
+                //                <div style="display: flex; align-items: center;">
+                //                    <img src="${defaultImagePath}" alt="Default Image" style="width:50px; height:50px; margin-right: 10px;" />
+                //                    <div style="display: flex; flex-direction: column;">
+                //                        <span style="text-transform: uppercase; font-weight: bold;">${row.Fullname}</span>
+                //                        <span>${row.Accountnumber}</span>
+                //                    </div>
+                //                </div>
+                //            `;
+                //        }
+
+                //        return cellContent; // Return the constructed HTML content
+                //    },
+                //    className: 'text-left'
+                //},
                 {
                     data: 'Badgeno',
                     className: 'text-center'
@@ -290,30 +313,48 @@ var KTDatatablesServerSide = function () {
                     data: 'Itemno',
                     className: 'text-center'
                 },
-                { data: 'Fullname' },
-                { data: 'Unitassignname' },
-                { data: 'Areaassignment' },
-                { data: 'Designation' },
+                {
+                    data: 'Fullname'
+                },
+                {
+                    data: 'Unitassignname'
+                },
+                {
+                    data: 'Areaassignname'
+                },
+                {
+                    data: 'Designation'
+                },
                 {
                     data: 'Gender',
                     className: 'text-center'
                 },
                 {
                     data: 'Birthday',
+                    render: function (data) {
+                        const bdateDate = data ? new Date(data) : null;
+
+                        // Check if expiryDate is valid and extract the year
+                        const bdayYear = bdateDate ? bdateDate.getFullYear() : null;
+
+                        // If the year is 1900, return an empty string; otherwise, format the date
+                        if (bdayYear === 1900) {
+                            return '';
+                        } else {
+                            return bdateDate ? bdateDate.toLocaleDateString('en-US') : '';
+                        }
+                    },
                     className: 'text-center'
+
                 },
                 {
-                    data: 'Civilstatusname',
+                    data: 'Age',                    
                     className: 'text-center'
                 },
-                {
-                    data: 'Dutystatusname',
-                    className: 'text-center'
-                },
-                {
-                    data: 'Appointmentstatusname',
-                    className: 'text-center'
-                },
+                { data: 'Civilstatusname' },
+                { data: 'Dutystatusname' },
+                { data: 'Appstatusname' },
+                { data: 'Lengthofservice' },
                 { data: 'Encodedbyname' },
                 {
                     data: 'Dateencoded',
@@ -322,19 +363,26 @@ var KTDatatablesServerSide = function () {
                         return data ? new Date(data).toLocaleDateString('en-US') : '';
                     },
                     className: 'text-center'
-                },
+                }
+            ],
+            columnDefs: [
                 {
-                    data: 'Memberno',
-                    render: function (data, type, row) {
 
-                        var reqValue = row.Required;
-
-                        return `<a class="btn btn-sm btn-danger btn-icon btn-icon-md" data-kt-member-table-filter="delete_member" data-toggle="tooltip" data-placement="top" title="Delete" data-memberno="${data}" >
-                                     <i class="bi bi-trash3"></i>
-                                </a>`;
-                    }
-                },
-            ]
+                }
+            ],
+            //scrollY: dataTableHeight + 'px', // Set height directly
+            //scrollCollapse: true, // Collapse when there are few records         
+            //initComplete: function () {
+            //    // Check if there are more than 10 rows to apply scroll
+            //    const numRows = this.api().rows().count();
+            //    if (numRows > 10) {
+            //        $(this).css('height', dataTableHeight + 'px');
+            //        $(this).DataTable().settings()[0].oScroll.sY = dataTableHeight + 'px';
+            //    } else {
+            //        $(this).css('height', 'auto');
+            //        $(this).DataTable().settings()[0].oScroll.sY = ''; // Disable scroll if not enough data
+            //    }
+            //}
 
         });
 
@@ -349,7 +397,7 @@ var KTDatatablesServerSide = function () {
         $('[data-kt-member-table-filter="add_member"]').on('click', function () {
             const memberno = 0;
             // Now you can use the userId to identify the user and open the modal accordingly
-            openAddmemberModal(memberno);
+            openAddMemberModal(memberno);
         });
 
         // Event handler for opening the "Add User" modal when the button is clicked
@@ -359,19 +407,12 @@ var KTDatatablesServerSide = function () {
             openAddMemberModal(memberno);
         });
 
-        // Event handler for clearing search input when x is click
-        $('[data-kt-member-table-filter="export_member"]').on('click', function () {
-            // Now you can use the userId to identify the user and open the modal accordingly
-            openExportMemberModal();
-        });
-
         // Event handler for opening the "Add User" modal when the button is clicked
-        $('#kt_table_member').on('click', '[data-kt-member-table-filter="view_member_journal"]', function () {
+        $('#kt_table_member').on('click', '[data-kt-member-table-filter="view_member_detail"]', function () {
             const memberno = $(this).data('memberno');
             // Now you can use the userId to identify the user and open the modal accordingly
-            openMemberJournalModal(memberno);
+            openMemberDetailModal(memberno);
         });
-
 
         // Event handler for the "x" button in Search
         $('[data-kt-member-table-search="search"]').on('click', resetSearch);
@@ -379,17 +420,13 @@ var KTDatatablesServerSide = function () {
         // Event handler for the "Reset" button in Filter
         $('[data-kt-member-table-filter="reset"]').on('click', resetFilter);
 
-        // Event handler for the "Discard" button in Export
-        $('[data-kt-member-export-action="reset"]').on('click', resetExport);
-
         // Event handler for the "Reset" button in Filter
         $('[data-kt-add-member-modal-action="cancel"]').on('click', resetAddUpdate);
 
-
-        // Event handler for opening the "Add User" modal when the button is clicked
         $('#kt_table_member').on('click', '[data-kt-member-table-filter="delete_member"]', function () {
             const memberno = $(this).data('memberno');
-            // Now you can use the userId to identify the user and open the modal accordingly
+
+            // Proceed with row deletion
             handleRowDeletion(memberno);
         });
 

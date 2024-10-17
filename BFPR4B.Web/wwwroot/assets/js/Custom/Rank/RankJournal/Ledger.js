@@ -48,6 +48,10 @@ var KTDatatablesJournal = function () {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.searchkey = $("#searchJournalInput").val();
                     d.gendetno = $("#kt_rank_journal_detno").val();
+                },
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
                 }
             },
             columns: [

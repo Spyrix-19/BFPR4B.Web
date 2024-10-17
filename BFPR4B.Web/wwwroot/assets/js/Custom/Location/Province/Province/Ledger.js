@@ -293,6 +293,10 @@ var KTDatatablesServerSide = function () {
                     // Use the DataTables `ajax.data` option to customize the data sent in the request
                     d.searchkey = $("#searchInput").val();
                     d.regionno = $("#regionDropdown").val();
+                },
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
                 }
             },
             columns: [

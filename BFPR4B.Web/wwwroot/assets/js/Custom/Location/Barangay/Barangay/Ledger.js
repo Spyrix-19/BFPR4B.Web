@@ -368,6 +368,10 @@ var KTDatatablesServerSide = function () {
                     d.cityno = $("#cityDropdown").val();
                     d.provinceno = $("#provinceDropdown").val();
                     d.regionno = $("#regionDropdown").val();
+                },
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
                 }
             },
             columns: [

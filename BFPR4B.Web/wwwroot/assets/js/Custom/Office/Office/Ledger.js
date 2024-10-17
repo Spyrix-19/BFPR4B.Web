@@ -257,7 +257,10 @@ var KTDatatablesServerSide = function () {
                     d.searchkey = $("#searchInput").val();
                     d.officeno = $("#kt_office_journal_officeno").val();
                 },
-                cache: true,
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
+                }
             },
             columns: [
                 {

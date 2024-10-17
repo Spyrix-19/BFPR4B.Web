@@ -1,0 +1,1164 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!--begin::Modal - Add task-->
+<div class="modal fade" id="kt_modal_member_detail" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered" style="width: 95vw; max-width: 95vw; height: 100vh; max-height: 100vh;">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_member_detail_header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold" id="kt_add_city_title">Member Details</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-add-city-modal-action="close" data-bs-dismiss="modal">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-5 my-7">
+				<!--begin::Form-->
+				<form id="kt_modal_member_detail_form" class="form" action="#">
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_member_detail_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_member_detail_header" data-kt-scroll-wrappers="#kt_modal_member_detail_scroll" data-kt-scroll-offset="300px">
+						<div id="kt_app_content" class="app-content flex-column-fluid">
+							<!--begin::Content container-->
+							<div id="kt_app_content_container" class="app-container container-fluid">
+								<!--begin::Primary-->
+								<input type="hidden" id="kt_member_detail_memberno" name="memberno" value="0">
+								<!--end::Primary-->
+								<!--begin::Layout-->
+								<div class="d-flex flex-column flex-lg-row">
+									<!--begin::Sidebar-->
+									<div class="flex-column flex-lg-row-auto w-lg-450px w-xl-550px mb-10">
+										<!--begin::Member Details-->
+										<div class="card card-flush h-lg-100" id="kt_member_details_main">
+											<!--begin::Card header-->
+											<div class="card-header pt-7" id="kt_member_details_header">
+												<!--begin::Card title-->
+												<div class="card-title">
+													<i class="ki-outline ki-badge fs-1 me-2"></i>
+													<h2>Member Details</h2>
+												</div>
+												<!--end::Card title-->												
+											</div>
+											<!--end::Card header-->
+											<!--begin::Card body-->
+											<div class="card-body pt-5">
+												<!--begin::Profile-->
+												<div class="d-flex gap-7 align-items-center">
+													<!--begin::Avatar-->
+													<div class="symbol symbol-circle symbol-100px">
+														<img src="assets/media/avatars/300-6.jpg" alt="image" />
+													</div>
+													<!--end::Avatar-->
+													<!--begin::Contact details-->
+													<div class="d-flex flex-column gap-2">
+														<!--begin::Name-->
+														<h3 class="mb-0">FO1 Jomar E Benito</h3>
+														<!--end::Name-->
+														<!--begin::Email-->
+														<div class="d-flex align-items-center gap-2">
+															<i class="ki-outline ki-sms fs-2"></i>
+															<a href="#" class="text-muted text-hover-primary">jomarbenito14@gmail.com</a>
+														</div>
+														<!--end::Email-->
+														<!--begin::Phone-->
+														<div class="d-flex align-items-center gap-2">
+															<i class="ki-outline ki-phone fs-2"></i>
+															<a href="#" class="text-muted text-hover-primary">+63915 648 3585</a>
+														</div>
+														<!--end::Phone-->
+													</div>
+													<!--end::Contact details-->
+												</div>
+												<!--end::Profile-->
+												<!--begin:::Tabs-->
+												<ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8 gap-2">
+													<!--begin:::Tab item-->
+													<li class="nav-item">
+														<a class="nav-link text-active-primary d-flex align-items-center pb-4 active" data-bs-toggle="tab" href="#kt_view_member_details">
+															<i class="ki-outline ki-home fs-4 me-1"></i>General
+														</a>
+													</li>
+													<!--end:::Tab item-->
+													<!--begin:::Tab item-->
+													<li class="nav-item">
+														<a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#kt_view_member_address">
+															<i class="ki-outline ki-calendar-8 fs-4 me-1"></i>Address
+														</a>
+													</li>
+													<!--end:::Tab item-->
+													<!--begin:::Tab item-->
+													<li class="nav-item">
+														<a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#kt_view_member_goverment">
+															<i class="ki-outline ki-save-2 fs-4 me-1"></i>Government
+														</a>
+													</li>
+													<!--end:::Tab item-->
+													<!--begin:::Tab item-->
+													<li class="nav-item">
+														<a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#kt_view_member_date">
+															<i class="ki-outline ki-save-2 fs-4 me-1"></i>Date
+														</a>
+													</li>
+													<!--end:::Tab item-->
+												</ul>
+												<!--end:::Tabs-->
+												<!--begin::Tab content-->
+												<div class="tab-content" id="">
+													<!--begin:::Tab pane-->
+													<div class="tab-pane fade show active" id="kt_view_member_details" role="tabpanel">
+														<!--begin::Additional details-->
+														<div class="d-flex flex-column gap-5 mt-7">
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Badge Number</div>
+																		<div class="fw-bold fs-5">B22224</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Item Number</div>
+																		<div class="fw-bold fs-5">2024-124</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<div class ="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Birthday</div>
+																		<div class="fw-bold fs-5">19</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>	
+																<div class="col">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Gender</div>
+																		<div class="fw-bold fs-5">Male</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Civil Status</div>
+																		<div class="fw-bold fs-5">Single</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Religion</div>
+																		<div class="fw-bold fs-5">Roman Catholic</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+															</div>
+															<div class ="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Height</div>
+																		<div class="fw-bold fs-5">5.4 feet</div>
+																	</div>
+																	<!--end::Country-->
+																</div>	
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Weight</div>
+																		<div class="fw-bold fs-5">63 kls</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+															</div>
+															<div class ="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Blood Type</div>
+																		<div class="fw-bold fs-5">Type A+</div>
+																	</div>
+																	<!--end::Country-->
+																</div>	
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">ATM</div>
+																		<div class="fw-bold fs-5">065616165546</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+															</div>
+															<!--end::Country-->
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Mode of Entry</div>
+																		<div class="fw-bold fs-5">Regular Qouta</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Appointment Status</div>
+																		<div class="fw-bold fs-5">Active</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+															</div>
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Duty Status</div>
+																		<div class="fw-bold fs-5">Active</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+																<div class="col">
+																	<!--begin::Country-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">PNPA Class</div>
+																		<div class="fw-bold fs-5">N/A</div>
+																	</div>
+																	<!--end::Country-->
+																</div>
+															</div>
+															<!--begin::Country-->
+															<div class="d-flex flex-column gap-1">
+																<div class="fw-bold text-muted">Designation</div>
+																<div class="fw-bold fs-5">Information and Communication Technology Unit</div>
+															</div>
+															<!--begin::Country-->
+															<div class="d-flex flex-column gap-1">
+																<div class="fw-bold text-muted">Area of Assignment</div>
+																<div class="fw-bold fs-5">BFP MIMAROPA Regional Office</div>
+															</div>																												
+															<!--begin::Notes-->
+															<div class="d-flex flex-column gap-1">
+																<div class="fw-bold text-muted">Remarks</div>
+																<p>aaaaaaaaaaaabbbb sklkjfkdsjfsdlfjl fjlfj 
+																	slfjsdklf lksfjlsk fsjflskdfjslkfjld fffsd
+																	ljlfkjsdfsfjsklfjsdfjks
+																</p>
+															</div>
+															<!--end::Notes-->
+														</div>
+														<!--end::Additional details-->
+													</div>
+													<!--end:::Tab pane-->
+													<!--begin:::Tab pane-->
+													<div class="tab-pane fade" id="kt_view_member_address" role="tabpanel">
+														<!--begin::City-->
+														<div class="d-flex flex-column gap-1 mb-15">
+															<div class="fw-bold text-muted">Place of Birth</div>
+															<div class="fw-bold fs-5">Lumintao Malawaan Rizal Occidental Mindoro 5103</div>
+														</div>
+														<!--end::City-->
+														<div class="address-group mb-10">
+															<h4 class="fw-bold mb-10 text-center">Permanent Address Information</h4> <!-- Header Caption -->
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Street Address</div>
+																		<div class="fw-bold fs-5">Lumintao</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Barangay</div>
+																		<div class="fw-bold fs-5">Malawaan</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<!--end::City-->
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Municipality / City</div>
+																		<div class="fw-bold fs-5">Rizal</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Zip Code</div>
+																		<div class="fw-bold fs-5">5203</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<!--end::City-->
+															<!--begin::Company name-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">Province</div>
+																<div class="fw-bold fs-5">Occidental Mindoro</div>
+															</div>
+															<!--begin::City-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">Region</div>
+																<div class="fw-bold fs-5">MIMAROPA Region</div>
+															</div>
+															<!--end::City-->															
+														</div>
+														<div class="address-group mb-10">
+															<h4 class="fw-bold mb-10 text-center">Present Address Information</h4> <!-- Header Caption -->
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Street Address</div>
+																		<div class="fw-bold fs-5">District 1A</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Barangay</div>
+																		<div class="fw-bold fs-5">Sta Rita</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<!--end::City-->
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Municipality / City</div>
+																		<div class="fw-bold fs-5">Pinamalayan</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1">
+																		<div class="fw-bold text-muted">Zip Code</div>
+																		<div class="fw-bold fs-5">5208</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<!--begin::Company name-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">Province</div>
+																<div class="fw-bold fs-5">Oriental Mindoro</div>
+															</div>
+															<!--end::Company name-->
+															<!--begin::City-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">Region</div>
+																<div class="fw-bold fs-5">MIMAROPA Region</div>
+															</div>
+															<!--end::City-->
+														</div>
+													</div>
+													<!--end:::Tab pane-->
+													<!--begin:::Tab pane-->
+													<div class="tab-pane fade" id="kt_view_member_goverment" role="tabpanel">
+														<div class="government-group mb-10">
+															<h4 class="fw-bold mb-10 text-center">Government Document</h4> <!-- Header Caption -->
+															
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">GSIS Number</div>
+																		<div class="fw-bold fs-5">1230 456 792</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">SSS Number</div>
+																		<div class="fw-bold fs-5">9654 1235 698</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">Pag-Ibig Number</div>
+																		<div class="fw-bold fs-5">1597 3574 258</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">PhilHealth Number</div>
+																		<div class="fw-bold fs-5">1478 5236 987</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>	
+															<!--begin::City-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">TIN Number</div>
+																<div class="fw-bold fs-5">2587 3698 147</div>
+															</div>
+															<!--end::City-->
+															<!--begin::City-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																
+															</div>
+															<!--end::City-->
+														</div>
+													</div>
+													<!--end:::Tab pane-->
+													<!--begin:::Tab pane-->
+													<div class="tab-pane fade" id="kt_view_member_date" role="tabpanel">
+														<div class="date-group mb-10">
+															<h4 class="fw-bold mb-10 text-center">Date Information</h4> <!-- Header Caption -->
+
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::Company name-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DEGS</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::Company name-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DEUS</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DEFS</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DPPRTS</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2">
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DPPRPS</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+																<div class="col mb-5">
+																	<!--begin::City-->
+																	<div class="d-flex flex-column gap-1 mb-5">
+																		<div class="fw-bold text-muted">DAO</div>
+																		<div class="fw-bold fs-5">12/19/1994</div>
+																	</div>
+																	<!--end::City-->
+																</div>
+															</div>
+															<!--begin::City-->
+															<div class="d-flex flex-column gap-1 mb-5">
+																<div class="fw-bold text-muted">DOLP</div>
+																<div class="fw-bold fs-5">12/19/1994</div>
+															</div>
+															<!--end::City-->
+														</div>
+													</div>
+													<!--end:::Tab pane-->
+												</div>
+												<!--end::Tab content-->
+											</div>
+											<!--end::Card body-->
+										</div>
+										<!--end::Contacts-->
+									</div>
+									<!--end::Sidebar-->
+									<!--begin::Content-->
+									<div class="flex-lg-row-fluid ms-lg-15">
+										<!--begin:::Tabs-->
+										<ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8" role="tablist">
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_dependent_tab" aria-selected="true" role="tab">Dependent</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_education_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Education</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_eligibility_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Eligibility</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_user_view_training_tab" aria-selected="false" tabindex="-1" role="tab">Training & Seminar</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_service_record_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Service Record</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_leave_record_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Leave Record</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_award_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Awards</a>
+											</li>
+											<!--end:::Tab item-->
+											<!--begin:::Tab item-->
+											<li class="nav-item" role="presentation">
+												<a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_journal_tab" data-kt-initialized="1" aria-selected="false" tabindex="-1" role="tab">Journal</a>
+											</li>
+											<!--end:::Tab item-->
+										</ul>
+										<!--end:::Tabs-->
+										<!--begin:::Tab content-->
+										<div class="tab-content" id="myTabContent">
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade show active" id="kt_user_view_dependent_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">DEPENDENT</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Dependents</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-dependent-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_dependent" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->															
+															<!--begin::Add Dependent-->
+															<button type="button" class="btn btn-primary" data-kt-dependent-table-filter="add_dependent">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Dependent
+															</button>
+															<!--end::Add Dependent-->
+														</div>
+														<!--end::Card title-->													
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_dependent">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+											@* 							<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">Full Name</th>
+																		<th class="min-w-200px text-center ">Birth Date</th>
+																		<th class="min-w-125px text-center ">Age</th>
+																		<th class="min-w-200px text-center ">Work</th>
+																		<th class="min-w-125px text-center ">Employer</th>
+																		<th class="min-w-200px text-center ">Address</th>
+																		<th class="min-w-125px text-center ">Contact Number</th>
+																		<th class="min-w-200px text-center ">Email Address</th>
+																		<th class="min-w-200px text-center ">Dependent Type</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+												<!--end::Card-->													
+											</div>
+											<!--end:::Tab pane-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_education_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">EDUCATION</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Educations</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-education-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_education" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Education-->
+															<button type="button" class="btn btn-primary" data-kt-education-table-filter="add_education">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Education
+															</button>
+															<!--end::Add Education-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_education">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		@*<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">Educational Level</th>
+																		<th class="min-w-200px text-center ">Name of School</th>
+																		<th class="min-w-125px text-center ">Course</th>
+																		<th class="min-w-200px text-center ">School Year From</th>
+																		<th class="min-w-125px text-center ">School year To</th>
+																		<th class="min-w-200px text-center ">Units</th>
+																		<th class="min-w-125px text-center ">Year Graduated</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+												<!--end::Card-->
+											</div>
+											<!--end:::Tab pane-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_eligibility_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">ELIGIBILITY</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Eligibility</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-eligibility-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_eligibility" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Eligibility-->
+															<button type="button" class="btn btn-primary" data-kt-education-table-filter="add_eligibility">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Eligibility
+															</button>
+															<!--end::Add Eligibility-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_eligibility">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		@*<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">Eligibility</th>
+																		<th class="min-w-200px text-center ">Rating</th>
+																		<th class="min-w-125px text-center ">Date of Examination</th>
+																		<th class="min-w-200px text-center ">Place of Examination</th>
+																		<th class="min-w-125px text-center ">License Number</th>
+																		<th class="min-w-200px text-center ">Valid Until</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+												<!--end::Card-->
+											</div>
+											<!--end:::Tab pane-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_training_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">TRAINING</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Trainings</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-training-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_training" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Training-->
+															<button type="button" class="btn btn-primary" data-kt-education-table-filter="add_training">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Training
+															</button>
+															<!--end::Add Training-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_training">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		@*<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">Training</th>
+																		<th class="min-w-200px text-center ">Name of School</th>
+																		<th class="min-w-200px text-center ">Training From</th>
+																		<th class="min-w-125px text-center ">Training To</th>
+																		<th class="min-w-200px text-center ">No of Hours</th>
+																		<th class="min-w-125px text-center ">LD Type</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+											</div>
+											<!--end::Card-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_service_record_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">SERVICE RECORD</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Service Record</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-service-record-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_service_record" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Service Record-->
+															<button type="button" class="btn btn-primary" data-kt-service-record-table-filter="add_service_record">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Service Record
+															</button>
+															<!--end::Add Service Record-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_service_record">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		@*<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">POSITION || DESIGNATION</th>
+																		<th class="min-w-200px text-center ">Unit Code</th>
+																		<th class="min-w-200px text-center ">Salary</th>
+																		<th class="min-w-125px text-center ">Appointment Status</th>
+																		<th class="min-w-200px text-center ">Date From</th>
+																		<th class="min-w-125px text-center ">Date To</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+											</div>
+											<!--end::Card-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_leave_record_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">LEAVE RECORD</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Leave Record</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-leave-record-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_leave_record" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Leave Record-->
+															<button type="button" class="btn btn-primary" data-kt-leave-record-table-filter="add_leave_record">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Leave Record
+															</button>
+															<!--end::Add Leave Record-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_leave_record">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		@*<th class="text-end min-w-300px text-center"></th> *@
+																		<th class="min-w-200px text-center ">Period From</th>
+																		<th class="min-w-200px text-center ">Period To</th>
+																		<th class="min-w-200px text-center ">Particulars</th>
+																		<th class="min-w-125px text-center ">VL Earned</th>
+																		<th class="min-w-200px text-center ">VL LWP</th>
+																		<th class="min-w-125px text-center ">VL LWOP</th>
+																		<th class="min-w-125px text-center ">SL Earned</th>
+																		<th class="min-w-200px text-center ">SL LWP</th>
+																		<th class="min-w-125px text-center ">SL LWOP</th>
+																		<th class="min-w-200px text-center ">Action Taken</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+											</div>
+											<!--end::Card-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_award_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">AWARD</h2>
+															<div class="fs-6 fw-semibold text-muted">MEMBERs - List of Awards</div>
+														</div>
+														<!--end::Card title-->
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title d-flex align-items-center justify-content-between">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1 me-3">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-award-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_award" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+															<!--begin::Add Award-->
+															<button type="button" class="btn btn-primary" data-kt-award-table-filter="add_award">
+																<i class="ki-duotone ki-plus fs-2"></i>Add Award
+															</button>
+															<!--end::Add Award-->
+														</div>
+														<!--end::Card title-->
+
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_award">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="text-end min-w-200px text-center ">Actions</th>
+																		<th class="min-w-200px text-center ">Award Name</th>
+																		<th class="min-w-200px text-center ">Date Issued</th>
+																		<th class="min-w-200px text-center ">Issued By</th>
+																		<th class="min-w-125px text-center ">Award Type</th>
+																		<th class="min-w-200px text-center ">Attachment</th>
+																		<th class="min-w-300px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+											</div>
+											<!--end::Card-->
+											<!--begin:::Tab pane-->
+											<div class="tab-pane fade" id="kt_user_view_journal_tab" role="tabpanel">
+												<!--begin::Card-->
+												<div class="card card-flush mb-6 mb-xl-9">
+													<!--begin::Card header-->
+													<div class="card-header mt-6">
+														<!--begin::Card title-->
+														<div class="card-title flex-column">
+															<h2 class="mb-1">JOURNAL</h2>
+															<div class="fs-6 fw-semibold text-muted">List of Journal</div>
+														</div>
+														<!--end::Card title-->					
+													</div>
+													<!--end::Card header-->
+													<!--begin::Card body-->
+													<div class="card-body p-9 pt-4">
+														<!--begin::Card title-->
+														<div class="card-title">
+															<!--begin::Search-->
+															<div class="d-flex align-items-center position-relative my-1">
+																<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+
+																<input type="text" data-kt-member-journal-table-search="search" class="form-control bg-transparent border border-primary border-hover border-active active w-300px ps-13" placeholder="Search" id="searchInput" />
+
+																<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+																	<i class="fas fa-times-circle position-absolute me-2" id="clearButton_member_journal" style="cursor: pointer; display: none;"></i>
+																</span>
+															</div>
+															<!--end::Search-->
+														</div>
+														<!--begin::Card title-->
+	
+														<!--begin::Separator-->
+														<div class="separator border-gray-200"></div>
+														<!--end::Separator-->
+
+														<div class="card-body py-4">
+															<!--begin::Table-->
+															<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_member_journal">
+																<thead>
+																	<tr class="text-start text-center text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+																		<th class="min-w-250px text-center ">Description</th>
+																		<th class="min-w-250px text-center ">Encoded By</th>
+																		<th class="min-w-200px text-center ">Date Encoded</th>
+																	</tr>
+																</thead>
+																<tbody class="text-gray-600 fw-semibold textal">
+																</tbody>
+															</table>
+															<!--end::Table-->
+														</div>
+														<!--end::Card body-->
+													</div>
+													<!--end::Card body-->
+												</div>
+											</div>
+											<!--end::Card-->
+										</div>
+										<!--end:::Tab pane-->
+										<!--end:::Tab content-->
+									</div>
+									<!--end::Content-->
+								<!--end::Layout-->									
+								<!--end::Content container-->
+								</div>
+							</div>						
+						</div>
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Separator-->
+					<div class="separator mb-6"></div>
+					<!--end::Separator-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->

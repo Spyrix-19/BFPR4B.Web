@@ -221,6 +221,10 @@ var KTDatatablesServerSide = function () {
                 type: "GET",
                 data: function (d) {
                     d.searchkey = $("#searchInput").val();
+                },
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
                 }
             },
             columns: [

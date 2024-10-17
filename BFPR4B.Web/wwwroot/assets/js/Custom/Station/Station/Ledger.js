@@ -341,6 +341,10 @@ var KTDatatablesServerSide = function () {
                     d.areaassign = $("#areaassignDropdown").val();
                     d.provinceno = $("#provinceDropdown").val();
                     d.searchkey = $("#searchInput").val();
+                },
+                complete: function () {
+                    // Reset to page 1 whenever a new set of data is loaded
+                    dt.page(0).draw(false);
                 }
             },
             columns: [
